@@ -74,8 +74,8 @@ launch.threshold.app <- function(
   )
 
   # check for the app
-  #app.dir <- system.file( "shiny", "ThresholdApp", package = "FlowCodeUnmix" )
-  app.dir <- "C:/Users/Oliver Burton/OneDrive - University of Cambridge/Bioinformatics/FlowCodeUnmix/inst/shiny/ThresholdApp"
+  app.dir <- system.file( "shiny", "ThresholdApp", package = "FlowCodeUnmix" )
+
   if ( app.dir == "" )
     stop( "App not found. Make sure the package `FlowCodeUnmix` installed correctly." )
 
