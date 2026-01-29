@@ -350,8 +350,7 @@ in a second.</p>
 <span>  af.spectra <span class="op">=</span> <span class="va">spleen.autofluorescence</span>,</span>
 <span>  spectra.variants <span class="op">=</span> <span class="va">fluorophore.variation</span>,</span>
 <span>  flowcode.spectra <span class="op">=</span> <span class="va">flowcode.spectra</span>,</span>
-<span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># for weighted least squares unmixing</span></span>
-<span>  k <span class="op">=</span> <span class="fl">1</span>, <span class="co"># use k=1 for fastest unmixing, k = 10 for slower but better, k ~ 3 compromise</span></span>
+<span>  k <span class="op">=</span> <span class="fl">10</span>, <span class="co"># use k = 1 for fastest unmixing, k = 10 (default) for slower but better, k ~ 3 compromise</span></span>
 <span>  parallel <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>To unmix a folder containing many files, call
@@ -369,8 +368,6 @@ in a second.</p>
 <span>  af.spectra <span class="op">=</span> <span class="va">spleen.autofluorescence</span>,</span>
 <span>  spectra.variants <span class="op">=</span> <span class="va">fluorophore.variation</span>,</span>
 <span>  flowcode.spectra <span class="op">=</span> <span class="st">"./flowcode_spectra/FlowCode_Spectra.rds"</span>,</span>
-<span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># for weighted least squares unmixing (default)</span></span>
-<span>  k <span class="op">=</span> <span class="fl">1</span>, <span class="co"># use k=1 (default) for fastest unmixing, k = 10 for slower but better, k ~ 3 compromise</span></span>
 <span>  parallel <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>If we want to look at other tissues sources, or any samples where the

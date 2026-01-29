@@ -311,8 +311,7 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
-  weighted = TRUE, # for weighted least squares unmixing
-  k = 1, # use k=1 for fastest unmixing, k = 10 for slower but better, k ~ 3 compromise
+  k = 10, # use k = 1 for fastest unmixing, k = 10 (default) for slower but better, k ~ 3 compromise
   parallel = TRUE
 )
 ```
@@ -332,8 +331,6 @@ FlowCodeUnmix::unmix.flowcode.folder(
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
   flowcode.spectra = "./flowcode_spectra/FlowCode_Spectra.rds",
-  weighted = TRUE, # for weighted least squares unmixing (default)
-  k = 1, # use k=1 (default) for fastest unmixing, k = 10 for slower but better, k ~ 3 compromise
   parallel = TRUE
 )
 ```
