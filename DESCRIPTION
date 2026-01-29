@@ -1,0 +1,47 @@
+Package: FlowCodeUnmix
+Type: Package
+Title: Tools for Unmixing FlowCode Spectral Cytometry Data
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Oliver", "Burton",
+      email = "olivertburton@gmail.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: Add on package to AutoSpectral to support unmixing and debarcoding
+    of spectral flow cytometry files from experiments using FlowCode or ProCode
+    technology. Provides per-cell unmixing optimization to account for FRET
+    between fluorescent antibody conjugates binding to proximal epitope tags.
+License: AGPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Imports:
+    AutoSpectral,
+    FlowSOM,
+    MASS,
+    RhpcBLASctl,
+    cowplot,
+    dplyr,
+    flowCore,
+    flowWorkspace,
+    ggplot2,
+    ggridges,
+    parallel,
+    parallelly,
+    scattermore,
+    shiny,
+    shinyFiles,
+    sp,
+    tripack
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+URL: https://github.com/DrCytometer/FlowCodeUnmix
+BugReports: https://github.com/DrCytometer/FlowCodeUnmix/issues
+Depends:
+    R (>= 4.1.0)
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Config/Needs/website: rmarkdown
