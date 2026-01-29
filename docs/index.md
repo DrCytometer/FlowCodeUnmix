@@ -1,11 +1,4 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # FlowCodeUnmix
-
-<!-- badges: start -->
-
-<!-- badges: end -->
 
 FlowCodeUnmix is intended to be a complete debarcoding and unmixing
 pipeline for spectral flow cytometry samples using the FlowCode protein
@@ -58,7 +51,7 @@ You will need these pieces of information:
   samples
 - A CSV file describing the valid combinations of epitope barcodes and
   what they correspond to. Example format below: ![Combination
-  file](vignettes/articles/figures/README/Combo_file.jpg)
+  file](articles/articles/figures/README/Combo_file.jpg)
 
 ## Help
 
@@ -70,5 +63,6 @@ Workflow](https://drcytometer.github.io/AutoSpectral/articles/01_Full_AutoSpectr
 
 For FlowCodeUnmix, see the example workflow in
 “FlowCode_Unmixing_Workflow.Rmd”, which is also available on the web at
-[FlowCode Workflow](). You can view all of the functions available in
-FlowCodeUnmix [here]().
+[FlowCode Workflow](https://drcytometer.github.io/FlowCodeUnmix/). You
+can view all of the functions available in FlowCodeUnmix
+[here](https://drcytometer.github.io/FlowCodeUnmix/).
