@@ -63,6 +63,7 @@ Workflow](https://drcytometer.github.io/AutoSpectral/articles/01_Full_AutoSpectr
 
 For FlowCodeUnmix, see the example workflow in
 “FlowCode_Unmixing_Workflow.Rmd”, which is also available on the web at
-[FlowCode Workflow](https://drcytometer.github.io/FlowCodeUnmix/). You
-can view all of the functions available in FlowCodeUnmix
-[here](https://drcytometer.github.io/FlowCodeUnmix/).
+[FlowCode
+Workflow](https://drcytometer.github.io/FlowCodeUnmix/articles/FlowCode_Unmixing_Workflow.html).
+You can view all of the functions available in FlowCodeUnmix
+[here](https://drcytometer.github.io/FlowCodeUnmix/reference/index.html).
