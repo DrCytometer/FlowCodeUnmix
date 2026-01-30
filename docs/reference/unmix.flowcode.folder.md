@@ -1,13 +1,14 @@
-# Unmix FlowCode FCS Data
+# Unmix All FCS Files in a Directory
 
-This function performs spectral unmixing on FCS data from FlowCode
-samples.
+This function unmixes all FCS files in a specified directory using the
+provided spectra and method, and saves the unmixed FCS files to an
+output directory of the user's choice.
 
 ## Usage
 
 ``` r
-unmix.flowcode.fcs(
-  fcs.file,
+unmix.flowcode.folder(
+  fcs.dir,
   spectra,
   asp,
   flow.control,
@@ -16,8 +17,6 @@ unmix.flowcode.fcs(
   flowcode.spectra,
   thresholds.file = NULL,
   weights = NULL,
-  cell.weighting = FALSE,
-  cell.weight.regularize = TRUE,
   k = 10,
   output.dir = NULL,
   file.suffix = NULL,
@@ -30,13 +29,13 @@ unmix.flowcode.fcs(
 
 ## Arguments
 
-- fcs.file:
+- fcs.dir:
 
-  A character string specifying the path to the FCS file.
+  Directory containing FCS files to be unmixed.
 
 - spectra:
 
-  A matrix containing the spectral data.
+  Matrix containing spectra information.
 
 - asp:
 
@@ -80,20 +79,9 @@ unmix.flowcode.fcs(
 
 - weights:
 
-  Optional numeric vector of weights (one per fluorescent detector).
+  Optional numeric vector of weights: one per fluorescent detector.
   Default is `NULL`, in which case weighting will be done by channel
-  means (Poisson variance).
-
-- cell.weighting:
-
-  Logical, whether to use cell-specific weighting for a more
-  Poisson-like unmixing. Default is `FALSE`.
-
-- cell.weight.regularize:
-
-  Logical, whether to regularize cell-specific weights towards the bulk
-  mean weighting set by `weights`. 50:50 averaging. Default is `TRUE`.
-  Only active if `cell.weighting=TRUE`.
+  means.
 
 - k:
 
@@ -103,18 +91,18 @@ unmix.flowcode.fcs(
 
 - output.dir:
 
-  A character string specifying the directory to save the unmixed FCS
-  file. Default is `NULL`, which reverts to `asp$unmixed.fcs.dir`.
+  Directory to save the unmixed FCS files (default is
+  `asp$unmixed.fcs.dir`).
 
 - file.suffix:
 
   A character string to append to the output file name. Default is
-  `NULL`.
+  `NULL`
 
 - include.imaging:
 
-  A logical value indicating whether to include imaging parameters in
-  the written FCS file. Default is `FALSE`.
+  Logical indicating whether to include imaging data in the written FCS
+  file: relevant for S8 and A8. Default is `FALSE`
 
 - parallel:
 
@@ -127,8 +115,8 @@ unmix.flowcode.fcs(
 
 - verbose:
 
-  Logical, whether to send messages to the console. Default is `TRUE`.
+  Logical, controls messaging. Default is `TRUE`.
 
 ## Value
 
-None. The function writes the unmixed FCS data to a file.
+None. Saves the unmixed FCS files to the specified output directory.

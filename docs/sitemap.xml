@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/404.html</loc></url>
+<url><loc>https://drcytometer.github.io/FlowCodeUnmix/articles/articles/FlowCode_Unmixing_Workflow.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/articles/FlowCode_Unmixing_Workflow.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/articles/index.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/authors.html</loc></url>
@@ -17,6 +18,7 @@
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/reference/tag.expression.plot.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.backbone.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.fcs.html</loc></url>
+<url><loc>https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.folder.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.html</loc></url>
 <url><loc>https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.test.html</loc></url>
 </urlset>

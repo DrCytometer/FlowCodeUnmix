@@ -24,7 +24,7 @@
   : Unmix Backbone
 - [`unmix.flowcode.fcs()`](https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.fcs.md)
   : Unmix FlowCode FCS Data
+- [`unmix.flowcode.folder()`](https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.folder.md)
+  : Unmix All FCS Files in a Directory
 - [`unmix.flowcode()`](https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.md)
-  : Unmix FlowCode
-- [`unmix.flowcode.test()`](https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.test.md)
   : Unmix FlowCode

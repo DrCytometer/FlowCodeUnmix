@@ -32,12 +32,6 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/FlowCode_Unmixing_Workflow.html">FlowCode Spectral Flow Unmixing Workflow</a></li>
-  </ul>
-</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/DrCytometer/FlowCodeUnmix/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -89,7 +83,7 @@
 <li>A “backbone”” control sample stained with all the anti-epitope antibodies (and nothing else)</li>
 <li>Unstained control cells matching the source used in the backbone control</li>
 <li>Unstained control cells matching the source(s) in your fully stained samples</li>
-<li>A CSV file describing the valid combinations of epitope barcodes and what they correspond to. Example format below: <img src="articles/articles/figures/README/Combo_file.jpg" alt="Combination file">
+<li>A CSV file describing the valid combinations of epitope barcodes and what they correspond to. Example format below: <img src="reference/figures/README/Combo_file.jpg" alt="Combination file">
 </li>
 </ul>
 </div>
@@ -98,6 +92,12 @@
 </h2>
 <p>FlowCodeUnmix is based around AutoSpectral. Please see the <a href="https://drcytometer.github.io/AutoSpectral/" class="external-link">help pages and articles</a> for AutoSpectral as a starting point. In particular, see the <a href="https://drcytometer.github.io/AutoSpectral/articles/01_Full_AutoSpectral_Workflow.html" class="external-link">AutoSpectral Full Workflow</a>.</p>
 <p>For FlowCodeUnmix, see the example workflow in “FlowCode_Unmixing_Workflow.Rmd”, which is also available on the web at <a href="https://drcytometer.github.io/FlowCodeUnmix/articles/FlowCode_Unmixing_Workflow.html">FlowCode Workflow</a>. You can view all of the functions available in FlowCodeUnmix <a href="https://drcytometer.github.io/FlowCodeUnmix/reference/index.html">here</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<p>Here is what the unmixing looks like for the backbone control (FlowCode epitopes only) with standard OLS unmixing or using <code>FlowCodeUnmix</code>: <img src="reference/figures/README/FlowCodeUnmix_examples.jpg" alt="Unmixing comparison"></p>
+<p>You get debarcoded channels in the output FCS file: <img src="reference/figures/README/Debarcoded_fcs.jpg" alt="Unmixing comparison"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

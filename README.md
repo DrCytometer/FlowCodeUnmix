@@ -58,7 +58,7 @@ You will need these pieces of information:
   samples
 - A CSV file describing the valid combinations of epitope barcodes and
   what they correspond to. Example format below: ![Combination
-  file](vignettes/articles/figures/README/Combo_file.jpg)
+  file](man/figures/README/Combo_file.jpg)
 
 ## Help
 
@@ -74,3 +74,12 @@ For FlowCodeUnmix, see the example workflow in
 Workflow](https://drcytometer.github.io/FlowCodeUnmix/articles/FlowCode_Unmixing_Workflow.html).
 You can view all of the functions available in FlowCodeUnmix
 [here](https://drcytometer.github.io/FlowCodeUnmix/reference/index.html).
+
+## Examples
+
+Here is what the unmixing looks like for the backbone control (FlowCode
+epitopes only) with standard OLS unmixing or using `FlowCodeUnmix`:
+![Unmixing comparison](man/figures/README/FlowCodeUnmix_examples.jpg)
+
+You get debarcoded channels in the output FCS file: ![Unmixing
+comparison](man/figures/README/Debarcoded_fcs.jpg)

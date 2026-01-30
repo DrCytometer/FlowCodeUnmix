@@ -13,14 +13,9 @@
 #' @param asp The AutoSpectral parameter list.
 #' Prepare using `get.autospectral.param`
 #' @param flow.control A list containing flow cytometry control parameters.
-#' @param weights Optional numeric vector of weights (one per fluorescent
-#' detector). Default is `NULL`, in which case weighting will be done by
-#' channel means (Poisson variance).
 #' @param af.spectra Spectral signatures of autofluorescences, normalized
 #' between 0 and 1, with fluorophores in rows and detectors in columns. Prepare
-#' using `get.af.spectra`. Required for `AutoSpectral` unmixing. Default is
-#' `NULL` and will thus provoke failure if no spectra are provided and
-#' `AutoSpectral` is selected.
+#' using `get.af.spectra`. Required for `FlowCodeUnmixe` unmixing.
 #' @param spectra.variants Named list (names are fluorophores) carrying matrices
 #' of spectral signature variations for each fluorophore. Prepare using
 #' `get.spectral.variants`.
@@ -55,10 +50,7 @@
 #' parameters in the written FCS file. Default is `FALSE`.
 #' @param parallel Logical, default is `TRUE`, which enables parallel processing
 #' for per-cell unmixing methods.
-#' @param threads Numeric, default is `NULL`, in which case `asp$worker.process.n`
-#' will be used. `asp$worker.process.n` is set by default to be one less than the
-#' available cores on the machine. Multi-threading is only used if `parallel` is
-#' `TRUE`.
+#' @param threads Numeric, defaults to all available cores if `parallel=TRUE`.
 #' @param verbose Logical, whether to send messages to the console.
 #' Default is `TRUE`.
 #'
@@ -168,6 +160,12 @@ unmix.flowcode.fcs <- function(
   } else {
     flowcode.thresholds <- NULL
   }
+
+  # set multithreading
+  if ( parallel & is.null( threads ) )
+    threads <- asp$worker.process.n
+  else if ( parallel & threads == 0 )
+    threads <- parallelly::availableCores()
 
   # unmix the data, correcting FRET, autofluorescence and spillover errors where possible
   unmixed.data <- unmix.flowcode(

@@ -60,7 +60,7 @@ You will need these pieces of information:
 * Unstained control cells matching the source used in the backbone control
 * Unstained control cells matching the source(s) in your fully stained samples
 * A CSV file describing the valid combinations of epitope barcodes and what they correspond to. Example format below:
-![Combination file](vignettes/articles/figures/README/Combo_file.jpg)
+![Combination file](man/figures/README/Combo_file.jpg)
 
 
 ## Help
@@ -68,3 +68,15 @@ You will need these pieces of information:
 FlowCodeUnmix is based around AutoSpectral. Please see the [help pages and articles](https://drcytometer.github.io/AutoSpectral/) for AutoSpectral as a starting point. In particular, see the [AutoSpectral Full Workflow](https://drcytometer.github.io/AutoSpectral/articles/01_Full_AutoSpectral_Workflow.html).
 
 For FlowCodeUnmix, see the example workflow in "FlowCode_Unmixing_Workflow.Rmd", which is also available on the web at [FlowCode Workflow](https://drcytometer.github.io/FlowCodeUnmix/articles/FlowCode_Unmixing_Workflow.html). You can view all of the functions available in FlowCodeUnmix [here](https://drcytometer.github.io/FlowCodeUnmix/reference/index.html).
+
+
+## Examples
+
+Here is what the unmixing looks like for the backbone control (FlowCode epitopes only) with standard OLS unmixing or using `FlowCodeUnmix`:
+![Unmixing comparison](man/figures/README/FlowCodeUnmix_examples.jpg)
+
+You get debarcoded channels in the output FCS file:
+![Unmixing comparison](man/figures/README/Debarcoded_fcs.jpg)
+
+
+
