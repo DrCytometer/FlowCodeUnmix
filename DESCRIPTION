@@ -1,7 +1,7 @@
 Package: FlowCodeUnmix
 Type: Package
 Title: Tools for Unmixing FlowCode Spectral Cytometry Data
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(
       "Oliver", "Burton",
@@ -43,6 +43,7 @@ Depends:
     R (>= 4.1.0)
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    FlowCodeUnmixRcpp
 VignetteBuilder: knitr
 Config/Needs/website: rmarkdown
