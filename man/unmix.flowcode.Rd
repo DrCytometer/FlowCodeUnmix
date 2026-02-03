@@ -60,8 +60,8 @@ weights towards the bulk mean weighting set by \code{weights}. 50:50 averaging.
 Default is \code{TRUE}. Only active if \code{cell.weighting=TRUE}.}
 
 \item{k}{Numeric, controls the number of variants tested for each fluorophore,
-autofluorescence and FRET spectrum. Default is \code{1}, which will be fastest.
-Values up to \code{10} provide additional benefit in unmixing quality.}
+autofluorescence and FRET spectrum. Default is \code{10}, which will be good, \code{1}
+is fastest. Values up to \code{10} provide additional benefit in unmixing quality.}
 
 \item{parallel}{Logical, whether to use parallel processing for the per-cell
 unmixing. Default is \code{FALSE}.}

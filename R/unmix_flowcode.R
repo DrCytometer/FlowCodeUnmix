@@ -35,8 +35,8 @@
 #' weights towards the bulk mean weighting set by `weights`. 50:50 averaging.
 #' Default is `TRUE`. Only active if `cell.weighting=TRUE`.
 #' @param k Numeric, controls the number of variants tested for each fluorophore,
-#' autofluorescence and FRET spectrum. Default is `1`, which will be fastest.
-#' Values up to `10` provide additional benefit in unmixing quality.
+#' autofluorescence and FRET spectrum. Default is `10`, which will be good, `1`
+#' is fastest. Values up to `10` provide additional benefit in unmixing quality.
 #' @param parallel Logical, whether to use parallel processing for the per-cell
 #' unmixing. Default is `FALSE`.
 #' @param threads Numeric. Number of threads to use for parallel processing.
@@ -73,6 +73,14 @@ unmix.flowcode <- function(
     )
   }
 
+  # check for FlowCodeUnmixRcpp in NAMESPACE
+  if ( !requireNamespace( "FlowCodeUnmixRcpp", quietly = TRUE ) ) {
+    warning(
+      "The FlowCodeUnmixRcpp package is not installed--unmixing will be slow.",
+      call. = FALSE
+    )
+  }
+
   # check for AF in spectra, remove if present
   if ( "AF" %in% rownames( spectra ) )
     spectra <- spectra[ rownames( spectra ) != "AF", , drop = FALSE ]
@@ -83,10 +91,13 @@ unmix.flowcode <- function(
   if ( nrow( af.spectra ) < 2 )
     stop( "Multiple AF spectra must be provided." )
 
+  ### TBD implement more checks
+
   # define data structures
   cell.n <- nrow( raw.data )
-  af.n <- nrow( af.spectra )
   mean.af <- colMeans( af.spectra )
+  af.spectra <- rbind( mean.af, af.spectra)
+  af.n <- nrow( af.spectra )
   fluorophore.n <- nrow( spectra )
   detector.n <- ncol( spectra )
   combined.spectra <- matrix(
@@ -98,10 +109,16 @@ unmix.flowcode <- function(
   fluors.af <- c( fluorophores, "AF" )
   rownames( combined.spectra ) <- fluors.af
   combined.spectra[ 1:fluorophore.n, ] <- spectra
+  af.idx.in.spectra <- which( rownames( combined.spectra ) == "AF" ) # can also just be fluorophore.n + 1
+
+  # set positivity thresholds vector
+  pos.thresholds <- rep( Inf, fluorophore.n + 1 )
+  names( pos.thresholds ) <- fluors.af
+  pos.thresholds[ "AF" ] <- -Inf
+  # fill with data
+  pos.thresholds[ names( spectra.variants$thresholds ) ] <- spectra.variants$thresholds
 
   # unpack spectral variants
-  pos.thresholds <- spectra.variants$thresholds
-  pos.thresholds <- c( pos.thresholds, AF = -Inf )
   variants <- spectra.variants$variants
   delta.list <- spectra.variants$delta.list
   delta.norms <- spectra.variants$delta.norms
@@ -134,7 +151,7 @@ unmix.flowcode <- function(
   if ( is.null( flowcode.thresholds ) )
     stop( "Check that FlowCode thresholds have been supplied correctly (use get.flowcode.spectra)." )
   if ( ! all( names( flowcode.thresholds ) %in% fluorophores ) )
-    stop( "FlowCOde thresholds don't match the fluorophore names supplied." )
+    stop( "FlowCode thresholds don't match the fluorophore names supplied." )
   if ( !( length( combo.fret ) > 1 ) )
     stop( "Multiple FRET options for FlowCode spectra must be provided." )
   ## more checks to be implemented here
@@ -142,6 +159,7 @@ unmix.flowcode <- function(
 
 
   # if delta.list and delta.norms are not provided by AutoSpectral (<v1.0.0), calculate
+  # this can be done in a single lapply call
   if ( is.null( delta.list ) ) {
     # calculate deltas for each fluorophore's variants
     delta.list <- lapply( optimize.fluors, function( fl ) {
@@ -182,6 +200,8 @@ unmix.flowcode <- function(
   colnames( initial.af ) <- c( "AF", "AF Index" )
   unmixed <- cbind( unmixed, initial.af )
 
+  ### TBD: test scoring approach for speed-up
+
   ### single cell AF extraction------------
   if ( verbose ) message( "Extracting AF cell-by-cell..." )
 
@@ -205,6 +225,16 @@ unmix.flowcode <- function(
     }
   }
 
+  # assign median AF for cells that are unassigned
+  zero.af <- which( unmixed[ , "AF Index" ] == 0 )
+  combined.spectra[ af.idx.in.spectra, ] <- mean.af
+  unmixed[ zero.af, fluors.af ] <- unmix(
+    raw.data[ zero.af, , drop = FALSE ],
+    combined.spectra,
+    weights
+  )
+  unmixed[ zero.af, "AF Index" ] <- 1
+
   ### debarcoding-----------
   if ( verbose ) message( "Debarcoding FlowCodes..." )
 
@@ -221,361 +251,142 @@ unmix.flowcode <- function(
   has.flowcode[ flowcode.pos ] <- TRUE
 
   ### per cell fluorophore optimization with FRET correction------------
-
   if ( verbose ) message( "Optimizing fluorophore unmixing cell-by-cell..." )
 
-  # set baseline for cell-specific weighting
-  cell.weight <- weights
+  # split out the AF tracking from the unmixed data
+  af.idx <- unmixed[ , "AF Index" ]
 
-  # set up parallel backend
+  # pre-calculate common indices
+  fluors.af <- which( rownames( combined.spectra ) == fluors.af )
+  fluorophores <- which( rownames( combined.spectra ) %in% fluorophores )
+
+  # set number of threads to use
   if ( parallel ) {
     if ( is.null( threads ) ) threads <- asp$worker.process.n
     if ( threads == 0 ) threads <- parallelly::availableCores()
-
-    result <- create.parallel.lapply( # call from AutoSpectral
-      asp,
-      # modify exports as needed
-      exports = c(
-        "raw.data", "unmixed", "fluorophores", "pos.thresholds",
-        "combined.spectra", "weights", "optimize.fluors", "variants", "unmix",
-        "delta.list", "delta.norms", "fret.delta.list", "fret.delta.norms",
-        "flowcode.ids", "has.flowcode", "k", "detector.n",
-        "fluors.af", "af.spectra", "af.n", "flowcode.fluors"
-      ),
-      parallel = TRUE,
-      threads = threads,
-      export.env = environment()
-    )
-    lapply.function <- result$lapply
   } else {
-    lapply.function <- lapply
-    result <- list( cleanup = NULL )
+    threads <- 1
   }
 
-  # loop over each cell, optimizing fluorophore spectra
-  # also extracting FRET errors if the cell has a FlowCode combination
-  unmixed.opt <- tryCatch(
-    expr = {
-      lapply.function( seq_len( cell.n ), function( cell ) {
+  # Use C++ for per-cell unmixing if FlowCodeUnmixRcpp is installed
+  if ( requireNamespace( "FlowCodeUnmixRcpp", quietly = TRUE ) ) {
+    if ( verbose ) message( "Using FlowCodeUnmixRcpp" )
 
-        # get cell's data
-        cell.raw <- raw.data[ cell, , drop = FALSE ]
-        cell.unmixed <- unmixed[ cell, fluors.af, drop = FALSE ]
+    flowcode.ids.cpp <- flowcode.ids
+    flowcode.ids.cpp[ !has.flowcode ] <- 1L
+    af_idx_cpp <- af.idx.in.spectra - 1L
 
-        # check whether this cell has any fluorophores present
-        # if it does not, we skip the rest of the processing
-        # identify which fluorophores are present on this cell
-        pos.fluors <- stats::setNames(
-          as.vector( cell.unmixed >= pos.thresholds[ colnames( cell.unmixed ) ] ),
-          colnames( cell.unmixed )
+    unmixed[ , fluors.af ] <- tryCatch(
+      FlowCodeUnmixRcpp::optimize_flowcode_unmix(
+        raw_data = raw.data,
+        unmixed = unmixed[ , fluors.af, drop = FALSE ],
+        combined_spectra = combined.spectra,
+        weights = weights,
+        pos_thresholds = pos.thresholds,
+        af_idx = af.idx,
+        af_spectra = af.spectra,
+        flowcode_ids = flowcode.ids.cpp,
+        has_flowcode = has.flowcode,
+        combo_fret = combo.fret,
+        fret_delta_list = fret.delta.list,
+        fret_delta_norms = fret.delta.norms,
+        flowcode_combo_logical = flowcode.combo.logical,
+        flowcode_fluors = flowcode.fluors,
+        optimize_fluors = optimize.fluors,
+        variants = variants,
+        delta_list = delta.list,
+        delta_norms = delta.norms,
+        all_fluor_names = rownames( combined.spectra ),
+        af_idx_in_spectra = af_idx_cpp,
+        k = k,
+        weighted = TRUE,
+        cell_weighting = cell.weighting,
+        cell_weight_regularize = cell.weight.regularize,
+        nthreads = threads
+      ),
+      error = function( e ) {
+        warning(
+          "FlowCodeUnmixRcpp failed, falling back to standard FlowCodeUnmix: ",
+          e$message,
+          call. = FALSE
         )
 
-        # if nothing is positive, everything is AF
-        # assign spectrum accordingly and re-unmix
-        if ( !any( pos.fluors ) ) {
-          cell.spectra.final[ "AF", ] <- cell.raw / max( abs( cell.raw ) ) # should safeguard against 0
-          cell.unmixed <- unmix( cell.raw, cell.spectra.final, cell.weights )
+        # set unmixing algorithm
+        unmix <- FlowCodeUnmix::unmix.wls.fast
 
-          return( cell.unmixed )
-        }
-
-        # otherwise, proceed
-        pos.fluor.names <- names( pos.fluors )[ pos.fluors ]
-
-        # if the cell does have fluorophores, determine which AF has been selected
-        cell.af.idx <- unmixed[ cell, "AF Index" ]
-
-        # if no AF was assigned, use mean as starting point for search
-        if ( cell.af.idx == 0 ) {
-          cell.af <- mean.af
-        } else {
-          cell.af <- af.spectra[ cell.af.idx, ]
-        }
-
-        # calculate delta matrix and norm for this AF spectrum
-        af.delta <- af.spectra - matrix(
-          cell.af,
-          nrow = af.n,
-          ncol = detector.n,
-          byrow = TRUE
+        optimize.flowcode(
+          raw_data = raw.data,
+          unmixed = unmixed[ , fluors.af, drop = FALSE ],
+          unmix_fun = unmix,
+          combined_spectra = combined.spectra,
+          weights = weights,
+          pos_thresholds = pos.thresholds,
+          af_idx = af.idx,
+          af_spectra = af.spectra,
+          flowcode_ids = flowcode.ids,
+          has_flowcode = has.flowcode,
+          combo_fret = combo.fret,
+          fret_delta_list = fret.delta.list,
+          fret_delta_norms = fret.delta.norms,
+          flowcode_combo_logical = flowcode.combo.logical,
+          flowcode_fluors = flowcode.fluors,
+          optimize_fluors = optimize.fluors,
+          variants = variants,
+          delta_list = delta.list,
+          delta_norms = delta.norms,
+          fluorophores = fluorophores,
+          af_idx_in_spectra = af.idx.in.spectra,
+          k = k,
+          cell_weighting = cell.weighting,
+          cell_weight_regularize = cell.weight.regularize,
+          nthreads = threads,
+          parallel = parallel
         )
-        af.delta.norm <- sqrt( rowSums( af.delta^2 ) )
+      }
+    )
 
-        # set weights in a cell-specific manner
-        cell.weights <- weights
-        if ( cell.weighting ) {
-          # use cell-specific weighting (Poisson-like)
-          cell.weights <- abs( cell.raw )
-          cell.weights[ cell.weights < 1e-6 ] <- 1e-6
-          cell.weights <- 1 / cell.weights
+  } else {
+    # fall back to slow R-based unmixing
+    if ( verbose )
+      message( "FlowCodeUnmixRcpp unavailable, falling back to standard FlowCodeUnmix" )
 
-          if ( cell.weight.regularize ) {
-            # regularize weight towards weights for full data
-            cell.weights <- ( cell.weights + weights ) / 2
-          }
-        }
+    # set unmixing algorithm
+    unmix <- FlowCodeUnmix::unmix.wls.fast
 
-        # set baseline spectra
-        cell.spectra.final <- combined.spectra
-        cell.spectra.final[ "AF", ] <- cell.af
-        cell.spectra.curr <- cell.spectra.final[ pos.fluors, , drop = FALSE ]
-        cell.unmixed <- unmix( cell.raw, cell.spectra.curr, cell.weights )
+    unmixed[ , fluors.af ] <- optimize.flowcode(
+      raw_data = raw.data,
+      unmixed = unmixed[ , fluors.af, drop = FALSE ],
+      unmix_fun = unmix,
+      combined_spectra = combined.spectra,
+      weights = weights,
+      pos_thresholds = pos.thresholds,
+      af_idx = af.idx,
+      af_spectra = af.spectra,
+      flowcode_ids = flowcode.ids,
+      has_flowcode = has.flowcode,
+      combo_fret = combo.fret,
+      fret_delta_list = fret.delta.list,
+      fret_delta_norms = fret.delta.norms,
+      flowcode_combo_logical = flowcode.combo.logical,
+      flowcode_fluors = flowcode.fluors,
+      optimize_fluors = optimize.fluors,
+      variants = variants,
+      delta_list = delta.list,
+      delta_norms = delta.norms,
+      fluorophores = fluorophores,
+      af_idx_in_spectra = af.idx.in.spectra,
+      k = k,
+      cell_weighting = cell.weighting,
+      cell_weight_regularize = cell.weight.regularize,
+      nthreads = threads,
+      parallel = parallel
+    )
+  }
 
-        # set baseline unmixed and residuals
-        fitted <- cell.unmixed %*% cell.spectra.curr
-        resid <- cell.raw - fitted
-        error.final <- sum( abs( resid ) )
-
-
-
-
-        ### check whether this cell has a valid FlowCode combo
-        # if it does, remove any non-combo FlowCode fluors (incorrect) for the
-        # optimization steps. These will be allowed in later.
-        # does this cell have a FlowCode combo?
-        if ( has.flowcode[ cell ] ) {
-          # which FlowCode combo is this?
-          id <- flowcode.ids[ cell ]
-
-          # empty FRET vector
-          fitted.fret <- 0
-
-          # use alignment between delta and residuals to select best FRET spectrum
-          variants.fr <- combo.fret[[ id ]]
-          delta.fr <- fret.delta.list[[ id ]]
-          delta.norm <- fret.delta.norms[[ id ]]
-
-          # remove non-combo FlowCode fluors from those considered present
-          non.combo.fluors <- colnames( flowcode.combo.logical )[ which(
-            flowcode.combo.logical[ id, ] == 0 ) ]
-          pos.fluor.names <- pos.fluor.names[ !( pos.fluor.names %in% non.combo.fluors ) ]
-
-          # drop non-combo FlowCode fluors from spectra for testing
-          cell.spectra.curr <- cell.spectra.final[ pos.fluor.names, , drop = FALSE ]
-
-          # unmix with median FRET spectrum
-          cell.spectra.fret <- rbind(
-            variants.fr[ 1, ], # first row is median
-            cell.spectra.curr
-          )
-          rownames( cell.spectra.fret ) <- c( "FRET", rownames( cell.spectra.curr ) )
-
-          trial.unmix <-  unmix(
-            cell.raw,
-            cell.spectra.fret,
-            cell.weights
-          )
-
-          # check if this lowers the residual
-          trial.resid <- cell.raw - ( trial.unmix %*% cell.spectra.fret )
-          trial.error <- sum( abs( trial.resid ) )
-
-          # set this as the target to beat
-          resid <- trial.resid
-          error.final <- trial.error
-          fitted.fret <- trial.unmix[ , "FRET", drop = FALSE ] %*%
-            cell.spectra.fret[ "FRET", , drop = FALSE ]
-
-          # score FRET variants based on alignment to the residual
-          joint.score <- as.numeric( delta.fr %*% t( resid ) ) * trial.unmix[ , "FRET" ]
-          joint.score <- joint.score / delta.norm
-          resid.norm <- sqrt( sum( resid^2 ) )
-          joint.score <- joint.score / resid.norm
-
-          # select number of high-scoring variants to test
-          k.eff <- min( k, length( joint.score ) )
-          topK <- order( joint.score, decreasing = TRUE )[ seq_len( k.eff ) ]
-
-          # test the top k scoring variants sequentially
-          for ( var in topK ) {
-            # supplant the base spectrum with this variant
-            cell.spectra.fret[ "FRET", ] <- variants.fr[ var, ]
-
-            # reunmix with this variant
-            trial.unmix <- unmix(
-              cell.raw,
-              cell.spectra.fret,
-              cell.weights
-            )
-
-            # assess the residual error with this variant
-            trial.resid <- cell.raw - ( trial.unmix %*% cell.spectra.fret )
-            trial.error <- sum( abs( trial.resid ) )
-
-            # accept change if residual is lower
-            if ( trial.error < error.final ) {
-              error.final <- trial.error
-              resid <- trial.resid
-              fitted.fret <- trial.unmix[ , "FRET", drop = FALSE ] %*%
-                cell.spectra.fret[ "FRET", , drop = FALSE ]
-            }
-          }
-
-          # subtract FRET from cell.raw for fluorophore optimization
-          cell.raw <- cell.raw - fitted.fret
-
-          # recompute baseline unmix and residuals after FRET correction
-          cell.unmixed <- unmix( cell.raw, cell.spectra.curr, cell.weights )
-          fitted <- cell.unmixed %*% cell.spectra.curr
-          resid <- cell.raw - fitted
-          error.final <- sum( abs( resid ) )
-        }
-
-
-
-
-        ### assess AF and update
-        joint.score <- as.numeric( af.delta %*% t( resid ) ) * cell.unmixed[ , "AF" ]
-        joint.score <- joint.score / af.delta.norm
-        resid.norm <- sqrt( sum( resid^2 ) )
-        joint.score <- joint.score / resid.norm
-
-        k.eff <- min( k, length( joint.score ) )
-
-        topK <- order( joint.score, decreasing = TRUE )[ seq_len( k.eff ) ]
-
-        # test the top k scoring variants
-        for ( var in topK ) {
-          # supplant the base spectrum with this variant
-          cell.spectra.curr[ "AF", ] <- af.spectra[ var, ]
-
-          # reunmix with this variant
-          trial.unmix <- unmix(
-            cell.raw,
-            cell.spectra.curr,
-            cell.weights
-          )
-
-          # assess the residual error with this variant
-          trial.resid <- cell.raw - ( trial.unmix %*% cell.spectra.curr )
-          trial.error <- sum( abs( trial.resid ) )
-
-          # accept change if residual is lower
-          if ( trial.error < error.final ) {
-            error.final <- trial.error
-            cell.spectra.final[ "AF", ] <- cell.spectra.curr[ "AF", ]
-            resid <- trial.resid
-          } else {
-            # reject if not
-            cell.spectra.curr[ "AF", ] <- cell.spectra.final[ "AF", ]
-          }
-        }
-
-        # recompute baseline unmix after AF correction
-        cell.unmixed <- unmix( cell.raw, cell.spectra.final, cell.weights )
-
-        # reassess fluorophore positivity--this may not be really necessary
-        pos.fluors <- stats::setNames(
-          as.vector( cell.unmixed >= pos.thresholds[ colnames( cell.unmixed ) ] ),
-          colnames( cell.unmixed )
-        )
-
-        if ( has.flowcode[ cell ] ) {
-
-          # which FlowCode fluors are expected in this cell?
-          allowed <- colnames(flowcode.combo.logical)[
-            flowcode.combo.logical[id, ] == 1
-          ]
-
-          pos.fluors[names(pos.fluors) %in% flowcode.fluors] <- FALSE
-          pos.fluors[allowed] <- TRUE
-        }
-
-
-        # if it is necessary, we can again drop out cells with only AF remaining
-        if ( !any( pos.fluors ) ) {
-          cell.spectra.final[ "AF", ] <- cell.raw / max( abs( cell.raw ) ) # should safeguard against 0
-          cell.unmixed <- unmix( cell.raw, cell.spectra.final, cell.weights )
-
-          return( cell.unmixed )
-        }
-
-        pos.fluor.names <- names( pos.fluors )[ pos.fluors ]
-
-        # reset baseline spectra
-        cell.spectra.curr <- cell.spectra.final[ pos.fluors, , drop = FALSE ]
-        cell.unmixed <- unmix( cell.raw, cell.spectra.curr, cell.weights )
-        fitted <- cell.unmixed %*% cell.spectra.curr
-        resid <- cell.raw - fitted
-        error.final <- sum( abs( resid ) )
-
-
-
-
-
-        ### now optimize fluorophores
-        # optimize variants
-        fluors.to.sort <- optimize.fluors[ optimize.fluors %in% pos.fluor.names ]
-        if ( length( fluors.to.sort ) > 0 ) {
-          # sort by abundance to optimize brightest fluors first (error is proportional to signal)
-          fluor.order <- sort( cell.unmixed[ , fluors.to.sort ], decreasing = TRUE )
-
-          for ( fl in names( fluor.order ) ) {
-            fl.variants <- variants[[ fl ]]
-            delta.fl <- delta.list[[ fl ]]
-            delta.norm  <- delta.norms[[ fl ]]
-
-            # score variants
-            joint.score <- as.numeric( delta.fl %*% t( resid ) ) * cell.unmixed[ , fl ]
-            joint.score <- joint.score / delta.norm
-            resid.norm <- sqrt( sum( resid^2 ) )
-            joint.score <- joint.score / resid.norm
-
-            k.eff <- min( k, length( joint.score ) )
-
-            topK <- order( joint.score, decreasing = TRUE )[ seq_len( k.eff ) ]
-
-            # test the top k scoring variants
-            for ( var in topK ) {
-              # supplant the base spectrum with this variant
-              cell.spectra.curr[ fl, ] <- fl.variants[ var, ]
-
-              # reunmix with this variant
-              trial.unmix <- unmix(
-                cell.raw,
-                cell.spectra.curr,
-                cell.weights
-              )
-              # assess the residual error with this variant
-              trial.resid <- cell.raw - ( trial.unmix %*% cell.spectra.curr )
-              trial.error <- sum( abs( trial.resid ) )
-
-              # accept change if residual is lower
-              if ( trial.error < error.final ) {
-                error.final <- trial.error
-                cell.spectra.final[ fl, ] <- cell.spectra.curr[ fl, ]
-                resid <- trial.resid
-              } else {
-                # reject if not
-                cell.spectra.curr[ fl, ] <- cell.spectra.final[ fl, ]
-              }
-            }
-          }
-        }
-
-        # final unmix using optimized spectra
-        unmix(
-          cell.raw,
-          cell.spectra.final,
-          cell.weights
-        )
-      } )
-    },
-    finally = {
-      if ( !is.null( result$cleanup ) ) result$cleanup()
-    }
-  )
-
-  # combine data into a matrix
-  unmixed.opt <- do.call( rbind, unmixed.opt )
-  unmixed[ , fluors.af ] <- unmixed.opt
 
   # create "FlowCode" channel--for now, just median of expression in the three tag channels
   ### later, use unmixing of normalized combo + FRET spectrum to unmix this per cell
-
   FlowCode <- rep( 0L, cell.n )
-
-  #combo.fluors <- flowcode.fluors[ which( flowcode.combo.logical[ id, ] == 1 ) ]
 
   # create empty matrix for assigning FlowCode combo data channels
   fc.data <- matrix(
