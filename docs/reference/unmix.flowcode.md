@@ -86,9 +86,9 @@ unmix.flowcode(
 - k:
 
   Numeric, controls the number of variants tested for each fluorophore,
-  autofluorescence and FRET spectrum. Default is `1`, which will be
-  fastest. Values up to `10` provide additional benefit in unmixing
-  quality.
+  autofluorescence and FRET spectrum. Default is `10`, which will be
+  good, `1` is fastest. Values up to `10` provide additional benefit in
+  unmixing quality.
 
 - parallel:
 

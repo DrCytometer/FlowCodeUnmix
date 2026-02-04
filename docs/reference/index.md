@@ -16,6 +16,8 @@
   : Get FlowCode Spectra
 - [`launch.threshold.app()`](https://drcytometer.github.io/FlowCodeUnmix/reference/launch.threshold.app.md)
   : Launch the Thresholding Shiny App
+- [`optimize.flowcode()`](https://drcytometer.github.io/FlowCodeUnmix/reference/optimize.flowcode.md)
+  : Optimize FlowCode spectral unmixing
 - [`parallel.backend()`](https://drcytometer.github.io/FlowCodeUnmix/reference/parallel.backend.md)
   : Parallel Backend
 - [`tag.expression.plot()`](https://drcytometer.github.io/FlowCodeUnmix/reference/tag.expression.plot.md)
@@ -28,3 +30,5 @@
   : Unmix All FCS Files in a Directory
 - [`unmix.flowcode()`](https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.flowcode.md)
   : Unmix FlowCode
+- [`unmix.wls.fast()`](https://drcytometer.github.io/FlowCodeUnmix/reference/unmix.wls.fast.md)
+  : Unmix WLS Fast
