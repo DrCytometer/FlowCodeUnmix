@@ -9,7 +9,7 @@
 
 FlowCodeUnmix is intended to be a complete debarcoding and unmixing
 pipeline for spectral flow cytometry samples using the FlowCode protein
-epitope barcoding technology. Thi
+epitope barcoding technology.
 
 FlowCodeUnmix is provided under an AGPL3 licence.
 
@@ -44,6 +44,12 @@ BiocManager::install(c("flowWorkspace", "flowCore", "FlowSOM", "remotes"))
 remotes::install_github("DrCytometer/AutoSpectral")
 remotes::install_github("DrCytometer/FlowCodeUnmix")
 ```
+
+FlowCodeUnmix is written in R and should work on any system. R, however,
+is not very fast, so the per-cell unmixing part will be slow. To speed
+this up, install the Rcpp version available at
+[FlowCodeUnmixRcpp](https://github.com/DrCytometer/FlowCodeUnmixRcpp).
+This is approximately 100x faster.
 
 ## Required inputs
 
