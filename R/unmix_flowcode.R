@@ -76,7 +76,7 @@ unmix.flowcode <- function(
   # check for FlowCodeUnmixRcpp in NAMESPACE
   if ( !requireNamespace( "FlowCodeUnmixRcpp", quietly = TRUE ) ) {
     warning(
-      "The FlowCodeUnmixRcpp package is not installed--unmixing will be slow.",
+      "The FlowCodeUnmixRcpp package is not installed: unmixing will be slow.",
       call. = FALSE
     )
   }
@@ -187,53 +187,65 @@ unmix.flowcode <- function(
     weights <- 1 / weights
   }
 
-  # initial unmixing without any AF--------
-  if ( verbose ) message( "Initializing unmix" )
+  ### single cell AF extraction------------
+  if ( verbose ) message( "Determining intial AF assignments" )
 
-  unmixed <- unmix( raw.data, spectra, weights )
+  # calculate pseudoinverse
+  S <- t( spectra )
+  P <- solve( t( S ) %*% S ) %*% t( S )
 
-  # calculate initial fluorophore signal as error
-  error <- rowSums( abs( unmixed[ , fluorophores, drop = FALSE ] ) )
+  # how much each AF variant 'looks like' each fluorophore
+  v.library <- P %*% t( af.spectra )
+  # squared norms
+  v.norms.sq <- colSums( v.library^2 )
+
+  # calculate the 'residual AF' (the part of AF fluors can't explain)
+  r.library <- t( af.spectra ) - ( S %*% v.library )
+
+  # predicted AF intensity
+  numerator <- raw.data %*% r.library
+
+  # denominator (vector of length af.n)
+  denominator <- colSums( r.library^2 )
+
+  # k_matrix (cell.n x af.n): estimated AF intensity per cell/variant
+  k.matrix <- sweep( numerator, 2, denominator, "/" )
+
+  # initial unmix (no AF)
+  unmixed <- raw.data %*% t( P )
+
+  # minimize L2 error via dot product of unmixed signal x AFs
+  dot.product <- unmixed %*% v.library
+
+  # score the AF variants
+  scores <- ( 2 * k.matrix * dot.product ) - sweep( k.matrix^2, 2, v.norms.sq, "*" )
+
+  # maximum score corresponds to the minimum L2 error
+  best.af.indices <- max.col( scores )
 
   # set-up AF column, set-up AF Index
   initial.af <- matrix( 0, nrow = cell.n, ncol = 2 )
   colnames( initial.af ) <- c( "AF", "AF Index" )
   unmixed <- cbind( unmixed, initial.af )
+  unmixed[ , "AF Index" ] <- best.af.indices
 
-  ### TBD: test scoring approach for speed-up
-
-  ### single cell AF extraction------------
-  if ( verbose ) message( "Extracting AF cell-by-cell..." )
-
+  # loop through AF variant, unmixing only cells with that AF assigned
   for ( af in seq_len( af.n ) ) {
-
     # set this AF as the spectrum to use
-    combined.spectra[ fluorophore.n + 1, ] <- af.spectra[ af, , drop = FALSE ]
+    combined.spectra[ af.idx.in.spectra, ] <- af.spectra[ af, ]
 
-    # unmix with this AF
-    unmixed.af <- unmix( raw.data, combined.spectra, weights )
+    # get the cells using this AF
+    cell.idx <- which( best.af.indices == af )
 
-    error.af <- rowSums( abs( unmixed.af[ , fluorophores, drop = FALSE ] ) )
-    improved <- which( error.af < error )
-
-    # track improvements
-    if ( length( improved ) > 0 ) {
-      # update error and unmixed data for improved cells
-      error[ improved ] <- error.af[ improved ]
-      unmixed[ improved, fluors.af ] <- unmixed.af[ improved, ]
-      unmixed[ improved, "AF Index" ] <- af
+    if ( length( cell.idx ) > 0 ) {
+      # unmix with this AF
+      unmixed[ cell.idx, fluors.af ] <- unmix(
+        raw.data[ cell.idx, , drop = FALSE ],
+        combined.spectra,
+        weights
+      )
     }
   }
-
-  # assign median AF for cells that are unassigned
-  zero.af <- which( unmixed[ , "AF Index" ] == 0 )
-  combined.spectra[ af.idx.in.spectra, ] <- mean.af
-  unmixed[ zero.af, fluors.af ] <- unmix(
-    raw.data[ zero.af, , drop = FALSE ],
-    combined.spectra,
-    weights
-  )
-  unmixed[ zero.af, "AF Index" ] <- 1
 
   ### debarcoding-----------
   if ( verbose ) message( "Debarcoding FlowCodes..." )
