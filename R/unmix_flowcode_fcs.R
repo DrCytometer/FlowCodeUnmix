@@ -90,6 +90,7 @@ unmix.flowcode.fcs <- function(
   method <- "AutoSpectral"
 
   # import FCS, without warnings for FCS 3.2
+  if ( verbose ) message( paste( "Reading FCS file", fcs.file ) )
   fcs.data <- suppressWarnings(
     flowCore::read.FCS(
       fcs.file,
@@ -168,7 +169,7 @@ unmix.flowcode.fcs <- function(
   if ( requireNamespace("FlowCodeUnmixRcpp", quietly = TRUE ) &&
        "unmix.flowcode.cpp" %in% ls( getNamespace( "FlowCodeUnmixRcpp" ) ) ) {
     tryCatch(
-      FlowCodeUnmixRcpp::unmix.flowcode.cpp(
+      unmixed.data <- FlowCodeUnmixRcpp::unmix.flowcode.cpp(
         raw.data = spectral.exprs,
         spectra = spectra,
         af.spectra = af.spectra,
