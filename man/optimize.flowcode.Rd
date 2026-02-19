@@ -5,87 +5,54 @@
 \title{Optimize FlowCode spectral unmixing}
 \usage{
 optimize.flowcode(
-  raw_data,
+  raw.data,
   unmixed,
-  unmix_fun,
-  combined_spectra,
-  weights,
-  pos_thresholds,
-  af_idx,
-  af_spectra,
-  flowcode_ids,
-  has_flowcode,
-  combo_fret,
-  fret_delta_list,
-  fret_delta_norms,
-  flowcode_combo_logical,
-  flowcode_fluors,
-  optimize_fluors,
+  spectra,
+  pos.thresholds,
+  flowcode.ids,
+  has.flowcode,
+  flowcode.combo.logical,
+  flowcode.fluors,
+  optimize.fluors,
   variants,
-  delta_list,
-  delta_norms,
-  fluorophores,
-  af_idx_in_spectra,
+  delta.list,
+  delta.norms,
   asp,
   k = 10L,
-  cell_weighting = FALSE,
-  cell_weight_regularize = FALSE,
-  nthreads = 1L,
+  threads = 1L,
   parallel = TRUE
 )
 }
 \arguments{
-\item{raw_data}{Numeric matrix (n_cells x n_detectors)}
+\item{raw.data}{Numeric matrix (n_cells x n_detectors)}
 
 \item{unmixed}{Numeric matrix (n_cells x n_fluors)}
 
-\item{unmix_fun}{Unmixing function (WLS)}
+\item{spectra}{Numeric matrix (n_fluors x n_detectors)}
 
-\item{combined_spectra}{Numeric matrix (n_fluors x n_detectors)}
+\item{pos.thresholds}{Numeric vector (n_fluors)}
 
-\item{weights}{Numeric vector (n_detectors)}
+\item{flowcode.ids}{Integer vector (n_cells), 0 = no flowcode}
 
-\item{pos_thresholds}{Numeric vector (n_fluors)}
+\item{has.flowcode}{Integer/logical vector (n_cells)}
 
-\item{af_idx}{Integer vector (n_cells), 1-based AF indices}
+\item{flowcode.combo.logical}{Integer matrix (n_combos x n_flowcode.fluors)}
 
-\item{af_spectra}{Numeric matrix (n_af_variants x n_detectors)}
+\item{flowcode.fluors}{Character vector}
 
-\item{flowcode_ids}{Integer vector (n_cells), 0 = no flowcode}
-
-\item{has_flowcode}{Integer/logical vector (n_cells)}
-
-\item{combo_fret}{List of FRET spectra matrices}
-
-\item{fret_delta_list}{List of delta matrices}
-
-\item{fret_delta_norms}{List of norm vectors}
-
-\item{flowcode_combo_logical}{Integer matrix (n_combos x n_flowcode_fluors)}
-
-\item{flowcode_fluors}{Character vector}
-
-\item{optimize_fluors}{Character vector}
+\item{optimize.fluors}{Character vector}
 
 \item{variants}{List of variant matrices per fluorophore}
 
-\item{delta_list}{List of delta matrices per fluorophore}
+\item{delta.list}{List of delta matrices per fluorophore}
 
-\item{delta_norms}{List of delta norms per fluorophore}
-
-\item{fluorophores}{Character vector of fluorophore names}
-
-\item{af_idx_in_spectra}{Integer, 0-based index of AF in spectra}
+\item{delta.norms}{List of delta norms per fluorophore}
 
 \item{asp}{The AutoSpectral parameter list.}
 
 \item{k}{Integer, number of variants to test}
 
-\item{cell_weighting}{Logical, use cell-specific weights}
-
-\item{cell_weight_regularize}{Logical, regularize cell weights}
-
-\item{nthreads}{Integer, number of threads}
+\item{threads}{Integer, number of threads}
 
 \item{parallel}{Logical, whether to use parallel processing}
 }

@@ -7,6 +7,8 @@
 #' provided spectra and method, and saves the unmixed FCS files to an output
 #' directory of the user's choice.
 #'
+#' @importFrom parallelly availableCores
+#'
 #' @param fcs.dir Directory containing FCS files to be unmixed.
 #' @param spectra Matrix containing spectra information.
 #' @param asp The AutoSpectral parameter list.
@@ -30,12 +32,10 @@
 #' ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 #' and refer to the new thresholds file here. Default is `NULL`, which will be
 #' ignored.
-#' @param weights Optional numeric vector of weights: one per fluorescent
-#' detector. Default is `NULL`, in which case weighting will be done by
-#' channel means.
 #' @param k Numeric, controls the number of variants tested for each fluorophore,
 #' autofluorescence and FRET spectrum. Default is `10`. Values up to `10` provide
-#' additional benefit in unmixing quality, `1` will be fastest.
+#' additional benefit in unmixing quality, `1` will be fastest. Only used if
+#' `optimize=TRUE`.
 #' @param output.dir Directory to save the unmixed FCS files
 #' (default is `asp$unmixed.fcs.dir`).
 #' @param file.suffix A character string to append to the output file name.
@@ -46,6 +46,8 @@
 #' for per-cell unmixing methods.
 #' @param threads Numeric, defaults to all available cores if `parallel=TRUE`.
 #' @param verbose Logical, controls messaging. Default is `TRUE`.
+#' @param optimize Logical, whether to perform per-cell spectral optimization.
+#' Faster without this, usually better with it.
 #'
 #' @return None. Saves the unmixed FCS files to the specified output directory.
 #'
@@ -60,14 +62,14 @@ unmix.flowcode.folder <- function(
     spectra.variants,
     flowcode.spectra,
     thresholds.file = NULL,
-    weights = NULL,
     k = 10,
     output.dir = NULL,
     file.suffix = NULL,
     include.imaging = FALSE,
     parallel = TRUE,
     threads = if ( parallel ) 0 else 1,
-    verbose = TRUE
+    verbose = TRUE,
+    optimize = TRUE
 ) {
 
   # set up, create output folders where FCS files will go
@@ -97,14 +99,14 @@ unmix.flowcode.folder <- function(
       spectra.variants,
       flowcode.spectra,
       thresholds.file = thresholds.file,
-      weights = weights,
       k = k,
       output.dir = output.dir,
       file.suffix = file.suffix,
       include.imaging = include.imaging,
       parallel = parallel,
       threads = threads,
-      verbose = verbose
+      verbose = verbose,
+      optimize = optimize
     )
   }
 

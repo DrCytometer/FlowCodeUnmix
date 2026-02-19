@@ -31,17 +31,10 @@
 #' ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 #' and refer to the new thresholds file here. Default is `NULL`, which will be
 #' ignored.
-#' @param weights Optional numeric vector of weights (one per fluorescent
-#' detector). Default is `NULL`, in which case weighting will be done by
-#' channel means (Poisson variance).
-#' @param cell.weighting Logical, whether to use cell-specific weighting for a
-#' more Poisson-like unmixing. Default is `FALSE`.
-#' @param cell.weight.regularize Logical, whether to regularize cell-specific
-#' weights towards the bulk mean weighting set by `weights`. 50:50 averaging.
-#' Default is `TRUE`. Only active if `cell.weighting=TRUE`.
 #' @param k Numeric, controls the number of variants tested for each fluorophore,
 #' autofluorescence and FRET spectrum. Default is `10`. Values up to `10` provide
-#' additional benefit in unmixing quality, `1` will be fastest.
+#' additional benefit in unmixing quality, `1` will be fastest. Only used if
+#' `optimize=TRUE`.
 #' @param output.dir A character string specifying the directory to save the
 #' unmixed FCS file. Default is `NULL`, which reverts to `asp$unmixed.fcs.dir`.
 #' @param file.suffix A character string to append to the output file name.
@@ -53,6 +46,8 @@
 #' @param threads Numeric, defaults to all available cores if `parallel=TRUE`.
 #' @param verbose Logical, whether to send messages to the console.
 #' Default is `TRUE`.
+#' @param optimize Logical, whether to perform per-cell spectral optimization.
+#' Faster without this, usually better with it.
 #'
 #' @return None. The function writes the unmixed FCS data to a file.
 #'
@@ -67,17 +62,23 @@ unmix.flowcode.fcs <- function(
     spectra.variants,
     flowcode.spectra,
     thresholds.file = NULL,
-    weights = NULL,
-    cell.weighting = FALSE,
-    cell.weight.regularize = TRUE,
     k = 10,
     output.dir = NULL,
     file.suffix = NULL,
     include.imaging = FALSE,
     parallel = TRUE,
     threads = if ( parallel ) 0 else 1,
-    verbose = TRUE
+    verbose = TRUE,
+    optimize = TRUE
   ) {
+
+  # check for AutoSpectral in NAMESPACE
+  if ( !requireNamespace( "AutoSpectral", quietly = TRUE ) ) {
+    stop(
+      "The AutoSpectral package is required but is not installed or not available.",
+      call. = FALSE
+    )
+  }
 
   # create the output folder if it doesn't exist
   if ( is.null( output.dir ) )
@@ -88,7 +89,7 @@ unmix.flowcode.fcs <- function(
   # the unmixing method is "AutoSpectral"
   method <- "AutoSpectral"
 
-  # import fcs, without warnings for fcs 3.2
+  # import FCS, without warnings for FCS 3.2
   fcs.data <- suppressWarnings(
     flowCore::read.FCS(
       fcs.file,
@@ -101,7 +102,7 @@ unmix.flowcode.fcs <- function(
   fcs.keywords <- flowCore::keyword( fcs.data )
   file.name <- flowCore::keyword( fcs.data, "$FIL" )
 
-  # deal with manufacturer peculiarities in writing fcs files
+  # deal with manufacturer peculiarities in writing FCS files
   if ( asp$cytometer %in% c( "ID7000", "Mosaic" ) ) {
     file.name <- sub(
       "([ _])Raw(\\.fcs$|\\s|$)",
@@ -120,7 +121,7 @@ unmix.flowcode.fcs <- function(
   if ( !is.null( file.suffix ) )
     file.name <- sub( ".fcs", paste0( " ", file.suffix, ".fcs" ), file.name )
 
-  # extract exprs
+  # extract expression data
   fcs.exprs <- flowCore::exprs( fcs.data )
   rm( fcs.data )
   original.param <- colnames( fcs.exprs )
@@ -143,14 +144,6 @@ unmix.flowcode.fcs <- function(
   if ( grepl( "Discover", asp$cytometer ) & !include.imaging )
     other.exprs <- other.exprs[ , asp$time.and.scatter ]
 
-  # define weights
-  if ( is.null( weights ) ) {
-    # weights are inverse of channel variances (mean if Poisson)
-    weights <- abs( colMeans( spectral.exprs ) )
-    weights[ weights < 1e-6 ] <- 1e-6
-    weights <- 1 / weights
-  }
-
   # if user has provided a new threshold file, extract the thresholds
   if ( !is.null( thresholds.file ) ) {
     if ( verbose ) message( "Reading thresholds file" )
@@ -167,23 +160,69 @@ unmix.flowcode.fcs <- function(
   else if ( parallel & threads == 0 )
     threads <- parallelly::availableCores()
 
+
+  ######### Unmixing ##############
   # unmix the data, correcting FRET, autofluorescence and spillover errors where possible
-  unmixed.data <- unmix.flowcode(
-    raw.data = spectral.exprs,
-    spectra = spectra,
-    af.spectra = af.spectra,
-    spectra.variants = spectra.variants,
-    flowcode.spectra = flowcode.spectra,
-    asp = asp,
-    thresholds = flowcode.thresholds,
-    weights = weights,
-    cell.weighting = cell.weighting,
-    cell.weight.regularize = cell.weight.regularize,
-    k = k,
-    parallel = parallel,
-    threads = threads,
-    verbose = verbose
-  )
+
+  # check whether FlowCodeUnmixRcpp in installed
+  if ( requireNamespace("FlowCodeUnmixRcpp", quietly = TRUE ) &&
+       "unmix.flowcode.cpp" %in% ls( getNamespace( "FlowCodeUnmixRcpp" ) ) ) {
+    tryCatch(
+      FlowCodeUnmixRcpp::unmix.flowcode.cpp(
+        raw.data = spectral.exprs,
+        spectra = spectra,
+        af.spectra = af.spectra,
+        spectra.variants = spectra.variants,
+        flowcode.spectra = flowcode.spectra,
+        asp = asp,
+        thresholds = flowcode.thresholds,
+        k = k,
+        parallel = parallel,
+        threads = threads,
+        verbose = verbose,
+        optimize = optimize
+      ),
+      error = function( e ) {
+        warning(
+          "FlowCodeUnmixRcpp unmixing failed, falling back to standard FlowCodeUnmix: ",
+          e$message,
+          call. = FALSE
+        )
+        unmixed.data <- unmix.flowcode(
+          raw.data = spectral.exprs,
+          spectra = spectra,
+          af.spectra = af.spectra,
+          spectra.variants = spectra.variants,
+          flowcode.spectra = flowcode.spectra,
+          asp = asp,
+          thresholds = flowcode.thresholds,
+          k = k,
+          parallel = parallel,
+          threads = threads,
+          verbose = verbose,
+          optimize = optimize
+        )
+      }
+    )
+  } else {
+    warning( "The FlowCodeUnmixRcpp package is not installed: unmixing will be slow.",
+             call. = FALSE )
+    unmixed.data <- unmix.flowcode(
+      raw.data = spectral.exprs,
+      spectra = spectra,
+      af.spectra = af.spectra,
+      spectra.variants = spectra.variants,
+      flowcode.spectra = flowcode.spectra,
+      asp = asp,
+      thresholds = flowcode.thresholds,
+      k = k,
+      parallel = parallel,
+      threads = threads,
+      verbose = verbose,
+      optimize = optimize
+    )
+  }
+
 
   # combine with non-fluorescence data (scatter, time, etc.)
   unmixed.data <- cbind( other.exprs, unmixed.data )
@@ -265,24 +304,6 @@ unmix.flowcode.fcs <- function(
       "$AUTOSPECTRAL" = as.character( utils::packageVersion( "AutoSpectral" ) )
     )
   )
-
-  # add weights used to a new keyword
-  if ( !is.null( weights ) ) {
-    # add weights to a new keyword in correct format
-    weights.str <- paste(
-      c(
-        length( spectral.channel ),
-        spectral.channel,
-        formatC(
-          weights,
-          digits = 8,
-          format = "fg"
-        )
-      ),
-      collapse = ","
-    )
-    new.keywords[[ "$WEIGHTS" ]] <- weights.str
-  }
 
   # add spectra used to a new keyword
   fluor.n <- nrow( spectra )

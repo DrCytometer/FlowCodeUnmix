@@ -12,13 +12,11 @@ unmix.flowcode(
   flowcode.spectra,
   asp,
   thresholds = NULL,
-  weights = NULL,
-  cell.weighting = FALSE,
-  cell.weight.regularize = TRUE,
   k = 1,
   parallel = TRUE,
   threads = if (parallel) 0 else 1,
-  verbose = TRUE
+  verbose = TRUE,
+  optimize = TRUE
 )
 }
 \arguments{
@@ -48,20 +46,10 @@ artefacts.}
 the FlowCode fluorophores. Overrides the thresholds provided by \code{flowcode.spectra}.
 Default is \code{NULL}, which is unused.}
 
-\item{weights}{Optional numeric vector of weights (one per fluorescent
-detector). Default is \code{NULL}, in which case weighting will be done by
-channel means (Poisson variance).}
-
-\item{cell.weighting}{Logical, whether to use cell-specific weighting for a
-more Poisson-like unmixing. Default is \code{FALSE}.}
-
-\item{cell.weight.regularize}{Logical, whether to regularize cell-specific
-weights towards the bulk mean weighting set by \code{weights}. 50:50 averaging.
-Default is \code{TRUE}. Only active if \code{cell.weighting=TRUE}.}
-
 \item{k}{Numeric, controls the number of variants tested for each fluorophore,
 autofluorescence and FRET spectrum. Default is \code{10}, which will be good, \code{1}
-is fastest. Values up to \code{10} provide additional benefit in unmixing quality.}
+is fastest. Values up to \code{10} provide additional benefit in unmixing quality.
+Only used if \code{optimize=TRUE}.}
 
 \item{parallel}{Logical, whether to use parallel processing for the per-cell
 unmixing. Default is \code{FALSE}.}
@@ -71,6 +59,9 @@ Defaults to \code{1} for sequential processing, or \code{0} (all cores) if \code
 
 \item{verbose}{Logical, whether to send messages to the console.
 Default is \code{TRUE}.}
+
+\item{optimize}{Logical, whether to perform per-cell spectral optimization.
+Faster without this, usually better with it.}
 }
 \value{
 Unmixed data with cells in rows and fluorophores in columns.

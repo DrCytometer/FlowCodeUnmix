@@ -13,14 +13,14 @@ unmix.flowcode.folder(
   spectra.variants,
   flowcode.spectra,
   thresholds.file = NULL,
-  weights = NULL,
   k = 10,
   output.dir = NULL,
   file.suffix = NULL,
   include.imaging = FALSE,
   parallel = TRUE,
   threads = if (parallel) 0 else 1,
-  verbose = TRUE
+  verbose = TRUE,
+  optimize = TRUE
 )
 }
 \arguments{
@@ -55,13 +55,10 @@ ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 and refer to the new thresholds file here. Default is \code{NULL}, which will be
 ignored.}
 
-\item{weights}{Optional numeric vector of weights: one per fluorescent
-detector. Default is \code{NULL}, in which case weighting will be done by
-channel means.}
-
 \item{k}{Numeric, controls the number of variants tested for each fluorophore,
 autofluorescence and FRET spectrum. Default is \code{10}. Values up to \code{10} provide
-additional benefit in unmixing quality, \code{1} will be fastest.}
+additional benefit in unmixing quality, \code{1} will be fastest. Only used if
+\code{optimize=TRUE}.}
 
 \item{output.dir}{Directory to save the unmixed FCS files
 (default is \code{asp$unmixed.fcs.dir}).}
@@ -78,6 +75,9 @@ for per-cell unmixing methods.}
 \item{threads}{Numeric, defaults to all available cores if \code{parallel=TRUE}.}
 
 \item{verbose}{Logical, controls messaging. Default is \code{TRUE}.}
+
+\item{optimize}{Logical, whether to perform per-cell spectral optimization.
+Faster without this, usually better with it.}
 }
 \value{
 None. Saves the unmixed FCS files to the specified output directory.

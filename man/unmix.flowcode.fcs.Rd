@@ -13,16 +13,14 @@ unmix.flowcode.fcs(
   spectra.variants,
   flowcode.spectra,
   thresholds.file = NULL,
-  weights = NULL,
-  cell.weighting = FALSE,
-  cell.weight.regularize = TRUE,
   k = 10,
   output.dir = NULL,
   file.suffix = NULL,
   include.imaging = FALSE,
   parallel = TRUE,
   threads = if (parallel) 0 else 1,
-  verbose = TRUE
+  verbose = TRUE,
+  optimize = TRUE
 )
 }
 \arguments{
@@ -57,20 +55,10 @@ ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 and refer to the new thresholds file here. Default is \code{NULL}, which will be
 ignored.}
 
-\item{weights}{Optional numeric vector of weights (one per fluorescent
-detector). Default is \code{NULL}, in which case weighting will be done by
-channel means (Poisson variance).}
-
-\item{cell.weighting}{Logical, whether to use cell-specific weighting for a
-more Poisson-like unmixing. Default is \code{FALSE}.}
-
-\item{cell.weight.regularize}{Logical, whether to regularize cell-specific
-weights towards the bulk mean weighting set by \code{weights}. 50:50 averaging.
-Default is \code{TRUE}. Only active if \code{cell.weighting=TRUE}.}
-
 \item{k}{Numeric, controls the number of variants tested for each fluorophore,
 autofluorescence and FRET spectrum. Default is \code{10}. Values up to \code{10} provide
-additional benefit in unmixing quality, \code{1} will be fastest.}
+additional benefit in unmixing quality, \code{1} will be fastest. Only used if
+\code{optimize=TRUE}.}
 
 \item{output.dir}{A character string specifying the directory to save the
 unmixed FCS file. Default is \code{NULL}, which reverts to \code{asp$unmixed.fcs.dir}.}
@@ -88,6 +76,9 @@ for per-cell unmixing methods.}
 
 \item{verbose}{Logical, whether to send messages to the console.
 Default is \code{TRUE}.}
+
+\item{optimize}{Logical, whether to perform per-cell spectral optimization.
+Faster without this, usually better with it.}
 }
 \value{
 None. The function writes the unmixed FCS data to a file.
