@@ -43,7 +43,8 @@ of spectral signature variations for each fluorophore. Prepare using
 
 \item{flowcode.spectra}{Structured output from \code{get.flowcode.spectra()}, which
 details the combination-level spectral unmixing errors due to FRET-like
-artefacts.}
+artefacts. Pass the result of \code{get.flowcode.spectra()} or use
+\code{readRDS( "./flowcode_spectra/FlowCode_Spectra.rds" )} to read the file into R.}
 
 \item{thresholds.file}{Optional, file name and path to the thresholds CSV file
 produced using the threshold setting app. Thresholds are provided by default

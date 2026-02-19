@@ -21,7 +21,8 @@
 #' `get.spectral.variants`.
 #' @param flowcode.spectra Structured output from `get.flowcode.spectra()`, which
 #' details the combination-level spectral unmixing errors due to FRET-like
-#' artefacts.
+#' artefacts. Pass the result of `get.flowcode.spectra()` or use
+#' `readRDS( "./flowcode_spectra/FlowCode_Spectra.rds" )` to read the file into R.
 #' @param thresholds.file Optional, file name and path to the thresholds CSV file
 #' produced using the threshold setting app. Thresholds are provided by default
 #' as part of `flowcode.spectra`, but those will have been selected on the
