@@ -35,7 +35,7 @@ Prepare using \code{get.autospectral.param}}
 
 \item{af.spectra}{Spectral signatures of autofluorescences, normalized
 between 0 and 1, with fluorophores in rows and detectors in columns. Prepare
-using \code{get.af.spectra}. Required for \code{FlowCodeUnmixe} unmixing.}
+using \code{get.af.spectra}. Required for \code{FlowCodeUnmix} unmixing.}
 
 \item{spectra.variants}{Named list (names are fluorophores) carrying matrices
 of spectral signature variations for each fluorophore. Prepare using

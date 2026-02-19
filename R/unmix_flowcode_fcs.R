@@ -15,7 +15,7 @@
 #' @param flow.control A list containing flow cytometry control parameters.
 #' @param af.spectra Spectral signatures of autofluorescences, normalized
 #' between 0 and 1, with fluorophores in rows and detectors in columns. Prepare
-#' using `get.af.spectra`. Required for `FlowCodeUnmixe` unmixing.
+#' using `get.af.spectra`. Required for `FlowCodeUnmix` unmixing.
 #' @param spectra.variants Named list (names are fluorophores) carrying matrices
 #' of spectral signature variations for each fluorophore. Prepare using
 #' `get.spectral.variants`.
@@ -168,6 +168,7 @@ unmix.flowcode.fcs <- function(
   # check whether FlowCodeUnmixRcpp in installed
   if ( requireNamespace("FlowCodeUnmixRcpp", quietly = TRUE ) &&
        "unmix.flowcode.cpp" %in% ls( getNamespace( "FlowCodeUnmixRcpp" ) ) ) {
+    if ( verbose ) message( "Unmixing using FlowCodeUnmixRcpp" )
     tryCatch(
       unmixed.data <- FlowCodeUnmixRcpp::unmix.flowcode.cpp(
         raw.data = spectral.exprs,
