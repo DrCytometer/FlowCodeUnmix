@@ -1,7 +1,7 @@
 Package: FlowCodeUnmix
 Type: Package
 Title: Tools for Unmixing FlowCode Spectral Cytometry Data
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person(
       "Oliver", "Burton",
@@ -27,7 +27,6 @@ Imports:
     flowWorkspace,
     ggplot2,
     ggridges,
-    parallel,
     parallelly,
     scattermore,
     shiny,
