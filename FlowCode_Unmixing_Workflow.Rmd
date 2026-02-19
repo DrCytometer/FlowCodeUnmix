@@ -59,7 +59,7 @@ We start as we would with any spectral flow cytometry data set in AutoSpectral. 
 
 Here we are using data from the Cytek Aurora (5-laser system). For data from a different spectral cytometer, call the appropriate cytometer as "cytometer". For more details on the AutoSpectral workflow, see [AutoSpectral help](https://drcytometer.github.io/AutoSpectral/).
 
-```{r}
+```{r, startup}
 library(AutoSpectral)
 autospectral.parameters <- AutoSpectral::get.autospectral.param(
   cytometer = "aurora",
@@ -73,7 +73,7 @@ autospectral.parameters <- AutoSpectral::get.autospectral.param(
 The control file is a CSV file (spreadsheet) that describes your control files for AutoSpectral. A draft of this will be created automatically by AutoSpectral if you tell it where your single-stained control files are. You will need to edit this and check it to be sure it is correct. Details on how to do this are in this [article](https://drcytometer.github.io/AutoSpectral/articles/02_Control_File_example.html). There is also a [Shiny helper](https://github.com/DrCytometer/AutoSpectralHelper) application for this, which opens as an interactive webpage.
 
 
-```{r}
+```{r, define the controls}
 # where are your single-stained control files?
 # replace the "my_control_folder" with the path to your files.
 # Tip: if you start RStudio by double-clicking on this or another R document,
@@ -93,7 +93,7 @@ AutoSpectral::create.control.file(
 
 Once you have edited your control file, check it:
 
-```{r}
+```{r, check the controls}
 control.file <- "fcs_control_file.csv"
 AutoSpectral::check.control.file(
   control.dir = control.folder,
@@ -107,7 +107,7 @@ AutoSpectral::check.control.file(
 
 This step will likely take a few minutes. AutoSpectral will now take all of the information in the control file, read in all the single-stained FCS files, determine gates to use and extract the information in the gates for downstream usage. This can go faster by setting `parallel = TRUE`.
 
-```{r}
+```{r, load the controls}
 flow.control <- AutoSpectral::define.flow.control(
   control.dir = control.folder,
   control.def.file = control.file,
@@ -123,7 +123,7 @@ Check the plots in folder `figure_gate` to be sure the gating is working appropr
 
 This will also take a few minutes, most likely. In this step, we are trying to identify the most useful events in the single-stained controls for determining the fluorophore spectra. This involves removing any cells (in cell-based controls) that interfere with the measurement (e.g., autofluorescent macrophages or dead cells), selecting the brightest events and matching the background of those events in the unstained sample.
 
-```{r}
+```{r, clean the controls}
 cleaned.controls <- AutoSpectral::clean.controls(
   flow.control = flow.control,
   asp = autospectral.parameters
@@ -134,7 +134,7 @@ cleaned.controls <- AutoSpectral::clean.controls(
 
 Now we will extract the fluorophore spectral information from the cleaned data. This should be relatively quick. Plots will appear in `figure_spectra` and `figure_similarity_heatmap`.
 
-```{r}
+```{r, get the spectral profiles}
 fluorophore.spectra <- AutoSpectral::get.fluorophore.spectra(
   flow.control = cleaned.controls,
   asp = autospectral.parameters,
@@ -149,7 +149,7 @@ Autofluorescence is always present in our stained cells, including our single-st
 
 In this example, I have an unstained spleen sample as the "Unstained" (so named by SpectroFlo) in my reference control group. This FCS file is in the single-stained control folder, along with all of the other controls.
 
-```{r}
+```{r, measure AF}
 spleen.autofluorescence <- AutoSpectral::get.af.spectra(
   unstained.sample = file.path( control.folder, "Unstained.fcs" ),
   asp = autospectral.parameters,
@@ -162,7 +162,7 @@ spleen.autofluorescence <- AutoSpectral::get.af.spectra(
 
 Now that we know the contribution of autofluorescence to the variation, we can extract the variation from the fluorophore emissions themselves.
 
-```{r}
+```{r, measure variation}
 fluorophore.variation <- AutoSpectral::get.spectral.variants(
   control.dir = control.folder,
   control.def.file = control.file,
@@ -191,7 +191,7 @@ For the FlowCode workflow, we need some additional pieces of information:
 
 Provide the location (file path) and name of your backbone FCS file. Provide the name (and file path) of your combination CSV file.
 
-```{r}
+```{r, FlowCode combos}
 flowcode.backbone <- "./Raw/FC control (Spleen)/F2 FC_FRET_02_Plate_002.fcs" 
 combo.file <- "OTB01 Treg Tx factor combinations.csv"
 ```
@@ -199,7 +199,7 @@ combo.file <- "OTB01 Treg Tx factor combinations.csv"
 
 Now we can unmix the backbone control, using a slight adaptation of the AutoSpectral unmixing approach. This is a spleen-based sample, so we use `spleen.autofluorescence`.
 
-```{r}
+```{r, load the backbone data}
 FlowCodeUnmix::unmix.backbone(
    flowcode.backbone.fcs = flowcode.backbone,
    spectra = fluorophore.spectra,
@@ -221,7 +221,7 @@ This part requires you to manually select the point on the graph where the data 
 
 I have created a Shiny app to allow you to do this interactively, as in Orian Bricard's FlowCode debarcoding app.
 
-```{r}
+```{r, run app}
 FlowCodeUnmix::launch.threshold.app()
 ```
 
@@ -232,7 +232,7 @@ When you're done, you should have a CSV file (spreadsheet), which is pretty simp
 
 In this step, we will take the FlowCode epitope-stained backbone data (from the unmixed data in the RDS file), debarcode it to identify valid combinations, and assess spectral unmixing errors per combination. This gives us a set of potential corrections to apply to each cell for a given barcode combination.
 
-```{r}
+```{r, find FRET errors}
 flowcode.spectra <- FlowCodeUnmix::get.flowcode.spectra(
   backbone.rds = "./flowcode_spectra/FlowCode_Backbone.rds",
   thresholds.file = "./flowcode_spectra/thresholds.csv",
@@ -251,7 +251,7 @@ We now have all the data required for unmixing, or, at least we do for the any f
 
 To unmix a single file, call `unmix.flowcode.fcs()`.
 
-```{r}
+```{r, unmixing}
 # for example:
 fully.stained.spleen <- "./Raw/Spleen/Spleen_Mouse_001.fcs"
 
@@ -271,28 +271,26 @@ FlowCodeUnmix::unmix.flowcode.fcs(
 
 To unmix a folder containing many files, call `unmix.flowcode.folder()`.
 
-Note: I haven't written this yet.
-
-```{r}
+```{r, unmixing a bunch of stuff}
 # for example:
 spleen.folder <- "./Raw/Spleen/"
 
 # then call:
 FlowCodeUnmix::unmix.flowcode.folder(
-  sample.dir = spleen.folder,
+  fcs.dir = spleen.folder,
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
   flow.control = cleaned.controls,
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
-  flowcode.spectra = "./flowcode_spectra/FlowCode_Spectra.rds",
+  flowcode.spectra =flowcode.spectra,
   parallel = TRUE
 )
 ```
 
 If we want to look at other tissues sources, or any samples where the autofluorescence may differ from the autofluorescence profiles we have already extracted, we first need to call `AutoSpectral::get.af.spectra()` on unstained samples representing those autofluorescence sources. We can then unmix samples from those tissues, extracting the matching autofluorescence correctly.
 
-```{r}
+```{r, unmixing different tissues}
 # Let's say we have brain samples
 
 # this is our unstained brain sample (raw data)
@@ -316,7 +314,7 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   flow.control = cleaned.controls,
   af.spectra = brain.autofluorescence, # change the autofluorescence to match
   spectra.variants = fluorophore.variation,
-  flowcode.spectra = "./flowcode_spectra/FlowCode_Spectra.rds",
+  flowcode.spectra = flowcode.spectra,
   parallel = TRUE
 )
 ```
@@ -325,7 +323,7 @@ In many cases, the thresholds for positivity may vary slightly by tissue type or
 
 I suspect that in most cases there will be little need for re-thresholding between different tissues. There may be a need to re-threshold on a fully stained sample, though, since this will differ from the backbone control we have used to establish the first set of thresholds.
 
-```{r}
+```{r, changing the thresholds}
 
 # this is our unstained brain sample (raw data)
 unstained.brain <- "./Raw/Unstained controls/Unstained brain.fcs"
@@ -357,7 +355,7 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   flow.control = cleaned.controls,
   af.spectra = brain.autofluorescence, # change the autofluorescence to match
   spectra.variants = fluorophore.variation,
-  flowcode.spectra = "./flowcode_spectra/FlowCode_Spectra.rds",
+  flowcode.spectra = flowcode.spectra,
   thresholds.file = new.thresholds,
   parallel = TRUE
 )
