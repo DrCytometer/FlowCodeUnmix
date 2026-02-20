@@ -13,7 +13,8 @@ prep.keywords(
   flow.control,
   asp,
   method,
-  file.name
+  file.name,
+  combos
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ between 0 and 1, with fluorophores in rows and detectors in columns.}
 \item{method}{A character string specifying the unmixing method used.}
 
 \item{file.name}{The name of the FCS file to be written.}
+
+\item{combos}{A character vector of the FlowCode combination tag names.}
 }
 \value{
 The updated keyword list for writing the FCS file.

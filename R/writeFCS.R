@@ -16,30 +16,63 @@
 #' @export
 
 writeFCS <- function(mat, keys, file.name, output.dir) {
-  delim <- "/"
-  # Placeholder offsets
-  keys[['$BEGINDATA']] <- "0000000000"
-  keys[['$ENDDATA']]   <- "0000000000"
-
-  text_seg <- paste0(delim, paste0(names(keys), delim, keys, delim, collapse = ""))
-
-  # Calculate absolute byte positions
-  t.start <- 58
-  t.end   <- t.start + nchar(text_seg, "bytes") - 1
-  d.start <- t.end + 1
-  d.end   <- d.start + (nrow(mat) * ncol(mat) * 4) - 1
-
-  # Patch the string
-  text_seg <- sub("0000000000", sprintf("%10d", d.start), text_seg)
-  text_seg <- sub("0000000000", sprintf("%10d", d.end), text_seg)
-
-  # Header
-  header <- sprintf("FCS3.1          58%8d%8d%8d       0       0", t.end, d.start, d.end)
-
-  # Write
+  delim <- "|" # flowstate uses | which is safer than /
+  
+  # Ensure mandatory keys
+  keys[['$TOT']] <- as.character(nrow(mat))
+  keys[['$PAR']] <- as.character(ncol(mat))
+  keys[['$DATATYPE']] <- 'F'
+  keys[['$BYTEORD']] <- '1,2,3,4'
+  
+  # Start with 0 placeholders
+  keys[['$BEGINDATA']] <- "0"
+  keys[['$ENDDATA']] <- "0"
+  
+  # Create initial text segment
+  text.segment <- paste0(delim, paste0(names(keys), delim, unlist(keys), delim, collapse = ""))
+  
+  TEXT.start <- 58
+  TEXT.end <- nchar(text.segment, "bytes") + TEXT.start - 1
+  data.stream.bytes <- nrow(mat) * ncol(mat) * 4
+  
+  # copying flowstate here since it works
+  kw.len.old <- 2
+  repeat {
+    DATA.start <- TEXT.end + 1
+    DATA.end <- DATA.start + data.stream.bytes - 1
+    kw.len.new <- nchar(DATA.start) + nchar(DATA.end)
+    if (kw.len.new > kw.len.old) {
+      TEXT.end <- TEXT.end + kw.len.new - kw.len.old
+      kw.len.old <- kw.len.new
+    } else break
+  }
+  
+  # Update text segment with final offsets
+  text.segment <- sub("\\|\\$BEGINDATA\\|0\\|", paste0("|$BEGINDATA|", DATA.start, "|"), text.segment)
+  text.segment <- sub("\\|\\$ENDDATA\\|0\\|", paste0("|$ENDDATA|", DATA.end, "|"), text.segment)
+  
+  # Prepare Header (58 bytes)
+  # Large file check: if offsets > 8 chars, use 0
+  h_t <- if(nchar(TEXT.start) > 8 || nchar(TEXT.end) > 8) c(0,0) else c(TEXT.start, TEXT.end)
+  h_d <- if(nchar(DATA.start) > 8 || nchar(DATA.end) > 8) c(0,0) else c(DATA.start, DATA.end)
+  
+  header <- paste0(
+    sprintf("%-10s", "FCS3.1"),
+    sprintf("%8d%8d", h_t[1], h_t[2]),
+    sprintf("%8d%8d", h_d[1], h_d[2]),
+    sprintf("%8d%8d", 0, 0) # Analysis offsets
+  )
+  
+  # Binary Write
   con <- file(file.path(output.dir, file.name), open = "wb")
-  writeBin(charToRaw(header), con)
-  writeBin(charToRaw(text_seg), con)
+  on.exit(close(con))
+  
+  writeChar(header, con, eos = NULL)
+  writeChar(text.segment, con, eos = NULL)
+  
+  # Note: t(mat) is crucial for row-major FCS format
   writeBin(as.vector(t(mat)), con, size = 4, endian = "little")
-  close(con)
+  
+  # FCS standard footer (8 zeros)
+  writeChar("00000000", con, eos = NULL)
 }

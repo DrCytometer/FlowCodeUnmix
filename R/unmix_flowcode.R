@@ -238,7 +238,7 @@ unmix.flowcode <- function(
     0L,
     nrow = cell.n,
     ncol = combo.n,
-    dimnames = list( NULL, paste( "Tag:", combo.df$Id ) )
+    dimnames = list( NULL, combo.df$Id )
   )
 
   # loop over cells that have identified FlowCodes and assign them to "channels"

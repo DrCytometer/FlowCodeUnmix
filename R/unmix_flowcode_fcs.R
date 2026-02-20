@@ -225,6 +225,9 @@ unmix.flowcode.fcs <- function(
             paste0( colnames( final.matrix ), "-A" ),
             colnames( final.matrix ) )
 
+  # get FlowCode tag names
+  combo.df <- flowcode.spectra$Combos
+
   # update keywords
   new.keywords <- prep.keywords(
     fcs.keywords = fcs.keywords,
@@ -235,7 +238,8 @@ unmix.flowcode.fcs <- function(
     flow.control = flow.control,
     asp = asp,
     method = method,
-    file.name = file.name
+    file.name = file.name,
+    combos = combo.df$Id
   )
 
   # save file ---------

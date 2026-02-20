@@ -18,6 +18,7 @@
 #' @param asp The AutoSpectral parameter list.
 #' @param method A character string specifying the unmixing method used.
 #' @param file.name The name of the FCS file to be written.
+#' @param combos A character vector of the FlowCode combination tag names.
 #'
 #' @return The updated keyword list for writing the FCS file.
 #'
@@ -33,7 +34,8 @@ prep.keywords <- function(
     flow.control,
     asp,
     method,
-    file.name
+    file.name,
+    combos
   ) {
 
   # Identify non-parameter keywords
@@ -51,6 +53,9 @@ prep.keywords <- function(
   })
   names(param.lookup) <- sapply(pN.keys, function(k) fcs.keywords[[k]])
 
+  af.n <- nrow(af.spectra)
+
+  # Build new parameter keywords
   # Build new parameter keywords
   param.keywords <- list()
   n.param <- ncol(final.matrix)
@@ -58,27 +63,72 @@ prep.keywords <- function(
 
   for (i in seq_len(n.param)) {
     p.name <- p.names[i]
-    if (p.name %in% original.param) {
+    p_prefix <- paste0("$P", i)
+
+    # 1. AF Index Logic
+    if (p.name == "AF Index") {
+      param.keywords[[paste0(p_prefix, "N")]] <- "AF Index"
+      param.keywords[[paste0(p_prefix, "S")]] <- "Autofluorescence Index"
+      param.keywords[[paste0(p_prefix, "B")]] <- "32"
+      param.keywords[[paste0(p_prefix, "E")]] <- "0,0"
+      param.keywords[[paste0(p_prefix, "R")]] <- as.character(af.n)
+      param.keywords[[paste0(p_prefix, "G")]] <- "1"
+      param.keywords[[paste0(p_prefix, "DISPLAY")]] <- "LIN"
+
+      # 2. Main FlowCode Column
+    } else if (p.name == "FlowCode") {
+      param.keywords[[paste0(p_prefix, "N")]] <- p.name
+      param.keywords[[paste0(p_prefix, "S")]] <- "FlowCode Intensity"
+      param.keywords[[paste0(p_prefix, "B")]] <- "32"
+      param.keywords[[paste0(p_prefix, "E")]] <- "0,0"
+      param.keywords[[paste0(p_prefix, "R")]] <- as.character(asp$expr.data.max)
+      param.keywords[[paste0(p_prefix, "G")]] <- "1"
+      param.keywords[[paste0(p_prefix, "DISPLAY")]] <- "LOG"
+
+      # 3. Individual Combo Tags
+    } else if (p.name %in% combos) {
+      param.keywords[[paste0(p_prefix, "N")]] <- p.name
+      param.keywords[[paste0(p_prefix, "S")]] <- "Tag"
+      param.keywords[[paste0(p_prefix, "B")]] <- "32"
+      param.keywords[[paste0(p_prefix, "E")]] <- "0,0"
+      param.keywords[[paste0(p_prefix, "R")]] <- as.character(asp$expr.data.max)
+      param.keywords[[paste0(p_prefix, "G")]] <- "1"
+      param.keywords[[paste0(p_prefix, "DISPLAY")]] <- "LOG"
+
+      # 4. Autofluorescence
+    } else if (p.name == "AF-A") {
+      param.keywords[[paste0(p_prefix, "N")]] <- p.name
+      param.keywords[[paste0(p_prefix, "S")]] <- "Autofluorescence"
+      param.keywords[[paste0(p_prefix, "B")]] <- "32"
+      param.keywords[[paste0(p_prefix, "E")]] <- "0,0"
+      param.keywords[[paste0(p_prefix, "R")]] <- as.character(asp$expr.data.max)
+      param.keywords[[paste0(p_prefix, "G")]] <- "1"
+      param.keywords[[paste0(p_prefix, "DISPLAY")]] <- "LOG"
+
+      # 5. Existing parameters (Scatter, Time, etc.)
+    } else if (p.name %in% names(param.lookup)) {
       old.entry <- param.lookup[[p.name]]
-      if (!is.null(old.entry)) {
-        names(old.entry) <- sub("^\\$?P\\d+", paste0("$P", i), names(old.entry))
-        param.keywords <- c(param.keywords, old.entry)
-      } else {
-        param.keywords[[paste0("$P", i, "N")]] <- p.name
+      # Rename all keywords for this parameter to the new index 'i'
+      new_names <- sub("^\\$?P\\d+", p_prefix, names(old.entry))
+      for (k in seq_along(old.entry)) {
+        param.keywords[[new_names[k]]] <- old.entry[[k]]
       }
+
+      # 6. New Unmixed Fluorophores
     } else {
       bit.depth <- if (!is.null(asp$bit.depth)) asp$bit.depth else "32"
-      param.keywords[[paste0("$P", i, "N")]] <- p.name
-      param.keywords[[paste0("$P", i, "B")]] <- as.character(bit.depth)
-      param.keywords[[paste0("$P", i, "E")]] <- "0,0"
-      param.keywords[[paste0("$P", i, "R")]] <- as.character(asp$expr.data.max)
-      param.keywords[[paste0("$P", i, "DISPLAY")]] <- ifelse(p.name == "AF.Index", "LIN", "LOG")
-      param.keywords[[paste0("$P", i, "TYPE")]] <- ifelse(p.name == "AF.Index", "AF_Index", "Fluorescence")
+      param.keywords[[paste0(p_prefix, "N")]] <- p.name
+      param.keywords[[paste0(p_prefix, "B")]] <- as.character(bit.depth)
+      param.keywords[[paste0(p_prefix, "E")]] <- "0,0"
+      param.keywords[[paste0(p_prefix, "R")]] <- as.character(asp$expr.data.max)
+      param.keywords[[paste0(p_prefix, "G")]] <- "1"
+      param.keywords[[paste0(p_prefix, "DISPLAY")]] <- "LOG"
 
       # Map Marker/Stain from flow.control
       clean.name <- sub("-A$", "", p.name)
       f.idx <- match(clean.name, flow.control$fluorophore)
-      param.keywords[[paste0("$P", i, "S")]] <- if (!is.na(f.idx)) as.character(flow.control$antigen[f.idx]) else ""
+      marker <- if (!is.na(f.idx)) as.character(flow.control$antigen[f.idx]) else p.name
+      param.keywords[[paste0(p_prefix, "S")]] <- marker
     }
   }
 
