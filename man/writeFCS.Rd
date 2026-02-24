@@ -19,5 +19,17 @@ unmixed FCS file.}
 }
 \description{
 A light weight FCS file binary writer based on \code{flowstate}. Lower memory usage
-and faster than \code{flowCore::write.FCS()}.
+and faster than \code{flowCore}.
+}
+\references{
+Laniewski, Nathan. \emph{flowstate}.
+\url{https://github.com/nlaniewski/flowstate}
+
+Ellis B, Haaland P, Hahne F, Le Meur N, Gopalakrishnan N, Spidlen J, Jiang M,
+Finak G (2025). \emph{flowCore: Basic structures for flow cytometry data}.
+\doi{10.18129/B9.bioc.flowCore}
+\url{https://bioconductor.org/packages/flowCore}
+}
+\seealso{
+\code{\link[flowCore:write.FCS]{write.FCS}}
 }
