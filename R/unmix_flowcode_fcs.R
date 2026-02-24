@@ -46,6 +46,10 @@
 #' Default is `TRUE`.
 #' @param optimize Logical, whether to perform per-cell spectral optimization.
 #' Faster without this, usually better with it.
+#' @param chunk.size Numeric, number of events to use per chunk of unmixing. Used
+#' to manage memory when processing large FCS files. As a rough guide, you will
+#' need approximately 10x the size of the raw FCS file on disk as available
+#' memory. Default is set at `2e6` events, assuming ~20GB memory available.
 #'
 #' @return None. The function writes the unmixed FCS data to a file.
 #'
@@ -67,22 +71,26 @@ unmix.flowcode.fcs <- function(
     parallel = TRUE,
     threads = if ( parallel ) 0 else 1,
     verbose = TRUE,
-    optimize = TRUE
+    optimize = TRUE,
+    chunk.size = 2e6
   ) {
 
   # check for AutoSpectral in NAMESPACE
   if ( !requireNamespace( "AutoSpectral", quietly = TRUE ) ) stop( "AutoSpectral required." )
+
+  if ( "AF" %in% rownames( spectra ) )
+    spectra <- spectra[ rownames( spectra ) != "AF", , drop = FALSE ]
 
   # create the output folder if it doesn't exist
   output.dir <- if ( is.null( output.dir ) ) asp$unmixed.fcs.dir else output.dir
   if ( !dir.exists( output.dir ) ) dir.create( output.dir )
 
   #  import FCS
-  if ( verbose ) message( "Reading FCS: ", fcs.file )
-  import <- readFCS( fcs.file, keywords = TRUE )
-  fcs.exprs <- import$data
-  fcs.keywords <- import$keywords
-  original.param <- colnames( fcs.exprs )
+  if ( verbose ) message( "Reading FCS metadata: ", fcs.file )
+  import.meta <- readFCS( fcs.file, return.keywords = TRUE, start.row = 1, end.row = 1 )
+  fcs.keywords <- import.meta$keywords
+  total.events <- as.numeric( fcs.keywords[[ "$TOT" ]] )
+  original.param <- colnames( import.meta$data )
 
   # determine base filename
   method <- "AutoSpectral"
@@ -94,12 +102,10 @@ unmix.flowcode.fcs <- function(
     file.name <- sub("([ _])Raw(\\.fcs$|\\s|$)", paste0("\\1", method, "\\2"),
                      file.name, ignore.case = TRUE)
 
-  } else if (grepl("Discover", asp$cytometer)) {
-    # Discover uses a full path in the FILENAME keyword; strip to basename
+  } else if ( grepl("Discover", asp$cytometer ) ) {
     file.name <- if ( !is.null( fcs.keywords$FILENAME ) ) fcs.keywords$FILENAME else file.name
     file.name <- basename( file.name )
-    file.name <- sub("\\.fcs$", paste0(" ", method, ".fcs"), file.name, ignore.case = TRUE)
-
+    file.name <- sub( "\\.fcs$", paste0(" ", method, ".fcs" ), file.name, ignore.case = TRUE)
   } else {
     # append method to filename
     file.name <- sub( "\\.fcs$", paste0(" ", method, ".fcs"), file.name, ignore.case = TRUE )
@@ -112,19 +118,16 @@ unmix.flowcode.fcs <- function(
 
   # channel selection for unmixing
   spectral.channel <- colnames( spectra )
-  spectral.exprs <- fcs.exprs[ , spectral.channel, drop = FALSE ]
-  other.channels <- setdiff( colnames( fcs.exprs ), spectral.channel )
+  other.channels <- setdiff( original.param, spectral.channel )
 
   # remove height and width if present
   for ( ch in spectral.channel[ grepl( "-A$", spectral.channel ) ] ) {
     base <- sub( "-A$", "", ch )
     other.channels <- setdiff( other.channels, paste0( base, c( "-H", "-W" ) ) )
   }
-  if (grepl("Discover", asp$cytometer) && !include.imaging) {
-    other.channels <- intersect(other.channels, asp$time.and.scatter)
+  if ( grepl( "Discover", asp$cytometer ) && !include.imaging ) {
+    other.channels <- intersect( other.channels, asp$time.and.scatter )
   }
-  other.exprs <- fcs.exprs[ , other.channels, drop = FALSE ]
-  rm( fcs.exprs ); gc()
 
   # if user has provided a new threshold file, extract the thresholds
   if ( !is.null( thresholds.file ) ) {
@@ -146,33 +149,35 @@ unmix.flowcode.fcs <- function(
   ######### Unmixing ##############
   # unmix the data, correcting FRET, autofluorescence and spillover errors where possible
 
-  # check whether FlowCodeUnmixRcpp in installed
-  if ( requireNamespace("FlowCodeUnmixRcpp", quietly = TRUE ) &&
-       "unmix.flowcode.cpp" %in% ls( getNamespace( "FlowCodeUnmixRcpp" ) ) ) {
-    if ( verbose ) message( "Unmixing using FlowCodeUnmixRcpp" )
-    tryCatch(
-      unmixed.data <- FlowCodeUnmixRcpp::unmix.flowcode.cpp(
-        raw.data = spectral.exprs,
-        spectra = spectra,
-        af.spectra = af.spectra,
-        spectra.variants = spectra.variants,
-        flowcode.spectra = flowcode.spectra,
-        asp = asp,
-        thresholds = flowcode.thresholds,
-        k = k,
-        parallel = parallel,
-        threads = threads,
-        verbose = verbose,
-        optimize = optimize
-      ),
-      error = function( e ) {
-        warning(
-          "FlowCodeUnmixRcpp unmixing failed, falling back to standard FlowCodeUnmix: ",
-          e$message,
-          call. = FALSE
-        )
-        unmixed.data <- unmix.flowcode(
-          raw.data = spectral.exprs,
+  # pre-allocate the full results matrix
+  combo.n <- nrow( flowcode.spectra$Combos )
+  cols.n <- length( other.channels ) + nrow( spectra ) + 3 + combo.n
+  final.matrix <- matrix( 0, nrow = total.events, ncol = cols.n )
+
+  chunk.n <- ceiling( total.events / chunk.size )
+
+  # unmix in chunks for big files
+  for ( i in 1:chunk.n ) {
+    s.row <- ( (i - 1) * chunk.size ) + 1
+    e.row <- min( i * chunk.size, total.events )
+
+    if ( verbose )
+      message( sprintf( "Processing chunk %d/%d (Events %d to %d)", i, chunk.n, s.row, e.row ) )
+
+    # read in only events from this chunk
+    chunk.data <- readFCS( fcs.file, return.keywords = FALSE, start.row = s.row, end.row = e.row )
+    chunk.spectral <- chunk.data[ , spectral.channel, drop = FALSE ]
+    chunk.other <- chunk.data[ , other.channels, drop = FALSE ]
+
+    # Unmix Chunk
+    # Note: Using the C++ pipeline directly for performance
+    # check whether FlowCodeUnmixRcpp in installed
+    if ( requireNamespace("FlowCodeUnmixRcpp", quietly = TRUE ) &&
+         "unmix.flowcode.cpp" %in% ls( getNamespace( "FlowCodeUnmixRcpp" ) ) ) {
+      if ( verbose ) message( "Unmixing using FlowCodeUnmixRcpp" )
+      tryCatch(
+        unmixed.chunk <- FlowCodeUnmixRcpp::unmix.flowcode.cpp(
+          raw.data = chunk.spectral,
           spectra = spectra,
           af.spectra = af.spectra,
           spectra.variants = spectra.variants,
@@ -184,49 +189,71 @@ unmix.flowcode.fcs <- function(
           threads = threads,
           verbose = verbose,
           optimize = optimize
-        )
-      }
-    )
-  } else {
-    warning( "The FlowCodeUnmixRcpp package is not installed: unmixing will be slow.",
-             call. = FALSE )
-    unmixed.data <- unmix.flowcode(
-      raw.data = spectral.exprs,
-      spectra = spectra,
-      af.spectra = af.spectra,
-      spectra.variants = spectra.variants,
-      flowcode.spectra = flowcode.spectra,
-      asp = asp,
-      thresholds = flowcode.thresholds,
-      k = k,
-      parallel = parallel,
-      threads = threads,
-      verbose = verbose,
-      optimize = optimize
-    )
-  }
-  rm( spectral.exprs )
+        ),
+        error = function( e ) {
+          warning(
+            "FlowCodeUnmixRcpp unmixing failed, falling back to standard FlowCodeUnmix: ",
+            e$message,
+            call. = FALSE
+          )
+          unmixed.chunk <- unmix.flowcode(
+            raw.data = chunk.spectral,
+            spectra = spectra,
+            af.spectra = af.spectra,
+            spectra.variants = spectra.variants,
+            flowcode.spectra = flowcode.spectra,
+            asp = asp,
+            thresholds = flowcode.thresholds,
+            k = k,
+            parallel = parallel,
+            threads = threads,
+            verbose = verbose,
+            optimize = optimize
+          )
+        }
+      )
+    } else {
+      warning( "The FlowCodeUnmixRcpp package is not installed: unmixing will be slow.",
+               call. = FALSE )
+      unmixed.chunk <- unmix.flowcode(
+        raw.data = chunk.spectral,
+        spectra = spectra,
+        af.spectra = af.spectra,
+        spectra.variants = spectra.variants,
+        flowcode.spectra = flowcode.spectra,
+        asp = asp,
+        thresholds = flowcode.thresholds,
+        k = k,
+        parallel = parallel,
+        threads = threads,
+        verbose = verbose,
+        optimize = optimize
+      )
+    }
 
-  # combine with non-fluorescence data (scatter, time, etc.)
-  final.colnames <- c( colnames( other.exprs ), colnames( unmixed.data ) )
-  final.matrix <- matrix( 0, nrow = nrow( unmixed.data ), ncol = length( final.colnames ) )
-  colnames( final.matrix ) <- final.colnames
-  final.matrix[ , 1:ncol( other.exprs ) ] <- other.exprs
-  final.matrix[ , ( ncol( final.matrix ) - ncol( unmixed.data ) + 1 ):ncol( final.matrix ) ] <- unmixed.data
-  rm( unmixed.data, other.exprs )
+    # Store in Pre-allocated Matrix
+    final.matrix[ s.row:e.row, 1:ncol( chunk.other ) ] <- chunk.other
+    final.matrix[ s.row:e.row, ( ncol( chunk.other ) + 1 ):cols.n ] <- unmixed.chunk
+
+    # Cleanup memory immediately
+    rm( chunk.data, chunk.spectral, chunk.other, unmixed.chunk )
+    if (i %% 5 == 0) gc()
+  }
 
   # fix any NA values (e.g., plate location with S8)
-  if ( anyNA( final.matrix ) )
-    final.matrix[ is.na( final.matrix ) ] <- 0
+  if ( anyNA( final.matrix ) ) final.matrix[ is.na( final.matrix ) ] <- 0
+
+  # set colnames
+  combo.df <- flowcode.spectra$Combos
+  unmixed.names <- c( rownames( spectra ), "AF", "AF Index", "FlowCode", combo.df$Id )
+  colnames( final.matrix ) <- c( other.channels, unmixed.names )
 
   # append "-A" to fluorophore and AF channel names
-  colnames( final.matrix ) <-
-    ifelse( colnames( final.matrix ) %in% c( rownames( spectra ), "AF" ),
-            paste0( colnames( final.matrix ), "-A" ),
-            colnames( final.matrix ) )
-
-  # get FlowCode tag names
-  combo.df <- flowcode.spectra$Combos
+  colnames( final.matrix ) <- ifelse(
+    colnames( final.matrix ) %in% c( rownames( spectra ), "AF" ),
+    paste0( colnames( final.matrix ), "-A" ),
+    colnames( final.matrix )
+  )
 
   # update keywords
   new.keywords <- prep.keywords(

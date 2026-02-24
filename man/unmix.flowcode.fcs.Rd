@@ -20,7 +20,8 @@ unmix.flowcode.fcs(
   parallel = TRUE,
   threads = if (parallel) 0 else 1,
   verbose = TRUE,
-  optimize = TRUE
+  optimize = TRUE,
+  chunk.size = 2e+06
 )
 }
 \arguments{
@@ -80,6 +81,11 @@ Default is \code{TRUE}.}
 
 \item{optimize}{Logical, whether to perform per-cell spectral optimization.
 Faster without this, usually better with it.}
+
+\item{chunk.size}{Numeric, number of events to use per chunk of unmixing. Used
+to manage memory when processing large FCS files. As a rough guide, you will
+need approximately 10x the size of the raw FCS file on disk as available
+memory. Default is set at \code{2e6} events, assuming ~20GB memory available.}
 }
 \value{
 None. The function writes the unmixed FCS data to a file.

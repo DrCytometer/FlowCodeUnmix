@@ -1,7 +1,7 @@
 Package: FlowCodeUnmix
 Type: Package
 Title: Tools for Unmixing FlowCode Spectral Cytometry Data
-Version: 0.4.4
+Version: 0.4.5
 Authors@R: c(
     person(
       "Oliver", "Burton",
