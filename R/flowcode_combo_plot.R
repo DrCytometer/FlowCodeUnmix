@@ -24,8 +24,8 @@
 #' is `./flowcode_spectra`.
 #' @param filename Character, name of the saved plot. Default is
 #' `Corrected_biplots.jpg`.
-#' @param width Numeric, default `10`. Width (in inches) of the saved plot.
-#' @param height Numeric, default `5`. Height (in inches) of the saved plot.
+#' @param width Numeric, default `5`. Width (in inches) of each panel.
+#' @param height Numeric, default `5`. Height (in inches) of each panel.
 #'
 #' @return None. Saves the plot to the specified file path in `output.dir`.
 #'
@@ -38,8 +38,8 @@ flowcode.combo.plot <- function(
     asp,
     output.dir = "./flowcode_spectra",
     filename = "Corrected_biplots.jpg",
-    width = 5,
-    height = 10
+    width = 4,
+    height = 4
   ) {
 
   if ( !requireNamespace( "AutoSpectral", quietly = TRUE ) ) {
@@ -124,8 +124,9 @@ flowcode.combo.plot <- function(
   ggsave(
     filename = file.path( output.dir, filename ),
     plot = combined,
-    width = width,
-    height = height * n.pairs
+    width = width * 2,
+    height = height * n.pairs,
+    limitsize = FALSE
   )
 }
 
