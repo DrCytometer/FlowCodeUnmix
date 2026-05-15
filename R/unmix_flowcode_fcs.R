@@ -170,7 +170,6 @@ unmix.flowcode.fcs <- function(
     chunk.other <- chunk.data[ , other.channels, drop = FALSE ]
 
     # Unmix Chunk
-    # Note: Using the C++ pipeline directly for performance
     # check whether FlowCodeUnmixRcpp in installed
     if ( requireNamespace("FlowCodeUnmixRcpp", quietly = TRUE ) &&
          "unmix.flowcode.cpp" %in% ls( getNamespace( "FlowCodeUnmixRcpp" ) ) ) {
