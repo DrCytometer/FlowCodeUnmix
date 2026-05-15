@@ -95,16 +95,7 @@ unmix.backbone <- function(
   names( flowcode.fluors ) <- flowcode.tags
 
   # read in backbone
-  backbone <- suppressWarnings(
-    flowCore::exprs(
-      flowCore::read.FCS(
-        flowcode.backbone.fcs,
-        transformation = NULL,
-        truncate_max_range = FALSE,
-        emptyValue = FALSE
-      )
-    )
-  )
+  backbone <- AutoSpectral::readFCS(flowcode.backbone.fcs)
   raw.data <- backbone[ , spectral.channel ]
   scatter.data <- backbone[ , asp$default.scatter.parameter ]
 

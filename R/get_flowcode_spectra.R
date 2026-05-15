@@ -7,7 +7,6 @@
 #' FlowCode tag antibodies (`flowcode.backbone.fcs`). Measures FRET error and
 #' returns the calculated correction matrices and thresholds for debarcoding.
 #'
-#' @importFrom flowCore read.FCS exprs
 #' @importFrom FlowSOM SOM
 #'
 #' @param backbone.rds File name and path to the full (large) rds file produced
