@@ -12,7 +12,18 @@ get.flowcode.spectra(
   filename = "FlowCode_Spectra.rds",
   figures = TRUE,
   plot.corrections = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  background.pool.n = 5000,
+  spectra.variants = NULL,
+  af.spectra = NULL,
+  parallel = TRUE,
+  threads = if (parallel) 0 else 1,
+  n.cells.per.combo = 500,
+  som.dim = 10L,
+  fret.median.qc = FALSE,
+  fret.median.sim.threshold = 0,
+  fret.background.qc = FALSE,
+  fret.background.sim.threshold = 0.8
 )
 }
 \arguments{
@@ -36,12 +47,90 @@ correction. Default is \code{TRUE}.}
 \item{figures}{Logical, controls whether graphs of the process are produced.
 Default is \code{TRUE}.}
 
-\item{plot.corrections}{Logical, default is \code{FALSE}. If \code{TRUE}, the FRET
-unmixing will be applied to \code{flowcode.backbone.fcs} and plots of the
-corrected data (FlowCode channels only) will be produced in \code{output.dir}.}
+\item{plot.corrections}{Logical, default is \code{FALSE}. If \code{TRUE}, the full
+FlowCode unmixing pipeline (\code{unmix.flowcode()} /
+\code{FlowCodeUnmixRcpp::unmix.flowcode.cpp.joint()}) is run on the backbone and
+before/after plots of the FRET-corrected data (FlowCode channels only) are
+produced in \code{output.dir}. Requires both \code{spectra.variants} and \code{af.spectra}
+to be supplied.}
 
 \item{verbose}{Logical, default is \code{TRUE}. Set to \code{FALSE} to suppress
 messaging.}
+
+\item{background.pool.n}{Integer, default \code{5000}. Maximum number of
+untransduced cells used as the scatter-matching / AF-PCA reference pool.
+Downsampled from \code{untransduced.idx} when more are available.}
+
+\item{spectra.variants}{Optional. The list returned by
+\code{AutoSpectral::get.spectral.variants()} (must contain a \verb{$variants}
+element). When supplied, each combo fluorophore's per-cell best-fitting
+spectral variant is substituted before the FRET residual is computed
+(applied identically to the combo's own cells and to the untransduced
+background pool), so normal single-colour spectral drift is not mistaken
+for FRET. Also required, together with \code{af.spectra}, for
+\code{plot.corrections = TRUE}. Default \code{NULL}, which skips the pre-clean step
+and disables \code{plot.corrections}.}
+
+\item{af.spectra}{Discrete autofluorescence spectral library (fluorophores
+in rows are not expected here -- AF components in rows, detectors in
+columns; at least 2 rows), as produced by \code{AutoSpectral::get.af.spectra()}
+and already used to build \code{backbone$Raw} via \code{unmix.backbone()}. Required
+only when \code{plot.corrections = TRUE}: used to reconstruct the
+pre-AF-subtraction raw signal (so the full pipeline's own AF fitting isn't
+applied on top of data that's already had AF removed) and to run that
+pipeline. Default \code{NULL}.}
+
+\item{parallel}{Logical, default is \code{TRUE}, which enables parallel processing
+for per-cell unmixing methods.}
+
+\item{threads}{Numeric, defaults to all available cores if \code{parallel=TRUE}.}
+
+\item{n.cells.per.combo}{Integer, default \code{500}. Maximum number of
+brightest events (ranked by summed signal in a combo's own tag channels,
+using the existing \code{backbone$Unmixed} values) retained per combo before
+FRET spectra are measured.}
+
+\item{som.dim}{Integer, default \code{10}. Base SOM grid side length; shrunk
+per-combo (in a loop-local variable, never mutating this default) for
+combos with fewer than 500 retained cells.}
+
+\item{fret.median.qc}{Logical, default \code{FALSE}. If \code{TRUE}, events are
+screened before SOM clustering by cosine similarity to the combo's own
+median FRET direction (\code{median.fret.spectrum}, computed from the full,
+unfiltered event set so the reference isn't circular). This is a loose
+sanity filter, not a same-shape filter: unlike a single fluorophore's
+spectrum, FRET within a combo isn't guaranteed to have one true direction
+(different tag pairings can plausibly produce more than one), so this is
+only meant to drop events pointing away from the combo's overall trend
+(see \code{fret.median.sim.threshold}), leaving SOM free to resolve genuine
+multi-modal structure among the rest.}
+
+\item{fret.median.sim.threshold}{Numeric in \verb{[-1, 1]}, default \code{0}. Cosine
+similarity cutoff used by \code{fret.median.qc}; \code{0} only excludes events
+pointing into the opposite half-space from the combo's median direction.
+Raise towards e.g. \code{0.3}-\code{0.5} for a stricter filter. Ignored if
+\code{fret.median.qc = FALSE}. If fewer than 20 events would survive for a
+given combo, this QC step is skipped for that combo (with a warning)
+rather than starving SOM of input.}
+
+\item{fret.background.qc}{Logical, default \code{FALSE}. If \code{TRUE}, candidate
+FRET variants (SOM centroids, never the median row) are screened after
+clustering against the same FRET-shaped signal computed from the
+untransduced/background pool, run through the identical combo-specific
+\code{clean.combo.data()} processing. Background cells cannot have real FRET
+for this combo, so whatever FRET-shaped direction shows up in them after
+identical processing is leftover contamination (residual AF, non-specific
+staining, background-subtraction artifacts) rather than signal; variants
+that closely resemble it (by absolute cosine similarity, since
+contamination has no consistent sign) are dropped. Unlike
+\code{fret.median.qc}, this doesn't assume a single true FRET direction, so it
+complements rather than duplicates it.}
+
+\item{fret.background.sim.threshold}{Numeric in \verb{[0, 1]}, default \code{0.8}.
+Absolute cosine similarity cutoff used by \code{fret.background.qc}; a
+candidate variant is dropped if its similarity to the background pool's
+own FRET-shaped direction is at or above this value. Ignored if
+\code{fret.background.qc = FALSE}.}
 }
 \value{
 A named list with two elements:
