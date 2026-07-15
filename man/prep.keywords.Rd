@@ -14,7 +14,8 @@ prep.keywords(
   asp,
   method,
   file.name,
-  combos
+  combos,
+  include.imaging = FALSE
 )
 }
 \arguments{
