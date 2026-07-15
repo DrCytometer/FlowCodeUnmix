@@ -28,7 +28,6 @@ Imports:
     ggridges,
     parallelly,
     shiny,
-    shinyFiles,
     sp,
     tripack
 Suggests:
