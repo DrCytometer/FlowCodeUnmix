@@ -11,8 +11,8 @@ flowcode.combo.plot(
   asp,
   output.dir = "./flowcode_spectra",
   filename = "Corrected_biplots.jpg",
-  width = 5,
-  height = 10
+  width = 4,
+  height = 4
 )
 }
 \arguments{
@@ -35,9 +35,9 @@ is \code{./flowcode_spectra}.}
 \item{filename}{Character, name of the saved plot. Default is
 \code{Corrected_biplots.jpg}.}
 
-\item{width}{Numeric, default \code{10}. Width (in inches) of the saved plot.}
+\item{width}{Numeric, default \code{5}. Width (in inches) of each panel.}
 
-\item{height}{Numeric, default \code{5}. Height (in inches) of the saved plot.}
+\item{height}{Numeric, default \code{5}. Height (in inches) of each panel.}
 }
 \value{
 None. Saves the plot to the specified file path in \code{output.dir}.
