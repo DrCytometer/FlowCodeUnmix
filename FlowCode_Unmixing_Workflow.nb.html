@@ -1762,153 +1762,95 @@ the chunk or by placing your cursor inside it and pressing
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVNaUFySURKY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG4yICsgMlxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<pre><code>
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMiArIDJcbmBgYCJ9 --&gt;
-
-```r
-2 + 2
-```
-
-&lt;!-- rnb-source-end --&gt;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dU1pQXJJREpjYm1CZ1lGeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuYGBgclxuMiArIDJcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuMiArIDJcbmBgYFxuYGBgIn0= -->
-<pre class="r"><code>```r
-2 + 2</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
-
-# Installation
-
-You will both need `AutoSpectral` and `FlowCodeUnmix` to run this. If this is your first time using these, run the installation code below, which should take care of everything for you.
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJKYm5OMFlXeHNJRUpwYjJOdmJtUjFZM1J2Y2lCd1lXTnJZV2RsYzF4dWFXWWdLQ0Z5WlhGMWFYSmxUbUZ0WlhOd1lXTmxLRndpUW1sdlkwMWhibUZuWlhKY0lpd2djWFZwWlhSc2VTQTlJRlJTVlVVcEtWeHVJQ0JwYm5OMFlXeHNMbkJoWTJ0aFoyVnpLRndpUW1sdlkwMWhibUZuWlhKY0lpbGNia0pwYjJOTllXNWhaMlZ5T2pwcGJuTjBZV3hzS0dNb1hDSm1iRzkzVjI5eWEzTndZV05sWENJc0lGd2labXh2ZDBOdmNtVmNJaXdnWENKUVpXRmpiMUZEWENJc0lGd2lSbXh2ZDFOUFRWd2lLU2xjYmx4dUl5Qkpibk4wWVd4c0lHRnVlU0J0YVhOemFXNW5JRU5TUVU0Z2NHRmphMkZuWlhNZ2RHaGhkQ0IzWlNkc2JDQnVaV1ZrWEc1amNtRnVMbkJoWTJ0aFoyVnpJRHd0SUdNb1hHNGdJRndpYzJocGJubGNJaXhjYmlBZ1hDSnphR2x1ZVVacGJHVnpYQ0lzWEc0Z0lGd2laMmR3Ykc5ME1sd2lMRnh1SUNCY0luTmpZWFIwWlhKdGIzSmxYQ0lzWEc0Z0lGd2laSEJzZVhKY0lseHVLVnh1WEc1dGFYTnphVzVuTG5CclozTWdQQzBnYzJWMFpHbG1aaWhjYmlBZ1kzSmhiaTV3WVdOcllXZGxjeXhjYmlBZ2NtOTNibUZ0WlhNb2FXNXpkR0ZzYkdWa0xuQmhZMnRoWjJWektDa3BYRzRwWEc1Y2JtbG1JQ2hzWlc1bmRHZ29iV2x6YzJsdVp5NXdhMmR6S1NBK0lEQXBJSHRjYmlBZ2FXNXpkR0ZzYkM1d1lXTnJZV2RsY3lodGFYTnphVzVuTG5CclozTXNJR1JsY0dWdVpHVnVZMmxsY3lBOUlGUlNWVVVwWEc1OVhHNWNiaU1nYVc1emRHRnNiQ0JnY21WdGIzUmxjMkFnZEc4Z1lXeHNiM2NnZVc5MUlIUnZJR2x1YzNSaGJHd2dSMmwwU0hWaUlIQmhZMnRoWjJWeklDaGtaWFowYjI5c2N5QmhiSE52SUhkdmNtdHpLVnh1YVc1emRHRnNiQzV3WVdOcllXZGxjeWhjSW5KbGJXOTBaWE5jSWlsY2JuSmxiVzkwWlhNNk9tbHVjM1JoYkd4ZloybDBhSFZpS0Z3aVJISkRlWFJ2YldWMFpYSXZRWFYwYjFOd1pXTjBjbUZzWENJcFhHNXlaVzF2ZEdWek9qcHBibk4wWVd4c1gyZHBkR2gxWWloY0lrUnlRM2wwYjIxbGRHVnlMMFpzYjNkRGIyUmxWVzV0YVhoY0lpbGNibUJnWUNKOSAtLT5cblxuYGBgclxuIyBJbnN0YWxsIEJpb2NvbmR1Y3RvciBwYWNrYWdlc1xuaWYgKCFyZXF1aXJlTmFtZXNwYWNlKFxcQmlvY01hbmFnZXJcXCwgcXVpZXRseSA9IFRSVUUpKVxuICBpbnN0YWxsLnBhY2thZ2VzKFxcQmlvY01hbmFnZXJcXClcbkJpb2NNYW5hZ2VyOjppbnN0YWxsKGMoXFxmbG93V29ya3NwYWNlXFwsIFxcZmxvd0NvcmVcXCwgXFxQZWFjb1FDXFwsIFxcRmxvd1NPTVxcKSlcblxuIyBJbnN0YWxsIGFueSBtaXNzaW5nIENSQU4gcGFja2FnZXMgdGhhdCB3ZSdsbCBuZWVkXG5jcmFuLnBhY2thZ2VzIDwtIGMoXG4gIFxcc2hpbnlcXCxcbiAgXFxzaGlueUZpbGVzXFwsXG4gIFxcZ2dwbG90MlxcLFxuICBcXHNjYXR0ZXJtb3JlXFwsXG4gIFxcZHBseXJcXFxuKVxuXG5taXNzaW5nLnBrZ3MgPC0gc2V0ZGlmZihcbiAgY3Jhbi5wYWNrYWdlcyxcbiAgcm93bmFtZXMoaW5zdGFsbGVkLnBhY2thZ2VzKCkpXG4pXG5cbmlmIChsZW5ndGgobWlzc2luZy5wa2dzKSA+IDApIHtcbiAgaW5zdGFsbC5wYWNrYWdlcyhtaXNzaW5nLnBrZ3MsIGRlcGVuZGVuY2llcyA9IFRSVUUpXG59XG5cbiMgaW5zdGFsbCBgcmVtb3Rlc2AgdG8gYWxsb3cgeW91IHRvIGluc3RhbGwgR2l0SHViIHBhY2thZ2VzIChkZXZ0b29scyBhbHNvIHdvcmtzKVxuaW5zdGFsbC5wYWNrYWdlcyhcXHJlbW90ZXNcXClcbnJlbW90ZXM6Omluc3RhbGxfZ2l0aHViKFxcRHJDeXRvbWV0ZXIvQXV0b1NwZWN0cmFsXFwpXG5yZW1vdGVzOjppbnN0YWxsX2dpdGh1YihcXERyQ3l0b21ldGVyL0Zsb3dDb2RlVW5taXhcXClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
-</code></pre>
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbnN0YWxsIEJpb2NvbmR1Y3RvciBwYWNrYWdlc1xuaWYgKCFyZXF1aXJlTmFtZXNwYWNlKFwiQmlvY01hbmFnZXJcIiwgcXVpZXRseSA9IFRSVUUpKVxuICBpbnN0YWxsLnBhY2thZ2VzKFwiQmlvY01hbmFnZXJcIilcbkJpb2NNYW5hZ2VyOjppbnN0YWxsKGMoXCJmbG93V29ya3NwYWNlXCIsIFwiZmxvd0NvcmVcIiwgXCJQZWFjb1FDXCIsIFwiRmxvd1NPTVwiKSlcblxuIyBJbnN0YWxsIGFueSBtaXNzaW5nIENSQU4gcGFja2FnZXMgdGhhdCB3ZSdsbCBuZWVkXG5jcmFuLnBhY2thZ2VzIDwtIGMoXG4gIFwic2hpbnlcIixcbiAgXCJzaGlueUZpbGVzXCIsXG4gIFwiZ2dwbG90MlwiLFxuICBcInNjYXR0ZXJtb3JlXCIsXG4gIFwiZHBseXJcIlxuKVxuXG5taXNzaW5nLnBrZ3MgPC0gc2V0ZGlmZihcbiAgY3Jhbi5wYWNrYWdlcyxcbiAgcm93bmFtZXMoaW5zdGFsbGVkLnBhY2thZ2VzKCkpXG4pXG5cbmlmIChsZW5ndGgobWlzc2luZy5wa2dzKSA+IDApIHtcbiAgaW5zdGFsbC5wYWNrYWdlcyhtaXNzaW5nLnBrZ3MsIGRlcGVuZGVuY2llcyA9IFRSVUUpXG59XG5cbiMgaW5zdGFsbCBgcmVtb3Rlc2AgdG8gYWxsb3cgeW91IHRvIGluc3RhbGwgR2l0SHViIHBhY2thZ2VzIChkZXZ0b29scyBhbHNvIHdvcmtzKVxuaW5zdGFsbC5wYWNrYWdlcyhcInJlbW90ZXNcIilcbnJlbW90ZXM6Omluc3RhbGxfZ2l0aHViKFwiRHJDeXRvbWV0ZXIvQXV0b1NwZWN0cmFsXCIpXG5yZW1vdGVzOjppbnN0YWxsX2dpdGh1YihcIkRyQ3l0b21ldGVyL0Zsb3dDb2RlVW5taXhcIilcbmBgYCJ9 -->
-<pre class="r"><code># Install Bioconductor packages
-if (!requireNamespace(\BiocManager\, quietly = TRUE))
-  install.packages(\BiocManager\)
-BiocManager::install(c(\flowWorkspace\, \flowCore\, \PeacoQC\, \FlowSOM\))
-
-# Install any missing CRAN packages that we&#39;ll need
-cran.packages &lt;- c(
-  \shiny\,
-  \shinyFiles\,
-  \ggplot2\,
-  \scattermore\,
-  \dplyr\
-)
-
-missing.pkgs &lt;- setdiff(
-  cran.packages,
-  rownames(installed.packages())
-)
-
-if (length(missing.pkgs) &gt; 0) {
-  install.packages(missing.pkgs, dependencies = TRUE)
-}
-
-# install `remotes` to allow you to install GitHub packages (devtools also works)
-install.packages(\remotes\)
-remotes::install_github(\DrCytometer/AutoSpectral\)
-remotes::install_github(\DrCytometer/FlowCodeUnmix\)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMiArIDJcbmBgYCJ9 -->
+<pre class="r"><code>2 + 2</code></pre>
 <!-- rnb-source-end -->
-<p>````</p>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dUl5Qkpibk4wWVd4c0lFSnBiMk52Ym1SMVkzUnZjaUJ3WVdOcllXZGxjMXh1YVdZZ0tDRnlaWEYxYVhKbFRtRnRaWE53WVdObEtGeGNRbWx2WTAxaGJtRm5aWEpjWEN3Z2NYVnBaWFJzZVNBOUlGUlNWVVVwS1Z4dUlDQnBibk4wWVd4c0xuQmhZMnRoWjJWektGeGNRbWx2WTAxaGJtRm5aWEpjWENsY2JrSnBiMk5OWVc1aFoyVnlPanBwYm5OMFlXeHNLR01vWEZ4bWJHOTNWMjl5YTNOd1lXTmxYRndzSUZ4Y1pteHZkME52Y21WY1hDd2dYRnhRWldGamIxRkRYRndzSUZ4Y1JteHZkMU5QVFZ4Y0tTbGNibHh1SXlCSmJuTjBZV3hzSUdGdWVTQnRhWE56YVc1bklFTlNRVTRnY0dGamEyRm5aWE1nZEdoaGRDQjNaU2RzYkNCdVpXVmtYRzVqY21GdUxuQmhZMnRoWjJWeklEd3RJR01vWEc0Z0lGeGNjMmhwYm5sY1hDeGNiaUFnWEZ4emFHbHVlVVpwYkdWelhGd3NYRzRnSUZ4Y1oyZHdiRzkwTWx4Y0xGeHVJQ0JjWEhOallYUjBaWEp0YjNKbFhGd3NYRzRnSUZ4Y1pIQnNlWEpjWEZ4dUtWeHVYRzV0YVhOemFXNW5MbkJyWjNNZ1BDMGdjMlYwWkdsbVppaGNiaUFnWTNKaGJpNXdZV05yWVdkbGN5eGNiaUFnY205M2JtRnRaWE1vYVc1emRHRnNiR1ZrTG5CaFkydGhaMlZ6S0NrcFhHNHBYRzVjYm1sbUlDaHNaVzVuZEdnb2JXbHpjMmx1Wnk1d2EyZHpLU0ErSURBcElIdGNiaUFnYVc1emRHRnNiQzV3WVdOcllXZGxjeWh0YVhOemFXNW5MbkJyWjNNc0lHUmxjR1Z1WkdWdVkybGxjeUE5SUZSU1ZVVXBYRzU5WEc1Y2JpTWdhVzV6ZEdGc2JDQmdjbVZ0YjNSbGMyQWdkRzhnWVd4c2IzY2dlVzkxSUhSdklHbHVjM1JoYkd3Z1IybDBTSFZpSUhCaFkydGhaMlZ6SUNoa1pYWjBiMjlzY3lCaGJITnZJSGR2Y210ektWeHVhVzV6ZEdGc2JDNXdZV05yWVdkbGN5aGNYSEpsYlc5MFpYTmNYQ2xjYm5KbGJXOTBaWE02T21sdWMzUmhiR3hmWjJsMGFIVmlLRnhjUkhKRGVYUnZiV1YwWlhJdlFYVjBiMU53WldOMGNtRnNYRndwWEc1eVpXMXZkR1Z6T2pwcGJuTjBZV3hzWDJkcGRHaDFZaWhjWEVSeVEzbDBiMjFsZEdWeUwwWnNiM2REYjJSbFZXNXRhWGhjWENsY2JtQmdZRnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmBgYHJcbiMgSW5zdGFsbCBCaW9jb25kdWN0b3IgcGFja2FnZXNcbmlmICghcmVxdWlyZU5hbWVzcGFjZShcXEJpb2NNYW5hZ2VyXFwsIHF1aWV0bHkgPSBUUlVFKSlcbiAgaW5zdGFsbC5wYWNrYWdlcyhcXEJpb2NNYW5hZ2VyXFwpXG5CaW9jTWFuYWdlcjo6aW5zdGFsbChjKFxcZmxvd1dvcmtzcGFjZVxcLCBcXGZsb3dDb3JlXFwsIFxcUGVhY29RQ1xcLCBcXEZsb3dTT01cXCkpXG5cbiMgSW5zdGFsbCBhbnkgbWlzc2luZyBDUkFOIHBhY2thZ2VzIHRoYXQgd2UnbGwgbmVlZFxuY3Jhbi5wYWNrYWdlcyA8LSBjKFxuICBcXHNoaW55XFwsXG4gIFxcc2hpbnlGaWxlc1xcLFxuICBcXGdncGxvdDJcXCxcbiAgXFxzY2F0dGVybW9yZVxcLFxuICBcXGRwbHlyXFxcbilcblxubWlzc2luZy5wa2dzIDwtIHNldGRpZmYoXG4gIGNyYW4ucGFja2FnZXMsXG4gIHJvd25hbWVzKGluc3RhbGxlZC5wYWNrYWdlcygpKVxuKVxuXG5pZiAobGVuZ3RoKG1pc3NpbmcucGtncykgPiAwKSB7XG4gIGluc3RhbGwucGFja2FnZXMobWlzc2luZy5wa2dzLCBkZXBlbmRlbmNpZXMgPSBUUlVFKVxufVxuXG4jIGluc3RhbGwgYHJlbW90ZXNgIHRvIGFsbG93IHlvdSB0byBpbnN0YWxsIEdpdEh1YiBwYWNrYWdlcyAoZGV2dG9vbHMgYWxzbyB3b3Jrcylcbmluc3RhbGwucGFja2FnZXMoXFxyZW1vdGVzXFwpXG5yZW1vdGVzOjppbnN0YWxsX2dpdGh1YihcXERyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbFxcKVxucmVtb3Rlczo6aW5zdGFsbF9naXRodWIoXFxEckN5dG9tZXRlci9GbG93Q29kZVVubWl4XFwpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBJbnN0YWxsIEJpb2NvbmR1Y3RvciBwYWNrYWdlc1xuaWYgKCFyZXF1aXJlTmFtZXNwYWNlKFxcQmlvY01hbmFnZXJcXCwgcXVpZXRseSA9IFRSVUUpKVxuICBpbnN0YWxsLnBhY2thZ2VzKFxcQmlvY01hbmFnZXJcXClcbkJpb2NNYW5hZ2VyOjppbnN0YWxsKGMoXFxmbG93V29ya3NwYWNlXFwsIFxcZmxvd0NvcmVcXCwgXFxQZWFjb1FDXFwsIFxcRmxvd1NPTVxcKSlcblxuIyBJbnN0YWxsIGFueSBtaXNzaW5nIENSQU4gcGFja2FnZXMgdGhhdCB3ZSdsbCBuZWVkXG5jcmFuLnBhY2thZ2VzIDwtIGMoXG4gIFxcc2hpbnlcXCxcbiAgXFxzaGlueUZpbGVzXFwsXG4gIFxcZ2dwbG90MlxcLFxuICBcXHNjYXR0ZXJtb3JlXFwsXG4gIFxcZHBseXJcXFxuKVxuXG5taXNzaW5nLnBrZ3MgPC0gc2V0ZGlmZihcbiAgY3Jhbi5wYWNrYWdlcyxcbiAgcm93bmFtZXMoaW5zdGFsbGVkLnBhY2thZ2VzKCkpXG4pXG5cbmlmIChsZW5ndGgobWlzc2luZy5wa2dzKSA+IDApIHtcbiAgaW5zdGFsbC5wYWNrYWdlcyhtaXNzaW5nLnBrZ3MsIGRlcGVuZGVuY2llcyA9IFRSVUUpXG59XG5cbiMgaW5zdGFsbCBgcmVtb3Rlc2AgdG8gYWxsb3cgeW91IHRvIGluc3RhbGwgR2l0SHViIHBhY2thZ2VzIChkZXZ0b29scyBhbHNvIHdvcmtzKVxuaW5zdGFsbC5wYWNrYWdlcyhcXHJlbW90ZXNcXClcbnJlbW90ZXM6Omluc3RhbGxfZ2l0aHViKFxcRHJDeXRvbWV0ZXIvQXV0b1NwZWN0cmFsXFwpXG5yZW1vdGVzOjppbnN0YWxsX2dpdGh1YihcXERyQ3l0b21ldGVyL0Zsb3dDb2RlVW5taXhcXClcbmBgYFxuYGBgIn0= -->
-<pre class="r"><code>```r
-# Install Bioconductor packages
-if (!requireNamespace(\BiocManager\, quietly = TRUE))
-  install.packages(\BiocManager\)
-BiocManager::install(c(\flowWorkspace\, \flowCore\, \PeacoQC\, \FlowSOM\))
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>When you save the notebook, an HTML file containing the code and
+output will be saved alongside it (click the <em>Preview</em> button or
+press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
+<p>The preview shows you a rendered HTML copy of the contents of the
+editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not
+run any R code chunks. Instead, the output of the chunk when it was last
+run in the editor is displayed.</p>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<p>You will both need <code>AutoSpectral</code> and
+<code>FlowCodeUnmix</code> to run this, plus their compiled
+accelerators, <code>AutoSpectralRcpp</code> and
+<code>FlowCodeUnmixRcpp</code>. The accelerators are no longer just a
+speed convenience: <code>get.flowcode.spectra()</code> now
+<em>requires</em> <code>AutoSpectralRcpp</code> (there’s no pure-R
+fallback for it), and the staged pipeline used by
+<code>unmix.flowcode.fcs()</code>/<code>unmix.flowcode.folder()</code>
+requires <code>AutoSpectralRcpp &gt;= 1.1.0</code> specifically.</p>
+<p>The easiest way to get everything is <a href="https://pak.r-lib.org/"><code>pak</code></a>.
+<code>pak::pkg_install()</code> resolves CRAN, Bioconductor (via the
+<code>bioc::</code> prefix) and GitHub (<code>&quot;owner/repo&quot;</code>)
+packages together in one call, with proper dependency resolution and
+parallel downloads – there’s no separate
+<code>BiocManager::install()</code> or
+<code>remotes::install_github()</code> step needed.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJ2Ym1VdGRHbHRaU3dnYVdZZ2VXOTFJR1J2YmlkMElHRnNjbVZoWkhrZ2FHRjJaU0JwZEZ4dWFXNXpkR0ZzYkM1d1lXTnJZV2RsY3loY0luQmhhMXdpS1Z4dVhHNXdZV3M2T25CcloxOXBibk4wWVd4c0tHTW9YRzRnSUZ3aVltbHZZem82Wm14dmQxZHZjbXR6Y0dGalpWd2lMRnh1SUNCY0ltSnBiMk02T2tac2IzZFRUMDFjSWl4Y2JpQWdYQ0p6YUdsdWVWd2lMRnh1SUNCY0luTm9hVzU1Um1sc1pYTmNJaXhjYmlBZ1hDSm5aM0JzYjNReVhDSXNYRzRnSUZ3aWMyTmhkSFJsY20xdmNtVmNJaXhjYmlBZ1hDSmtjR3g1Y2x3aUxGeHVJQ0JjSWtSeVEzbDBiMjFsZEdWeUwwRjFkRzlUY0dWamRISmhiRndpTEZ4dUlDQmNJa1J5UTNsMGIyMWxkR1Z5TDBac2IzZERiMlJsVlc1dGFYaGNJaXhjYmlBZ1hDSkVja041ZEc5dFpYUmxjaTlCZFhSdlUzQmxZM1J5WVd4U1kzQndYQ0lzWEc0Z0lGd2lSSEpEZVhSdmJXVjBaWEl2Um14dmQwTnZaR1ZWYm0xcGVGSmpjSEJjSWx4dUtTbGNibUJnWUNKOSAtLT5cblxuYGBgclxuIyBvbmUtdGltZSwgaWYgeW91IGRvbid0IGFscmVhZHkgaGF2ZSBpdFxuaW5zdGFsbC5wYWNrYWdlcyhcInBha1wiKVxuXG5wYWs6OnBrZ19pbnN0YWxsKGMoXG4gIFwiYmlvYzo6Zmxvd1dvcmtzcGFjZVwiLFxuICBcImJpb2M6OkZsb3dTT01cIixcbiAgXCJzaGlueVwiLFxuICBcInNoaW55RmlsZXNcIixcbiAgXCJnZ3Bsb3QyXCIsXG4gIFwic2NhdHRlcm1vcmVcIixcbiAgXCJkcGx5clwiLFxuICBcIkRyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbFwiLFxuICBcIkRyQ3l0b21ldGVyL0Zsb3dDb2RlVW5taXhcIixcbiAgXCJEckN5dG9tZXRlci9BdXRvU3BlY3RyYWxSY3BwXCIsXG4gIFwiRHJDeXRvbWV0ZXIvRmxvd0NvZGVVbm1peFJjcHBcIlxuKSlcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBvbmUtdGltZSwgaWYgeW91IGRvbid0IGFscmVhZHkgaGF2ZSBpdFxuaW5zdGFsbC5wYWNrYWdlcyhcInBha1wiKVxuXG5wYWs6OnBrZ19pbnN0YWxsKGMoXG4gIFwiYmlvYzo6Zmxvd1dvcmtzcGFjZVwiLFxuICBcImJpb2M6OkZsb3dTT01cIixcbiAgXCJzaGlueVwiLFxuICBcInNoaW55RmlsZXNcIixcbiAgXCJnZ3Bsb3QyXCIsXG4gIFwic2NhdHRlcm1vcmVcIixcbiAgXCJkcGx5clwiLFxuICBcIkRyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbFwiLFxuICBcIkRyQ3l0b21ldGVyL0Zsb3dDb2RlVW5taXhcIixcbiAgXCJEckN5dG9tZXRlci9BdXRvU3BlY3RyYWxSY3BwXCIsXG4gIFwiRHJDeXRvbWV0ZXIvRmxvd0NvZGVVbm1peFJjcHBcIlxuKSlcbmBgYCJ9 -->
+<pre class="r"><code># one-time, if you don&#39;t already have it
+install.packages(&quot;pak&quot;)
 
-# Install any missing CRAN packages that we&#39;ll need
-cran.packages &lt;- c(
-  \shiny\,
-  \shinyFiles\,
-  \ggplot2\,
-  \scattermore\,
-  \dplyr\
-)
-
-missing.pkgs &lt;- setdiff(
-  cran.packages,
-  rownames(installed.packages())
-)
-
-if (length(missing.pkgs) &gt; 0) {
-  install.packages(missing.pkgs, dependencies = TRUE)
-}
-
-# install `remotes` to allow you to install GitHub packages (devtools also works)
-install.packages(\remotes\)
-remotes::install_github(\DrCytometer/AutoSpectral\)
-remotes::install_github(\DrCytometer/FlowCodeUnmix\)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-# Basic AutoSpectral workflow
-
-We start as we would with any spectral flow cytometry data set in AutoSpectral. We will load the cytometer-specific parameters, load in the single-stained control FCS data, clean-up the control data, extract the spectral profiles of the fluorophores, identify autofluorescence signatures and measure the spectral variation in the fluorophore output.
-
-
-## Load the parameters
-
-Here we are using data from the Cytek Aurora (5-laser system). For data from a different spectral cytometer, call the appropriate cytometer as &quot;cytometer&quot;. For more details on the AutoSpectral workflow, see [AutoSpectral help](https://drcytometer.github.io/AutoSpectral/).
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaEJkWFJ2VTNCbFkzUnlZV3dwWEc1aGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcxbGRHVnljeUE4TFNCQmRYUnZVM0JsWTNSeVlXdzZPbWRsZEM1aGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcwb1hHNGdJR041ZEc5dFpYUmxjaUE5SUZ3aVlYVnliM0poWENJc1hHNGdJR1pwWjNWeVpTQTlJRlJTVlVWY2JpbGNibUJnWUNKOSAtLT5cblxuYGBgclxubGlicmFyeShBdXRvU3BlY3RyYWwpXG5hdXRvc3BlY3RyYWwucGFyYW1ldGVycyA8LSBBdXRvU3BlY3RyYWw6OmdldC5hdXRvc3BlY3RyYWwucGFyYW0oXG4gIGN5dG9tZXRlciA9IFwiYXVyb3JhXCIsXG4gIGZpZ3VyZSA9IFRSVUVcbilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShBdXRvU3BlY3RyYWwpXG5hdXRvc3BlY3RyYWwucGFyYW1ldGVycyA8LSBBdXRvU3BlY3RyYWw6OmdldC5hdXRvc3BlY3RyYWwucGFyYW0oXG4gIGN5dG9tZXRlciA9IFwiYXVyb3JhXCIsXG4gIGZpZ3VyZSA9IFRSVUVcbilcbmBgYCJ9 --&gt;
-
-```r
-library(AutoSpectral)
+pak::pkg_install(c(
+  &quot;bioc::flowWorkspace&quot;,
+  &quot;bioc::FlowSOM&quot;,
+  &quot;shiny&quot;,
+  &quot;shinyFiles&quot;,
+  &quot;ggplot2&quot;,
+  &quot;scattermore&quot;,
+  &quot;dplyr&quot;,
+  &quot;DrCytometer/AutoSpectral&quot;,
+  &quot;DrCytometer/FlowCodeUnmix&quot;,
+  &quot;DrCytometer/AutoSpectralRcpp&quot;,
+  &quot;DrCytometer/FlowCodeUnmixRcpp&quot;
+))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Once everything is installed, the Rcpp accelerators are picked up
+automatically wherever they help, no further action needed.</p>
+</div>
+<div id="basic-autospectral-workflow" class="section level1">
+<h1>Basic AutoSpectral workflow</h1>
+<p>We start as we would with any spectral flow cytometry data set in
+AutoSpectral, using the automated spectral extraction pipeline. We will
+load the cytometer-specific parameters, create and check the control
+file, extract the fluorophore spectra directly from the raw
+single-stained controls, identify autofluorescence signatures and
+measure the spectral variation in the fluorophore output. For the full
+walkthrough of this pipeline, including all of the diagnostic plots it
+produces, see <a href="https://drcytometer.github.io/AutoSpectral/articles/01_Automated_Spectral_Workflow.html">AutoSpectral
+Workflow</a>.</p>
+<div id="load-the-parameters" class="section level2">
+<h2>Load the parameters</h2>
+<p>Here we are using data from the Cytek Aurora (5-laser system). For
+data from a different spectral cytometer, call the appropriate cytometer
+as “cytometer”. For more details on the AutoSpectral workflow, see <a href="https://drcytometer.github.io/AutoSpectral/">AutoSpectral
+help</a>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaEJkWFJ2VTNCbFkzUnlZV3dwWEc1aGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcxbGRHVnljeUE4TFNCQmRYUnZVM0JsWTNSeVlXdzZPbWRsZEM1aGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcwb1hHNGdJR041ZEc5dFpYUmxjaUE5SUZ3aVlYVnliM0poWENJc1hHNGdJR1pwWjNWeVpYTWdQU0JVVWxWRlhHNHBYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmxpYnJhcnkoQXV0b1NwZWN0cmFsKVxuYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMgPC0gQXV0b1NwZWN0cmFsOjpnZXQuYXV0b3NwZWN0cmFsLnBhcmFtKFxuICBjeXRvbWV0ZXIgPSBcImF1cm9yYVwiLFxuICBmaWd1cmVzID0gVFJVRVxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShBdXRvU3BlY3RyYWwpXG5hdXRvc3BlY3RyYWwucGFyYW1ldGVycyA8LSBBdXRvU3BlY3RyYWw6OmdldC5hdXRvc3BlY3RyYWwucGFyYW0oXG4gIGN5dG9tZXRlciA9IFwiYXVyb3JhXCIsXG4gIGZpZ3VyZXMgPSBUUlVFXG4pXG5gYGAifQ== -->
+<pre class="r"><code>library(AutoSpectral)
 autospectral.parameters &lt;- AutoSpectral::get.autospectral.param(
   cytometer = &quot;aurora&quot;,
-  figure = TRUE
+  figures = TRUE
 )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
 <div id="create-and-check-the-control-file" class="section level2">
 <h2>Create and check the control file</h2>
 <p>The control file is a CSV file (spreadsheet) that describes your
@@ -1942,6 +1884,15 @@ AutoSpectral::create.control.file(
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p><code>create.control.file()</code> now defaults to
+<code>legacy = FALSE</code>, so the draft control file is set up for the
+automated extraction pipeline below: you’ll still need to fill in
+<code>marker</code>, <code>fluorophore</code>,
+<code>control.type</code>, and <code>universal.negative</code>, but you
+can leave <code>gate.name</code>/<code>gate.define</code> blank – those
+columns are only read by the legacy gating pipeline. The peak-channel
+<code>channel</code> column is optional too; it’s determined
+automatically from the data.</p>
 <p>Once you have edited your control file, check it:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1958,67 +1909,54 @@ AutoSpectral::check.control.file(
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="load-the-data" class="section level2">
-<h2>Load the data</h2>
-<p>This step will likely take a few minutes. AutoSpectral will now take
-all of the information in the control file, read in all the
-single-stained FCS files, determine gates to use and extract the
-information in the gates for downstream usage. This can go faster by
-setting <code>parallel = TRUE</code>.</p>
+<div id="extract-the-fluorophore-spectral-profiles" class="section level2">
+<h2>Extract the fluorophore spectral profiles</h2>
+<p>This replaces the old three-step <code>define.flow.control()</code>
+-&gt; <code>clean.controls()</code> -&gt;
+<code>get.fluorophore.spectra()</code> sequence with a single call. No
+manual gating is required: saturation removal, singlet gating,
+AF-orthogonalised cosine filtering of the brightest candidate events,
+and kNN scatter-matched per-event background subtraction all happen
+internally, with an automatic per-fluorophore fallback to the legacy
+pipeline if the automated result doesn’t pass its own cosine-similarity
+QC check against the reference spectral library.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXh2ZHk1amIyNTBjbTlzSUR3dElFRjFkRzlUY0dWamRISmhiRG82WkdWbWFXNWxMbVpzYjNjdVkyOXVkSEp2YkNoY2JpQWdZMjl1ZEhKdmJDNWthWElnUFNCamIyNTBjbTlzTG1admJHUmxjaXhjYmlBZ1kyOXVkSEp2YkM1a1pXWXVabWxzWlNBOUlHTnZiblJ5YjJ3dVptbHNaU3hjYmlBZ1lYTndJRDBnWVhWMGIzTndaV04wY21Gc0xuQmhjbUZ0WlhSbGNuTXNYRzRnSUhCaGNtRnNiR1ZzSUQwZ1JrRk1VMFZjYmlsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5mbG93LmNvbnRyb2wgPC0gQXV0b1NwZWN0cmFsOjpkZWZpbmUuZmxvdy5jb250cm9sKFxuICBjb250cm9sLmRpciA9IGNvbnRyb2wuZm9sZGVyLFxuICBjb250cm9sLmRlZi5maWxlID0gY29udHJvbC5maWxlLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgcGFyYWxsZWwgPSBGQUxTRVxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmxvdy5jb250cm9sIDwtIEF1dG9TcGVjdHJhbDo6ZGVmaW5lLmZsb3cuY29udHJvbChcbiAgY29udHJvbC5kaXIgPSBjb250cm9sLmZvbGRlcixcbiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIHBhcmFsbGVsID0gRkFMU0VcbilcbmBgYCJ9 -->
-<pre class="r"><code>flow.control &lt;- AutoSpectral::define.flow.control(
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXgxYjNKdmNHaHZjbVV1YzNCbFkzUnlZU0E4TFNCQmRYUnZVM0JsWTNSeVlXdzZPbWRsZEM1emNHVmpkSEpoTG1GMWRHOXRZWFJsWkNoY2JpQWdZMjl1ZEhKdmJDNWthWElnUFNCamIyNTBjbTlzTG1admJHUmxjaXhjYmlBZ1kyOXVkSEp2YkM1a1pXWXVabWxzWlNBOUlHTnZiblJ5YjJ3dVptbHNaU3hjYmlBZ1lYTndJRDBnWVhWMGIzTndaV04wY21Gc0xuQmhjbUZ0WlhSbGNuTmNiaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZsdW9yb3Bob3JlLnNwZWN0cmEgPC0gQXV0b1NwZWN0cmFsOjpnZXQuc3BlY3RyYS5hdXRvbWF0ZWQoXG4gIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsXG4gIGNvbnRyb2wuZGVmLmZpbGUgPSBjb250cm9sLmZpbGUsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmx1b3JvcGhvcmUuc3BlY3RyYSA8LSBBdXRvU3BlY3RyYWw6OmdldC5zcGVjdHJhLmF1dG9tYXRlZChcbiAgY29udHJvbC5kaXIgPSBjb250cm9sLmZvbGRlcixcbiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnNcbilcbmBgYCJ9 -->
+<pre class="r"><code>fluorophore.spectra &lt;- AutoSpectral::get.spectra.automated(
   control.dir = control.folder,
   control.def.file = control.file,
-  asp = autospectral.parameters,
-  parallel = FALSE
-)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Check the plots in folder <code>figure_gate</code> to be sure the
-gating is working appropriately for your samples. See the help pages if
-it does not look good.</p>
-</div>
-<div id="clean-the-controls" class="section level2">
-<h2>Clean the controls</h2>
-<p>This will also take a few minutes, most likely. In this step, we are
-trying to identify the most useful events in the single-stained controls
-for determining the fluorophore spectra. This involves removing any
-cells (in cell-based controls) that interfere with the measurement
-(e.g., autofluorescent macrophages or dead cells), selecting the
-brightest events and matching the background of those events in the
-unstained sample.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZMnhsWVc1bFpDNWpiMjUwY205c2N5QThMU0JCZFhSdlUzQmxZM1J5WVd3Nk9tTnNaV0Z1TG1OdmJuUnliMnh6S0Z4dUlDQm1iRzkzTG1OdmJuUnliMndnUFNCbWJHOTNMbU52Ym5SeWIyd3NYRzRnSUdGemNDQTlJR0YxZEc5emNHVmpkSEpoYkM1d1lYSmhiV1YwWlhKelhHNHBYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmNsZWFuZWQuY29udHJvbHMgPC0gQXV0b1NwZWN0cmFsOjpjbGVhbi5jb250cm9scyhcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVyc1xuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xlYW5lZC5jb250cm9scyA8LSBBdXRvU3BlY3RyYWw6OmNsZWFuLmNvbnRyb2xzKFxuICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzXG4pXG5gYGAifQ== -->
-<pre class="r"><code>cleaned.controls &lt;- AutoSpectral::clean.controls(
-  flow.control = flow.control,
   asp = autospectral.parameters
 )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-</div>
-<div id="measure-the-fluorophore-spectral-profiles" class="section level2">
-<h2>Measure the fluorophore spectral profiles</h2>
-<p>Now we will extract the fluorophore spectral information from the
-cleaned data. This should be relatively quick. Plots will appear in
-<code>figure_spectra</code> and
-<code>figure_similarity_heatmap</code>.</p>
+<p>The default settings work well across a wide range of panels, but can
+be tuned if needed (<code>n.candidates</code>, <code>n.spectral</code>,
+<code>k.neighbors</code>, <code>cosine.threshold</code>, etc. – see <a href="https://drcytometer.github.io/AutoSpectral/articles/01_Automated_Spectral_Workflow.html">AutoSpectral
+Workflow</a> for the full parameter reference). Check the diagnostic
+plots in <code>figure_spectra</code>,
+<code>figure_similarity_heatmap</code>,
+<code>figure_scatter_match</code> and the per-fluorophore QC report in
+<code>figure_spectral_ribbon</code>; anything flagged
+<code>LEGACY_REFINEMENT</code> in the console QC summary is worth a
+look.</p>
+<p>We also need a minimal <code>flow.control</code> object – this just
+carries the antigen/fluorophore name lookup used later on (e.g. by
+<code>unmix.backbone()</code>, <code>launch.threshold.app()</code>, and
+when writing FCS keywords). It replaces the old, fully-gated object that
+used to come out of
+<code>define.flow.control()</code>/<code>clean.controls()</code>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXgxYjNKdmNHaHZjbVV1YzNCbFkzUnlZU0E4TFNCQmRYUnZVM0JsWTNSeVlXdzZPbWRsZEM1bWJIVnZjbTl3YUc5eVpTNXpjR1ZqZEhKaEtGeHVJQ0JtYkc5M0xtTnZiblJ5YjJ3Z1BTQmpiR1ZoYm1Wa0xtTnZiblJ5YjJ4ekxGeHVJQ0JoYzNBZ1BTQmhkWFJ2YzNCbFkzUnlZV3d1Y0dGeVlXMWxkR1Z5Y3l4Y2JpQWdkWE5sTG1Oc1pXRnVMbVY0Y0hJZ1BTQlVVbFZGWEc0cFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuZmx1b3JvcGhvcmUuc3BlY3RyYSA8LSBBdXRvU3BlY3RyYWw6OmdldC5mbHVvcm9waG9yZS5zcGVjdHJhKFxuICBmbG93LmNvbnRyb2wgPSBjbGVhbmVkLmNvbnRyb2xzLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgdXNlLmNsZWFuLmV4cHIgPSBUUlVFXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmx1b3JvcGhvcmUuc3BlY3RyYSA8LSBBdXRvU3BlY3RyYWw6OmdldC5mbHVvcm9waG9yZS5zcGVjdHJhKFxuICBmbG93LmNvbnRyb2wgPSBjbGVhbmVkLmNvbnRyb2xzLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgdXNlLmNsZWFuLmV4cHIgPSBUUlVFXG4pXG5gYGAifQ== -->
-<pre class="r"><code>fluorophore.spectra &lt;- AutoSpectral::get.fluorophore.spectra(
-  flow.control = cleaned.controls,
-  asp = autospectral.parameters,
-  use.clean.expr = TRUE
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXh2ZHk1amIyNTBjbTlzSUR3dElFRjFkRzlUY0dWamRISmhiRG82Y21Wc2IyRmtMbVpzYjNjdVkyOXVkSEp2YkNoY2JpQWdZMjl1ZEhKdmJDNWthWElnUFNCamIyNTBjbTlzTG1admJHUmxjaXhjYmlBZ1kyOXVkSEp2YkM1a1pXWXVabWxzWlNBOUlHTnZiblJ5YjJ3dVptbHNaU3hjYmlBZ1lYTndJRDBnWVhWMGIzTndaV04wY21Gc0xuQmhjbUZ0WlhSbGNuTmNiaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZsb3cuY29udHJvbCA8LSBBdXRvU3BlY3RyYWw6OnJlbG9hZC5mbG93LmNvbnRyb2woXG4gIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsXG4gIGNvbnRyb2wuZGVmLmZpbGUgPSBjb250cm9sLmZpbGUsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmxvdy5jb250cm9sIDwtIEF1dG9TcGVjdHJhbDo6cmVsb2FkLmZsb3cuY29udHJvbChcbiAgY29udHJvbC5kaXIgPSBjb250cm9sLmZvbGRlcixcbiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnNcbilcbmBgYCJ9 -->
+<pre class="r"><code>flow.control &lt;- AutoSpectral::reload.flow.control(
+  control.dir = control.folder,
+  control.def.file = control.file,
+  asp = autospectral.parameters
 )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
@@ -2055,6 +1993,12 @@ controls.</p>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Note that <code>refine</code> currently defaults to
+<code>TRUE</code>: after the initial SOM-based clustering, a second pass
+of targeted modulation runs on cells that remain furthest from zero,
+which helps with messier tissue samples at the cost of some extra time.
+If you’re working with clean lymphoid samples (spleen, PBMCs) and want
+the quicker first-pass-only result, set <code>refine = FALSE</code>.</p>
 </div>
 <div id="determine-spectral-variation-in-the-fluorophores" class="section level2">
 <h2>Determine spectral variation in the fluorophores</h2>
@@ -2063,23 +2007,29 @@ variation, we can extract the variation from the fluorophore emissions
 themselves.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXgxYjNKdmNHaHZjbVV1ZG1GeWFXRjBhVzl1SUR3dElFRjFkRzlUY0dWamRISmhiRG82WjJWMExuTndaV04wY21Gc0xuWmhjbWxoYm5SektGeHVJQ0JqYjI1MGNtOXNMbVJwY2lBOUlHTnZiblJ5YjJ3dVptOXNaR1Z5TEZ4dUlDQmpiMjUwY205c0xtUmxaaTVtYVd4bElEMGdZMjl1ZEhKdmJDNW1hV3hsTEZ4dUlDQmhjM0FnUFNCaGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcxbGRHVnljeXhjYmlBZ2MzQmxZM1J5WVNBOUlHWnNkVzl5YjNCb2IzSmxMbk53WldOMGNtRXNYRzRnSUdGbUxuTndaV04wY21FZ1BTQnpjR3hsWlc0dVlYVjBiMlpzZFc5eVpYTmpaVzVqWlN4Y2JpQWdjR0Z5WVd4c1pXd2dQU0JHUVV4VFJWeHVLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmZsdW9yb3Bob3JlLnZhcmlhdGlvbiA8LSBBdXRvU3BlY3RyYWw6OmdldC5zcGVjdHJhbC52YXJpYW50cyhcbiAgY29udHJvbC5kaXIgPSBjb250cm9sLmZvbGRlcixcbiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIHBhcmFsbGVsID0gRkFMU0VcbilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmx1b3JvcGhvcmUudmFyaWF0aW9uIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LnNwZWN0cmFsLnZhcmlhbnRzKFxuICBjb250cm9sLmRpciA9IGNvbnRyb2wuZm9sZGVyLFxuICBjb250cm9sLmRlZi5maWxlID0gY29udHJvbC5maWxlLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSxcbiAgcGFyYWxsZWwgPSBGQUxTRVxuKVxuYGBgIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXgxYjNKdmNHaHZjbVV1ZG1GeWFXRjBhVzl1SUR3dElFRjFkRzlUY0dWamRISmhiRG82WjJWMExuTndaV04wY21Gc0xuWmhjbWxoYm5SektGeHVJQ0JqYjI1MGNtOXNMbVJwY2lBOUlHTnZiblJ5YjJ3dVptOXNaR1Z5TEZ4dUlDQmpiMjUwY205c0xtUmxaaTVtYVd4bElEMGdZMjl1ZEhKdmJDNW1hV3hsTEZ4dUlDQmhjM0FnUFNCaGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcxbGRHVnljeXhjYmlBZ2MzQmxZM1J5WVNBOUlHWnNkVzl5YjNCb2IzSmxMbk53WldOMGNtRXNYRzRnSUhCaGNtRnNiR1ZzSUQwZ1JrRk1VMFZjYmlsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5mbHVvcm9waG9yZS52YXJpYXRpb24gPC0gQXV0b1NwZWN0cmFsOjpnZXQuc3BlY3RyYWwudmFyaWFudHMoXG4gIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsXG4gIGNvbnRyb2wuZGVmLmZpbGUgPSBjb250cm9sLmZpbGUsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSxcbiAgcGFyYWxsZWwgPSBGQUxTRVxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmx1b3JvcGhvcmUudmFyaWF0aW9uIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LnNwZWN0cmFsLnZhcmlhbnRzKFxuICBjb250cm9sLmRpciA9IGNvbnRyb2wuZm9sZGVyLFxuICBjb250cm9sLmRlZi5maWxlID0gY29udHJvbC5maWxlLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIHBhcmFsbGVsID0gRkFMU0VcbilcbmBgYCJ9 -->
 <pre class="r"><code>fluorophore.variation &lt;- AutoSpectral::get.spectral.variants(
   control.dir = control.folder,
   control.def.file = control.file,
   asp = autospectral.parameters,
   spectra = fluorophore.spectra,
-  af.spectra = spleen.autofluorescence,
   parallel = FALSE
 )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>As of AutoSpectral 1.6.0, <code>get.spectral.variants()</code> no
+longer takes an <code>af.spectra</code> argument – autofluorescence for
+this step is now derived in situ, per fluorophore, from the
+universal-negative files already listed in your control table. Passing
+<code>af.spectra</code> here (even positionally) will trigger a
+deprecation warning and be silently ignored, so don’t rely on it.</p>
 <p>That is the end of the normal AutoSpectral workflow for us. We now
 need to do some FlowCode-specific steps before proceeding to the
 debarcoding and unmixing.</p>
+</div>
 </div>
 <div id="flowcode-unmixing-workflow" class="section level1">
 <h1>FlowCode Unmixing Workflow</h1>
@@ -2087,8 +2037,9 @@ debarcoding and unmixing.</p>
 information: * Which are the FlowCode epitope tag channels? * What are
 the valid FlowCode combinations (in the combination file)? * What is the
 name (guide/TCR) of each combination (in the combination file)? * Where
-are the cells (user-drawn gate)? * What variation in fluorophore output
-is created by the combinations due to FRET or a FRET-like artifact? For
+are the cells (automatically gated around the brightest
+FlowCode-expressing events)? * What variation in fluorophore output is
+created by the combinations due to FRET or a FRET-like artifact? For
 this, we need your backbone control, stained only with the FlowCode
 epitope antibodies. All combinations should be well represented for best
 results.</p>
@@ -2111,26 +2062,53 @@ the AutoSpectral unmixing approach. This is a spleen-based sample, so we
 use <code>spleen.autofluorescence</code>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSbXh2ZDBOdlpHVlZibTFwZURvNmRXNXRhWGd1WW1GamEySnZibVVvWEc0Z0lDQm1iRzkzWTI5a1pTNWlZV05yWW05dVpTNW1ZM01nUFNCbWJHOTNZMjlrWlM1aVlXTnJZbTl1WlN4Y2JpQWdJSE53WldOMGNtRWdQU0JtYkhWdmNtOXdhRzl5WlM1emNHVmpkSEpoTEZ4dUlDQWdZV1l1YzNCbFkzUnlZU0E5SUhOd2JHVmxiaTVoZFhSdlpteDFiM0psYzJObGJtTmxMRnh1SUNBZ1pteHZkeTVqYjI1MGNtOXNJRDBnWTJ4bFlXNWxaQzVqYjI1MGNtOXNjeXhjYmlBZ0lHRnpjQ0E5SUdGMWRHOXpjR1ZqZEhKaGJDNXdZWEpoYldWMFpYSnpMRnh1SUNBZ1pteHZkMk52WkdVdVkyOXRZbTh1Wm1sc1pTQTlJR052YldKdkxtWnBiR1VzWEc0Z0lDQnZkWFJ3ZFhRdVpHbHlJRDBnWENJdUwyWnNiM2RqYjJSbFgzTndaV04wY21GY0lpeGNiaUFnSUdacGJHVnVZVzFsSUQwZ1hDSkdiRzkzUTI5a1pWOUNZV05yWW05dVpTNXlaSE5jSWx4dUtWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuRmxvd0NvZGVVbm1peDo6dW5taXguYmFja2JvbmUoXG4gICBmbG93Y29kZS5iYWNrYm9uZS5mY3MgPSBmbG93Y29kZS5iYWNrYm9uZSxcbiAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scyxcbiAgIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsXG4gICBvdXRwdXQuZGlyID0gXCIuL2Zsb3djb2RlX3NwZWN0cmFcIixcbiAgIGZpbGVuYW1lID0gXCJGbG93Q29kZV9CYWNrYm9uZS5yZHNcIlxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmxvd0NvZGVVbm1peDo6dW5taXguYmFja2JvbmUoXG4gICBmbG93Y29kZS5iYWNrYm9uZS5mY3MgPSBmbG93Y29kZS5iYWNrYm9uZSxcbiAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scyxcbiAgIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsXG4gICBvdXRwdXQuZGlyID0gXCIuL2Zsb3djb2RlX3NwZWN0cmFcIixcbiAgIGZpbGVuYW1lID0gXCJGbG93Q29kZV9CYWNrYm9uZS5yZHNcIlxuKVxuYGBgIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSbXh2ZDBOdlpHVlZibTFwZURvNmRXNXRhWGd1WW1GamEySnZibVVvWEc0Z0lDQm1iRzkzWTI5a1pTNWlZV05yWW05dVpTNW1ZM01nUFNCbWJHOTNZMjlrWlM1aVlXTnJZbTl1WlN4Y2JpQWdJSE53WldOMGNtRWdQU0JtYkhWdmNtOXdhRzl5WlM1emNHVmpkSEpoTEZ4dUlDQWdZV1l1YzNCbFkzUnlZU0E5SUhOd2JHVmxiaTVoZFhSdlpteDFiM0psYzJObGJtTmxMRnh1SUNBZ2MzQmxZM1J5WVM1MllYSnBZVzUwY3lBOUlHWnNkVzl5YjNCb2IzSmxMblpoY21saGRHbHZiaXhjYmlBZ0lHWnNiM2N1WTI5dWRISnZiQ0E5SUdac2IzY3VZMjl1ZEhKdmJDeGNiaUFnSUdGemNDQTlJR0YxZEc5emNHVmpkSEpoYkM1d1lYSmhiV1YwWlhKekxGeHVJQ0FnWm14dmQyTnZaR1V1WTI5dFltOHVabWxzWlNBOUlHTnZiV0p2TG1acGJHVXNYRzRnSUNCdmRYUndkWFF1WkdseUlEMGdYQ0l1TDJac2IzZGpiMlJsWDNOd1pXTjBjbUZjSWl4Y2JpQWdJR1pwYkdWdVlXMWxJRDBnWENKR2JHOTNRMjlrWlY5Q1lXTnJZbTl1WlM1eVpITmNJaXhjYmlBZ0lIQmhjbUZzYkdWc0lEMGdWRkpWUlZ4dUtWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuRmxvd0NvZGVVbm1peDo6dW5taXguYmFja2JvbmUoXG4gICBmbG93Y29kZS5iYWNrYm9uZS5mY3MgPSBmbG93Y29kZS5iYWNrYm9uZSxcbiAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCxcbiAgIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsXG4gICBvdXRwdXQuZGlyID0gXCIuL2Zsb3djb2RlX3NwZWN0cmFcIixcbiAgIGZpbGVuYW1lID0gXCJGbG93Q29kZV9CYWNrYm9uZS5yZHNcIixcbiAgIHBhcmFsbGVsID0gVFJVRVxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmxvd0NvZGVVbm1peDo6dW5taXguYmFja2JvbmUoXG4gICBmbG93Y29kZS5iYWNrYm9uZS5mY3MgPSBmbG93Y29kZS5iYWNrYm9uZSxcbiAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCxcbiAgIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsXG4gICBvdXRwdXQuZGlyID0gXCIuL2Zsb3djb2RlX3NwZWN0cmFcIixcbiAgIGZpbGVuYW1lID0gXCJGbG93Q29kZV9CYWNrYm9uZS5yZHNcIixcbiAgIHBhcmFsbGVsID0gVFJVRVxuKVxuYGBgIn0= -->
 <pre class="r"><code>FlowCodeUnmix::unmix.backbone(
    flowcode.backbone.fcs = flowcode.backbone,
    spectra = fluorophore.spectra,
    af.spectra = spleen.autofluorescence,
-   flow.control = cleaned.controls,
+   spectra.variants = fluorophore.variation,
+   flow.control = flow.control,
    asp = autospectral.parameters,
    flowcode.combo.file = combo.file,
    output.dir = &quot;./flowcode_spectra&quot;,
-   filename = &quot;FlowCode_Backbone.rds&quot;
+   filename = &quot;FlowCode_Backbone.rds&quot;,
+   parallel = TRUE
 )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>This saves the output as an RDS file in the folder specified by
-<code>output.dir</code>. If you change <code>output.dir</code>, you’ll
-need to change it later in <code>get.flowcode.spectra()</code>. *Note:
-change to returning object</p>
+<p>A couple of things changed here beyond the <code>flow.control</code>
+rename above:</p>
+<ul>
+<li><code>spectra.variants</code> is a new, optional-but-recommended
+argument. When supplied, each combo fluorophore’s per-cell best-fitting
+spectral variant is substituted before the FRET residual is computed
+(identically for the combo’s own cells and for the untransduced
+background pool), so ordinary single-colour spectral drift isn’t
+mistaken for FRET. It’s also a prerequisite, together with
+<code>af.spectra</code>, for <code>plot.corrections = TRUE</code> later
+in <code>get.flowcode.spectra()</code>.</li>
+<li>Before the gate is even defined, the backbone data now goes through
+automatic saturation removal and a two-pass Area/Height scatter-ratio
+singlet gate (<code>singlet.quantiles = c(0.85, 0.975)</code> by
+default, skipped with a message if Height channels aren’t present). A
+doublet carrying two different barcodes would otherwise still debarcode
+to a single Id, and its unmixing residual – driven by the second,
+uncounted barcode’s own spillover – would look exactly like FRET and
+contaminate the measured FRET spectra.</li>
+<li><code>parallel</code>/<code>threads</code> now control the
+AF-extraction unmix over the gated events, same convention as elsewhere
+(<code>threads = 0</code> means “all available cores”).</li>
+</ul>
+<p>This saves the output as an RDS file (a large one, plus a downsampled
+<code>Small_...</code> companion capped at 30,000 events) in the folder
+specified by <code>output.dir</code>. If you change
+<code>output.dir</code>, you’ll need to change it later in
+<code>get.flowcode.spectra()</code>. *Note: change to returning
+object</p>
 </div>
 <div id="setting-thresholds" class="section level2">
 <h2>Setting thresholds</h2>
@@ -2144,16 +2122,29 @@ unmixing issues.</p>
 in Orian Bricard’s FlowCode debarcoding app.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSbXh2ZDBOdlpHVlZibTFwZURvNmJHRjFibU5vTG5Sb2NtVnphRzlzWkM1aGNIQW9LVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbkZsb3dDb2RlVW5taXg6OmxhdW5jaC50aHJlc2hvbGQuYXBwKClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmxvd0NvZGVVbm1peDo6bGF1bmNoLnRocmVzaG9sZC5hcHAoKVxuYGBgIn0= -->
-<pre class="r"><code>FlowCodeUnmix::launch.threshold.app()</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSbXh2ZDBOdlpHVlZibTFwZURvNmJHRjFibU5vTG5Sb2NtVnphRzlzWkM1aGNIQW9YRzRnSUdKaFkydGliMjVsTG5Ka2N5QTlJRndpTGk5bWJHOTNZMjlrWlY5emNHVmpkSEpoTDBac2IzZERiMlJsWDBKaFkydGliMjVsTG5Ka2Mxd2lYRzRwWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5GbG93Q29kZVVubWl4OjpsYXVuY2gudGhyZXNob2xkLmFwcChcbiAgYmFja2JvbmUucmRzID0gXCIuL2Zsb3djb2RlX3NwZWN0cmEvRmxvd0NvZGVfQmFja2JvbmUucmRzXCJcbilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmxvd0NvZGVVbm1peDo6bGF1bmNoLnRocmVzaG9sZC5hcHAoXG4gIGJhY2tib25lLnJkcyA9IFwiLi9mbG93Y29kZV9zcGVjdHJhL0Zsb3dDb2RlX0JhY2tib25lLnJkc1wiXG4pXG5gYGAifQ== -->
+<pre class="r"><code>FlowCodeUnmix::launch.threshold.app(
+  backbone.rds = &quot;./flowcode_spectra/FlowCode_Backbone.rds&quot;
+)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>When you’re done, you should have a CSV file (spreadsheet), which is
-pretty simple and just contains the numerical value corresponding to the
-threshold for each FlowCode channel.</p>
+<p>Pointing <code>backbone.rds</code> at the RDS file saved by
+<code>unmix.backbone()</code> lets the app load the fluorophore-tag
+mapping and spectra straight out of it, so you no longer need to
+separately pass
+<code>flowcode.combo.file</code>/<code>flow.control</code> here (the
+downsampled <code>Small_...</code> file works just as well and loads
+faster). If you’d rather browse for a file interactively, or point the
+app at a raw/not-yet-unmixed FCS file, you can still leave
+<code>backbone.rds</code> as <code>NULL</code> and use the app’s own
+file picker.</p>
+<p>When you’re done, you should have a CSV file (spreadsheet) with
+<code>Fluor</code> and <code>Threshold_Raw</code> columns, giving the
+threshold for each FlowCode channel in raw, untransformed unmixed
+scale.</p>
 </div>
 <div id="measuring-fret-unmixing-errors-due-to-flowcodes" class="section level2">
 <h2>Measuring FRET (unmixing) errors due to FlowCodes</h2>
@@ -2164,11 +2155,14 @@ gives us a set of potential corrections to apply to each cell for a
 given barcode combination.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXh2ZDJOdlpHVXVjM0JsWTNSeVlTQThMU0JHYkc5M1EyOWtaVlZ1YldsNE9qcG5aWFF1Wm14dmQyTnZaR1V1YzNCbFkzUnlZU2hjYmlBZ1ltRmphMkp2Ym1VdWNtUnpJRDBnWENJdUwyWnNiM2RqYjJSbFgzTndaV04wY21FdlJteHZkME52WkdWZlFtRmphMkp2Ym1VdWNtUnpYQ0lzWEc0Z0lIUm9jbVZ6YUc5c1pITXVabWxzWlNBOUlGd2lMaTltYkc5M1kyOWtaVjl6Y0dWamRISmhMM1JvY21WemFHOXNaSE11WTNOMlhDSXNYRzRnSUc5MWRIQjFkQzVrYVhJZ1BTQmNJaTR2Wm14dmQyTnZaR1ZmYzNCbFkzUnlZVndpTEZ4dUlDQm1hV3hsYm1GdFpTQTlJRndpUm14dmQwTnZaR1ZmVTNCbFkzUnlZUzV5WkhOY0lpeGNiaUFnY0d4dmRDNWpiM0p5WldOMGFXOXVjeUE5SUZSU1ZVVmNiaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZsb3djb2RlLnNwZWN0cmEgPC0gRmxvd0NvZGVVbm1peDo6Z2V0LmZsb3djb2RlLnNwZWN0cmEoXG4gIGJhY2tib25lLnJkcyA9IFwiLi9mbG93Y29kZV9zcGVjdHJhL0Zsb3dDb2RlX0JhY2tib25lLnJkc1wiLFxuICB0aHJlc2hvbGRzLmZpbGUgPSBcIi4vZmxvd2NvZGVfc3BlY3RyYS90aHJlc2hvbGRzLmNzdlwiLFxuICBvdXRwdXQuZGlyID0gXCIuL2Zsb3djb2RlX3NwZWN0cmFcIixcbiAgZmlsZW5hbWUgPSBcIkZsb3dDb2RlX1NwZWN0cmEucmRzXCIsXG4gIHBsb3QuY29ycmVjdGlvbnMgPSBUUlVFXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmxvd2NvZGUuc3BlY3RyYSA8LSBGbG93Q29kZVVubWl4OjpnZXQuZmxvd2NvZGUuc3BlY3RyYShcbiAgYmFja2JvbmUucmRzID0gXCIuL2Zsb3djb2RlX3NwZWN0cmEvRmxvd0NvZGVfQmFja2JvbmUucmRzXCIsXG4gIHRocmVzaG9sZHMuZmlsZSA9IFwiLi9mbG93Y29kZV9zcGVjdHJhL3RocmVzaG9sZHMuY3N2XCIsXG4gIG91dHB1dC5kaXIgPSBcIi4vZmxvd2NvZGVfc3BlY3RyYVwiLFxuICBmaWxlbmFtZSA9IFwiRmxvd0NvZGVfU3BlY3RyYS5yZHNcIixcbiAgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUVcbilcbmBgYCJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXh2ZDJOdlpHVXVjM0JsWTNSeVlTQThMU0JHYkc5M1EyOWtaVlZ1YldsNE9qcG5aWFF1Wm14dmQyTnZaR1V1YzNCbFkzUnlZU2hjYmlBZ1ltRmphMkp2Ym1VdWNtUnpJRDBnWENJdUwyWnNiM2RqYjJSbFgzTndaV04wY21FdlJteHZkME52WkdWZlFtRmphMkp2Ym1VdWNtUnpYQ0lzWEc0Z0lIUm9jbVZ6YUc5c1pITXVabWxzWlNBOUlGd2lMaTltYkc5M1kyOWtaVjl6Y0dWamRISmhMM1JvY21WemFHOXNaSE11WTNOMlhDSXNYRzRnSUdGemNDQTlJR0YxZEc5emNHVmpkSEpoYkM1d1lYSmhiV1YwWlhKekxGeHVJQ0J6Y0dWamRISmhMblpoY21saGJuUnpJRDBnWm14MWIzSnZjR2h2Y21VdWRtRnlhV0YwYVc5dUxGeHVJQ0JoWmk1emNHVmpkSEpoSUQwZ2MzQnNaV1Z1TG1GMWRHOW1iSFZ2Y21WelkyVnVZMlVzWEc0Z0lHOTFkSEIxZEM1a2FYSWdQU0JjSWk0dlpteHZkMk52WkdWZmMzQmxZM1J5WVZ3aUxGeHVJQ0JtYVd4bGJtRnRaU0E5SUZ3aVJteHZkME52WkdWZlUzQmxZM1J5WVM1eVpITmNJaXhjYmlBZ2NHeHZkQzVqYjNKeVpXTjBhVzl1Y3lBOUlGUlNWVVZjYmlsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5mbG93Y29kZS5zcGVjdHJhIDwtIEZsb3dDb2RlVW5taXg6OmdldC5mbG93Y29kZS5zcGVjdHJhKFxuICBiYWNrYm9uZS5yZHMgPSBcIi4vZmxvd2NvZGVfc3BlY3RyYS9GbG93Q29kZV9CYWNrYm9uZS5yZHNcIixcbiAgdGhyZXNob2xkcy5maWxlID0gXCIuL2Zsb3djb2RlX3NwZWN0cmEvdGhyZXNob2xkcy5jc3ZcIixcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSxcbiAgb3V0cHV0LmRpciA9IFwiLi9mbG93Y29kZV9zcGVjdHJhXCIsXG4gIGZpbGVuYW1lID0gXCJGbG93Q29kZV9TcGVjdHJhLnJkc1wiLFxuICBwbG90LmNvcnJlY3Rpb25zID0gVFJVRVxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmxvd2NvZGUuc3BlY3RyYSA8LSBGbG93Q29kZVVubWl4OjpnZXQuZmxvd2NvZGUuc3BlY3RyYShcbiAgYmFja2JvbmUucmRzID0gXCIuL2Zsb3djb2RlX3NwZWN0cmEvRmxvd0NvZGVfQmFja2JvbmUucmRzXCIsXG4gIHRocmVzaG9sZHMuZmlsZSA9IFwiLi9mbG93Y29kZV9zcGVjdHJhL3RocmVzaG9sZHMuY3N2XCIsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIG91dHB1dC5kaXIgPSBcIi4vZmxvd2NvZGVfc3BlY3RyYVwiLFxuICBmaWxlbmFtZSA9IFwiRmxvd0NvZGVfU3BlY3RyYS5yZHNcIixcbiAgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUVcbilcbmBgYCJ9 -->
 <pre class="r"><code>flowcode.spectra &lt;- FlowCodeUnmix::get.flowcode.spectra(
   backbone.rds = &quot;./flowcode_spectra/FlowCode_Backbone.rds&quot;,
   thresholds.file = &quot;./flowcode_spectra/thresholds.csv&quot;,
+  asp = autospectral.parameters,
+  spectra.variants = fluorophore.variation,
+  af.spectra = spleen.autofluorescence,
   output.dir = &quot;./flowcode_spectra&quot;,
   filename = &quot;FlowCode_Spectra.rds&quot;,
   plot.corrections = TRUE
@@ -2177,6 +2171,67 @@ given barcode combination.</p>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>This function has changed substantially. Note in particular:</p>
+<ul>
+<li><strong><code>AutoSpectralRcpp</code> is now a hard
+requirement</strong> – Stage 1 (a debarcoding-quality unmix, using the
+same tuning the production pipeline uses so characterisation and
+correction agree on debarcoding/background/AF from the start) runs
+through <code>AutoSpectralRcpp::unmix.autospectral.rcpp()</code>. There
+is currently no pure-R fallback for this function.</li>
+<li><code>spectra.variants</code> and <code>af.spectra</code> are now
+required arguments to get <code>plot.corrections = TRUE</code> to work,
+since the before/after plots re-run the full production pipeline
+(<code>unmix.flowcode.cpp.staged()</code>) on the backbone.</li>
+<li>Background is now handled by a single <strong>pooled,
+cross-combo</strong> median correction per FlowCode fluorophore
+(computed from off-target observations across every valid combo, then
+subtracted from every cell, transduced or not), rather than anything
+per-combo – this is what separates genuine non-specific
+background/staining from real FRET.</li>
+<li><code>background.pool.n</code> (default <code>5000</code>) controls
+how many untransduced cells are used as the scatter-matching/reference
+pool, and <code>n.cells.per.combo</code> (default <code>500</code>) caps
+how many of a combo’s own brightest events are used when measuring its
+FRET spectra.</li>
+<li><code>som.dim</code> (default <code>10</code>) is the base SOM grid
+side length used to cluster each combo’s residuals into candidate FRET
+variants; it’s shrunk automatically for combos with fewer than 500
+retained cells.</li>
+</ul>
+<p>There are also two optional QC filters, both off by default, that you
+can turn on if you see noisy or implausible FRET variants coming out of
+a combo:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabXh2ZDJOdlpHVXVjM0JsWTNSeVlTQThMU0JHYkc5M1EyOWtaVlZ1YldsNE9qcG5aWFF1Wm14dmQyTnZaR1V1YzNCbFkzUnlZU2hjYmlBZ1ltRmphMkp2Ym1VdWNtUnpJRDBnWENJdUwyWnNiM2RqYjJSbFgzTndaV04wY21FdlJteHZkME52WkdWZlFtRmphMkp2Ym1VdWNtUnpYQ0lzWEc0Z0lIUm9jbVZ6YUc5c1pITXVabWxzWlNBOUlGd2lMaTltYkc5M1kyOWtaVjl6Y0dWamRISmhMM1JvY21WemFHOXNaSE11WTNOMlhDSXNYRzRnSUdGemNDQTlJR0YxZEc5emNHVmpkSEpoYkM1d1lYSmhiV1YwWlhKekxGeHVJQ0J6Y0dWamRISmhMblpoY21saGJuUnpJRDBnWm14MWIzSnZjR2h2Y21VdWRtRnlhV0YwYVc5dUxGeHVJQ0JoWmk1emNHVmpkSEpoSUQwZ2MzQnNaV1Z1TG1GMWRHOW1iSFZ2Y21WelkyVnVZMlVzWEc0Z0lHOTFkSEIxZEM1a2FYSWdQU0JjSWk0dlpteHZkMk52WkdWZmMzQmxZM1J5WVZ3aUxGeHVJQ0J3Ykc5MExtTnZjbkpsWTNScGIyNXpJRDBnVkZKVlJTeGNiaUFnWm5KbGRDNXRaV1JwWVc0dWNXTWdQU0JVVWxWRkxDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNNZ2JHOXZjMlVnYzJGdWFYUjVJR1pwYkhSbGNpQjJjeTRnZEdobElHTnZiV0p2SjNNZ2IzZHVJRzFsWkdsaGJpQkdVa1ZVSUdScGNtVmpkR2x2Ymx4dUlDQm1jbVYwTG0xbFpHbGhiaTV6YVcwdWRHaHlaWE5vYjJ4a0lEMGdNQ3dnSUNBZ0lDQWdJeUF3SUQwZ2IyNXNlU0JsZUdOc2RXUmxjeUJsZG1WdWRITWdjRzlwYm5ScGJtY2dkR2hsSUc5d2NHOXphWFJsSUhkaGVWeHVJQ0JtY21WMExtSmhZMnRuY205MWJtUXVjV01nUFNCVVVsVkZMQ0FnSUNBZ0lDQWdJQ0FnSXlCelkzSmxaVzV6SUdOaGJtUnBaR0YwWlNCMllYSnBZVzUwY3lCaFoyRnBibk4wSUdKaFkydG5jbTkxYm1RdGNHOXZiQ0JqYjI1MFlXMXBibUYwYVc5dVhHNGdJR1p5WlhRdVltRmphMmR5YjNWdVpDNXphVzB1ZEdoeVpYTm9iMnhrSUQwZ01DNDRJQ0FqSUdGaWMyOXNkWFJsSUdOdmMybHVaU0J6YVcxcGJHRnlhWFI1SUdOMWRHOW1aaUJtYjNJZ2RHaGhkQ0J6WTNKbFpXNWNiaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZsb3djb2RlLnNwZWN0cmEgPC0gRmxvd0NvZGVVbm1peDo6Z2V0LmZsb3djb2RlLnNwZWN0cmEoXG4gIGJhY2tib25lLnJkcyA9IFwiLi9mbG93Y29kZV9zcGVjdHJhL0Zsb3dDb2RlX0JhY2tib25lLnJkc1wiLFxuICB0aHJlc2hvbGRzLmZpbGUgPSBcIi4vZmxvd2NvZGVfc3BlY3RyYS90aHJlc2hvbGRzLmNzdlwiLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICBvdXRwdXQuZGlyID0gXCIuL2Zsb3djb2RlX3NwZWN0cmFcIixcbiAgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUUsXG4gIGZyZXQubWVkaWFuLnFjID0gVFJVRSwgICAgICAgICAgICAgICAjIGxvb3NlIHNhbml0eSBmaWx0ZXIgdnMuIHRoZSBjb21ibydzIG93biBtZWRpYW4gRlJFVCBkaXJlY3Rpb25cbiAgZnJldC5tZWRpYW4uc2ltLnRocmVzaG9sZCA9IDAsICAgICAgICMgMCA9IG9ubHkgZXhjbHVkZXMgZXZlbnRzIHBvaW50aW5nIHRoZSBvcHBvc2l0ZSB3YXlcbiAgZnJldC5iYWNrZ3JvdW5kLnFjID0gVFJVRSwgICAgICAgICAgICMgc2NyZWVucyBjYW5kaWRhdGUgdmFyaWFudHMgYWdhaW5zdCBiYWNrZ3JvdW5kLXBvb2wgY29udGFtaW5hdGlvblxuICBmcmV0LmJhY2tncm91bmQuc2ltLnRocmVzaG9sZCA9IDAuOCAgIyBhYnNvbHV0ZSBjb3NpbmUgc2ltaWxhcml0eSBjdXRvZmYgZm9yIHRoYXQgc2NyZWVuXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmxvd2NvZGUuc3BlY3RyYSA8LSBGbG93Q29kZVVubWl4OjpnZXQuZmxvd2NvZGUuc3BlY3RyYShcbiAgYmFja2JvbmUucmRzID0gXCIuL2Zsb3djb2RlX3NwZWN0cmEvRmxvd0NvZGVfQmFja2JvbmUucmRzXCIsXG4gIHRocmVzaG9sZHMuZmlsZSA9IFwiLi9mbG93Y29kZV9zcGVjdHJhL3RocmVzaG9sZHMuY3N2XCIsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIG91dHB1dC5kaXIgPSBcIi4vZmxvd2NvZGVfc3BlY3RyYVwiLFxuICBwbG90LmNvcnJlY3Rpb25zID0gVFJVRSxcbiAgZnJldC5tZWRpYW4ucWMgPSBUUlVFLCAgICAgICAgICAgICAgICMgbG9vc2Ugc2FuaXR5IGZpbHRlciB2cy4gdGhlIGNvbWJvJ3Mgb3duIG1lZGlhbiBGUkVUIGRpcmVjdGlvblxuICBmcmV0Lm1lZGlhbi5zaW0udGhyZXNob2xkID0gMCwgICAgICAgIyAwID0gb25seSBleGNsdWRlcyBldmVudHMgcG9pbnRpbmcgdGhlIG9wcG9zaXRlIHdheVxuICBmcmV0LmJhY2tncm91bmQucWMgPSBUUlVFLCAgICAgICAgICAgIyBzY3JlZW5zIGNhbmRpZGF0ZSB2YXJpYW50cyBhZ2FpbnN0IGJhY2tncm91bmQtcG9vbCBjb250YW1pbmF0aW9uXG4gIGZyZXQuYmFja2dyb3VuZC5zaW0udGhyZXNob2xkID0gMC44ICAjIGFic29sdXRlIGNvc2luZSBzaW1pbGFyaXR5IGN1dG9mZiBmb3IgdGhhdCBzY3JlZW5cbilcbmBgYCJ9 -->
+<pre class="r"><code>flowcode.spectra &lt;- FlowCodeUnmix::get.flowcode.spectra(
+  backbone.rds = &quot;./flowcode_spectra/FlowCode_Backbone.rds&quot;,
+  thresholds.file = &quot;./flowcode_spectra/thresholds.csv&quot;,
+  asp = autospectral.parameters,
+  spectra.variants = fluorophore.variation,
+  af.spectra = spleen.autofluorescence,
+  output.dir = &quot;./flowcode_spectra&quot;,
+  plot.corrections = TRUE,
+  fret.median.qc = TRUE,               # loose sanity filter vs. the combo&#39;s own median FRET direction
+  fret.median.sim.threshold = 0,       # 0 = only excludes events pointing the opposite way
+  fret.background.qc = TRUE,           # screens candidate variants against background-pool contamination
+  fret.background.sim.threshold = 0.8  # absolute cosine similarity cutoff for that screen
+)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><code>fret.median.qc</code> drops events, before SOM clustering, that
+point away from the combo’s own median FRET direction – it’s a loose
+filter, not a same-shape one, since a combo’s true FRET isn’t guaranteed
+to have a single direction. <code>fret.background.qc</code> instead
+screens the SOM-derived candidate variants (never the median row) after
+clustering, against the FRET-shaped signal found in the untransduced
+background pool run through the same cleaning; variants that closely
+resemble that background contamination are dropped. They address
+different failure modes and can be used together.</p>
 <p>This call saves the output as an RDS file in the folder specified by
 <code>output.dir</code>. If you select
 <code>plot.corrections = TRUE</code>, it will identify the FRET errors
@@ -2193,8 +2248,8 @@ in a second.</p>
 <p>To unmix a single file, call <code>unmix.flowcode.fcs()</code>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJtYjNJZ1pYaGhiWEJzWlRwY2JtWjFiR3g1TG5OMFlXbHVaV1F1YzNCc1pXVnVJRHd0SUZ3aUxpOVNZWGN2VTNCc1pXVnVMMU53YkdWbGJsOU5iM1Z6WlY4d01ERXVabU56WENKY2JseHVJeUIwYUdWdUlHTmhiR3c2WEc1R2JHOTNRMjlrWlZWdWJXbDRPanAxYm0xcGVDNW1iRzkzWTI5a1pTNW1ZM01vWEc0Z0lHWmpjeTVtYVd4bElEMGdablZzYkhrdWMzUmhhVzVsWkM1emNHeGxaVzRzWEc0Z0lITndaV04wY21FZ1BTQm1iSFZ2Y205d2FHOXlaUzV6Y0dWamRISmhMRnh1SUNCaGMzQWdQU0JoZFhSdmMzQmxZM1J5WVd3dWNHRnlZVzFsZEdWeWN5eGNiaUFnWm14dmR5NWpiMjUwY205c0lEMGdZMnhsWVc1bFpDNWpiMjUwY205c2N5eGNiaUFnWVdZdWMzQmxZM1J5WVNBOUlITndiR1ZsYmk1aGRYUnZabXgxYjNKbGMyTmxibU5sTEZ4dUlDQnpjR1ZqZEhKaExuWmhjbWxoYm5SeklEMGdabXgxYjNKdmNHaHZjbVV1ZG1GeWFXRjBhVzl1TEZ4dUlDQm1iRzkzWTI5a1pTNXpjR1ZqZEhKaElEMGdabXh2ZDJOdlpHVXVjM0JsWTNSeVlTeGNiaUFnYXlBOUlERXdMQ0FqSUhWelpTQnJQVEVnWm05eUlHWmhjM1JsYzNRZ2RXNXRhWGhwYm1jc0lHc2dQU0F4TUNBb1pHVm1ZWFZzZENrZ1ptOXlJSE5zYjNkbGNpQmlkWFFnWW1WMGRHVnlMQ0JySUg0Z015QmpiMjF3Y205dGFYTmxYRzRnSUhCaGNtRnNiR1ZzSUQwZ1ZGSlZSVnh1S1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG4jIGZvciBleGFtcGxlOlxuZnVsbHkuc3RhaW5lZC5zcGxlZW4gPC0gXCIuL1Jhdy9TcGxlZW4vU3BsZWVuX01vdXNlXzAwMS5mY3NcIlxuXG4jIHRoZW4gY2FsbDpcbkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcyhcbiAgZmNzLmZpbGUgPSBmdWxseS5zdGFpbmVkLnNwbGVlbixcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBmbG93LmNvbnRyb2wgPSBjbGVhbmVkLmNvbnRyb2xzLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBrID0gMTAsICMgdXNlIGs9MSBmb3IgZmFzdGVzdCB1bm1peGluZywgayA9IDEwIChkZWZhdWx0KSBmb3Igc2xvd2VyIGJ1dCBiZXR0ZXIsIGsgfiAzIGNvbXByb21pc2VcbiAgcGFyYWxsZWwgPSBUUlVFXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBmb3IgZXhhbXBsZTpcbmZ1bGx5LnN0YWluZWQuc3BsZWVuIDwtIFwiLi9SYXcvU3BsZWVuL1NwbGVlbl9Nb3VzZV8wMDEuZmNzXCJcblxuIyB0aGVuIGNhbGw6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mY3MoXG4gIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5zcGxlZW4sXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scyxcbiAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgayA9IDEwLCAjIHVzZSBrPTEgZm9yIGZhc3Rlc3QgdW5taXhpbmcsIGsgPSAxMCAoZGVmYXVsdCkgZm9yIHNsb3dlciBidXQgYmV0dGVyLCBrIH4gMyBjb21wcm9taXNlXG4gIHBhcmFsbGVsID0gVFJVRVxuKVxuYGBgIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJtYjNJZ1pYaGhiWEJzWlRwY2JtWjFiR3g1TG5OMFlXbHVaV1F1YzNCc1pXVnVJRHd0SUZ3aUxpOVNZWGN2VTNCc1pXVnVMMU53YkdWbGJsOU5iM1Z6WlY4d01ERXVabU56WENKY2JseHVJeUIwYUdWdUlHTmhiR3c2WEc1R2JHOTNRMjlrWlZWdWJXbDRPanAxYm0xcGVDNW1iRzkzWTI5a1pTNW1ZM01vWEc0Z0lHWmpjeTVtYVd4bElEMGdablZzYkhrdWMzUmhhVzVsWkM1emNHeGxaVzRzWEc0Z0lITndaV04wY21FZ1BTQm1iSFZ2Y205d2FHOXlaUzV6Y0dWamRISmhMRnh1SUNCaGMzQWdQU0JoZFhSdmMzQmxZM1J5WVd3dWNHRnlZVzFsZEdWeWN5eGNiaUFnWm14dmR5NWpiMjUwY205c0lEMGdabXh2ZHk1amIyNTBjbTlzTEZ4dUlDQmhaaTV6Y0dWamRISmhJRDBnYzNCc1pXVnVMbUYxZEc5bWJIVnZjbVZ6WTJWdVkyVXNYRzRnSUhOd1pXTjBjbUV1ZG1GeWFXRnVkSE1nUFNCbWJIVnZjbTl3YUc5eVpTNTJZWEpwWVhScGIyNHNYRzRnSUdac2IzZGpiMlJsTG5Od1pXTjBjbUVnUFNCbWJHOTNZMjlrWlM1emNHVmpkSEpoTEZ4dUlDQndZWEpoYkd4bGJDQTlJRlJTVlVWY2JpbGNibUJnWUNKOSAtLT5cblxuYGBgclxuIyBmb3IgZXhhbXBsZTpcbmZ1bGx5LnN0YWluZWQuc3BsZWVuIDwtIFwiLi9SYXcvU3BsZWVuL1NwbGVlbl9Nb3VzZV8wMDEuZmNzXCJcblxuIyB0aGVuIGNhbGw6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mY3MoXG4gIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5zcGxlZW4sXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBmb3IgZXhhbXBsZTpcbmZ1bGx5LnN0YWluZWQuc3BsZWVuIDwtIFwiLi9SYXcvU3BsZWVuL1NwbGVlbl9Nb3VzZV8wMDEuZmNzXCJcblxuIyB0aGVuIGNhbGw6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mY3MoXG4gIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5zcGxlZW4sXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcbmBgYCJ9 -->
 <pre class="r"><code># for example:
 fully.stained.spleen &lt;- &quot;./Raw/Spleen/Spleen_Mouse_001.fcs&quot;
 
@@ -2203,23 +2258,72 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   fcs.file = fully.stained.spleen,
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
-  k = 10, # use k=1 for fastest unmixing, k = 10 (default) for slower but better, k ~ 3 compromise
   parallel = TRUE
 )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>By default this runs the new <strong>staged</strong> pipeline
+(<code>unmix.flowcode.cpp.staged()</code>): a generic AutoSpectral unmix
+for debarcoding, the pooled cross-combo background subtraction described
+above, a small joint FRET fit against the background-corrected raw data,
+and a final generic AutoSpectral unmix for the reported values. This
+requires <code>AutoSpectralRcpp &gt;= 1.1.0</code>; if it’s missing or
+out of date you’ll get an explicit error telling you to update it, and
+if the C++ call itself fails for some other reason, it falls back with a
+warning to the (currently outdated) pure-R
+<code>unmix.flowcode()</code>, which doesn’t yet support the extra
+tuning parameters below.</p>
+<p>If you want to tune the staged pipeline, the key extra parameters
+(all with sensible defaults, so you only need to touch the ones you care
+about) are:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVSbXh2ZDBOdlpHVlZibTFwZURvNmRXNXRhWGd1Wm14dmQyTnZaR1V1Wm1OektGeHVJQ0JtWTNNdVptbHNaU0E5SUdaMWJHeDVMbk4wWVdsdVpXUXVjM0JzWldWdUxGeHVJQ0J6Y0dWamRISmhJRDBnWm14MWIzSnZjR2h2Y21VdWMzQmxZM1J5WVN4Y2JpQWdZWE53SUQwZ1lYVjBiM053WldOMGNtRnNMbkJoY21GdFpYUmxjbk1zWEc0Z0lHWnNiM2N1WTI5dWRISnZiQ0E5SUdac2IzY3VZMjl1ZEhKdmJDeGNiaUFnWVdZdWMzQmxZM1J5WVNBOUlITndiR1ZsYmk1aGRYUnZabXgxYjNKbGMyTmxibU5sTEZ4dUlDQnpjR1ZqZEhKaExuWmhjbWxoYm5SeklEMGdabXgxYjNKdmNHaHZjbVV1ZG1GeWFXRjBhVzl1TEZ4dUlDQm1iRzkzWTI5a1pTNXpjR1ZqZEhKaElEMGdabXh2ZDJOdlpHVXVjM0JsWTNSeVlTeGNiaUFnYmk1d1lYTnpaWE1nUFNBeExDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNNZ2NtOTFibVJ6SUc5bUlIQmxjaTFqWld4c0lITndaV04wY21Gc0lHOXdkR2x0YVhwaGRHbHZibHh1SUNCdUxtRm1MbkJoYzNObGN5QTlJREVzSUNBZ0lDQWdJQ0FnSUNBZ0l5QnliM1Z1WkhNZ2IyWWdRVVlnWlhoMGNtRmpkR2x2Ymx4dUlDQnlaV1pwYm1VdVlXWXVjWFZoYm5ScGJHVWdQU0F3TGpVc0lDQWdJeUJ3WVhOelpXUWdkR2h5YjNWbmFDQjBieUIxYm0xcGVDNWhkWFJ2YzNCbFkzUnlZV3d1Y21Od2NDZ3BYRzRnSUdGc2NHaGhJRDBnTUM0MUxGeHVJQ0JqYjJ4c2FXNWxZWEl1ZEdoeVpYTm9iMnhrSUQwZ01DNDFMRnh1SUNCcWIybHVkQzV3WVdseUxuSmxjMjlzZFhScGIyNGdQU0JVVWxWRkxGeHVJQ0JtY21WMExtMWxaR2xoYmk1dmJteDVJRDBnUmtGTVUwVXNJQ0FnSXlCVVVsVkZJSE5yYVhCeklIUm9aU0J3WlhJdFkyVnNiQ0JHVWtWVUlIWmhjbWxoYm5RZ2MyTmhiaXdnWVd4M1lYbHpJSFZ6WlhNZ2RHaGxJRzFsWkdsaGJpQkdVa1ZVSUhKdmQxeHVJQ0J5WlhSMWNtNHVaR2xoWjI1dmMzUnBZM01nUFNCR1FVeFRSU3dnSXlCVVVsVkZJSEpsZEhWeWJuTWdjR1Z5TFdObGJHd2daR2xoWjI1dmMzUnBZM01nYVc1emRHVmhaQ0J2WmlCT1ZVeE1JQ2h6WldVZ1ltVnNiM2NwWEc0Z0lHTm9kVzVyTG5OcGVtVWdQU0F5WlRZc0lDQWdJQ0FnSUNBZ0lDQWpJR1YyWlc1MGN5QndaWElnWTJoMWJtc3NJR1p2Y2lCdFpXMXZjbmtnYldGdVlXZGxiV1Z1ZENCdmJpQnNZWEpuWlNCbWFXeGxjMXh1SUNCd1lYSmhiR3hsYkNBOUlGUlNWVVZjYmlsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mY3MoXG4gIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5zcGxlZW4sXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBuLnBhc3NlcyA9IDEsICAgICAgICAgICAgICAgIyByb3VuZHMgb2YgcGVyLWNlbGwgc3BlY3RyYWwgb3B0aW1pemF0aW9uXG4gIG4uYWYucGFzc2VzID0gMSwgICAgICAgICAgICAjIHJvdW5kcyBvZiBBRiBleHRyYWN0aW9uXG4gIHJlZmluZS5hZi5xdWFudGlsZSA9IDAuNSwgICAjIHBhc3NlZCB0aHJvdWdoIHRvIHVubWl4LmF1dG9zcGVjdHJhbC5yY3BwKClcbiAgYWxwaGEgPSAwLjUsXG4gIGNvbGxpbmVhci50aHJlc2hvbGQgPSAwLjUsXG4gIGpvaW50LnBhaXIucmVzb2x1dGlvbiA9IFRSVUUsXG4gIGZyZXQubWVkaWFuLm9ubHkgPSBGQUxTRSwgICAjIFRSVUUgc2tpcHMgdGhlIHBlci1jZWxsIEZSRVQgdmFyaWFudCBzY2FuLCBhbHdheXMgdXNlcyB0aGUgbWVkaWFuIEZSRVQgcm93XG4gIHJldHVybi5kaWFnbm9zdGljcyA9IEZBTFNFLCAjIFRSVUUgcmV0dXJucyBwZXItY2VsbCBkaWFnbm9zdGljcyBpbnN0ZWFkIG9mIE5VTEwgKHNlZSBiZWxvdylcbiAgY2h1bmsuc2l6ZSA9IDJlNiwgICAgICAgICAgICMgZXZlbnRzIHBlciBjaHVuaywgZm9yIG1lbW9yeSBtYW5hZ2VtZW50IG9uIGxhcmdlIGZpbGVzXG4gIHBhcmFsbGVsID0gVFJVRVxuKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZmNzKFxuICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuc3BsZWVuLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCxcbiAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgbi5wYXNzZXMgPSAxLCAgICAgICAgICAgICAgICMgcm91bmRzIG9mIHBlci1jZWxsIHNwZWN0cmFsIG9wdGltaXphdGlvblxuICBuLmFmLnBhc3NlcyA9IDEsICAgICAgICAgICAgIyByb3VuZHMgb2YgQUYgZXh0cmFjdGlvblxuICByZWZpbmUuYWYucXVhbnRpbGUgPSAwLjUsICAgIyBwYXNzZWQgdGhyb3VnaCB0byB1bm1peC5hdXRvc3BlY3RyYWwucmNwcCgpXG4gIGFscGhhID0gMC41LFxuICBjb2xsaW5lYXIudGhyZXNob2xkID0gMC41LFxuICBqb2ludC5wYWlyLnJlc29sdXRpb24gPSBUUlVFLFxuICBmcmV0Lm1lZGlhbi5vbmx5ID0gRkFMU0UsICAgIyBUUlVFIHNraXBzIHRoZSBwZXItY2VsbCBGUkVUIHZhcmlhbnQgc2NhbiwgYWx3YXlzIHVzZXMgdGhlIG1lZGlhbiBGUkVUIHJvd1xuICByZXR1cm4uZGlhZ25vc3RpY3MgPSBGQUxTRSwgIyBUUlVFIHJldHVybnMgcGVyLWNlbGwgZGlhZ25vc3RpY3MgaW5zdGVhZCBvZiBOVUxMIChzZWUgYmVsb3cpXG4gIGNodW5rLnNpemUgPSAyZTYsICAgICAgICAgICAjIGV2ZW50cyBwZXIgY2h1bmssIGZvciBtZW1vcnkgbWFuYWdlbWVudCBvbiBsYXJnZSBmaWxlc1xuICBwYXJhbGxlbCA9IFRSVUVcbilcbmBgYCJ9 -->
+<pre class="r"><code>FlowCodeUnmix::unmix.flowcode.fcs(
+  fcs.file = fully.stained.spleen,
+  spectra = fluorophore.spectra,
+  asp = autospectral.parameters,
+  flow.control = flow.control,
+  af.spectra = spleen.autofluorescence,
+  spectra.variants = fluorophore.variation,
+  flowcode.spectra = flowcode.spectra,
+  n.passes = 1,               # rounds of per-cell spectral optimization
+  n.af.passes = 1,            # rounds of AF extraction
+  refine.af.quantile = 0.5,   # passed through to unmix.autospectral.rcpp()
+  alpha = 0.5,
+  collinear.threshold = 0.5,
+  joint.pair.resolution = TRUE,
+  fret.median.only = FALSE,   # TRUE skips the per-cell FRET variant scan, always uses the median FRET row
+  return.diagnostics = FALSE, # TRUE returns per-cell diagnostics instead of NULL (see below)
+  chunk.size = 2e6,           # events per chunk, for memory management on large files
+  parallel = TRUE
+)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><code>return.diagnostics = TRUE</code> is worth knowing about if
+you’re debugging a specific combo or fluorophore: instead of writing the
+file and returning <code>NULL</code>, you get back (invisibly) a list
+with <code>median.background</code>, <code>flowcode.ids</code>,
+<code>fret.k</code>, <code>fret.index</code>, <code>resid.ratio</code>
+and <code>leakage.ratio</code> – note <code>median.background</code> is
+pooled per chunk rather than across the whole file, so treat it as
+indicative rather than exact for very large files processed in several
+chunks.</p>
 <p>To unmix a folder containing many files, call
 <code>unmix.flowcode.folder()</code>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJtYjNJZ1pYaGhiWEJzWlRwY2JuTndiR1ZsYmk1bWIyeGtaWElnUEMwZ1hDSXVMMUpoZHk5VGNHeGxaVzR2WENKY2JseHVJeUIwYUdWdUlHTmhiR3c2WEc1R2JHOTNRMjlrWlZWdWJXbDRPanAxYm0xcGVDNW1iRzkzWTI5a1pTNW1iMnhrWlhJb1hHNGdJR1pqY3k1a2FYSWdQU0J6Y0d4bFpXNHVabTlzWkdWeUxGeHVJQ0J6Y0dWamRISmhJRDBnWm14MWIzSnZjR2h2Y21VdWMzQmxZM1J5WVN4Y2JpQWdZWE53SUQwZ1lYVjBiM053WldOMGNtRnNMbkJoY21GdFpYUmxjbk1zWEc0Z0lHWnNiM2N1WTI5dWRISnZiQ0E5SUdOc1pXRnVaV1F1WTI5dWRISnZiSE1zWEc0Z0lHRm1Mbk53WldOMGNtRWdQU0J6Y0d4bFpXNHVZWFYwYjJac2RXOXlaWE5qWlc1alpTeGNiaUFnYzNCbFkzUnlZUzUyWVhKcFlXNTBjeUE5SUdac2RXOXliM0JvYjNKbExuWmhjbWxoZEdsdmJpeGNiaUFnWm14dmQyTnZaR1V1YzNCbFkzUnlZU0E5Wm14dmQyTnZaR1V1YzNCbFkzUnlZU3hjYmlBZ2NHRnlZV3hzWld3Z1BTQlVVbFZGWEc0cFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuIyBmb3IgZXhhbXBsZTpcbnNwbGVlbi5mb2xkZXIgPC0gXCIuL1Jhdy9TcGxlZW4vXCJcblxuIyB0aGVuIGNhbGw6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mb2xkZXIoXG4gIGZjcy5kaXIgPSBzcGxlZW4uZm9sZGVyLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIGZsb3cuY29udHJvbCA9IGNsZWFuZWQuY29udHJvbHMsXG4gIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSxcbiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgZmxvd2NvZGUuc3BlY3RyYSA9Zmxvd2NvZGUuc3BlY3RyYSxcbiAgcGFyYWxsZWwgPSBUUlVFXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBmb3IgZXhhbXBsZTpcbnNwbGVlbi5mb2xkZXIgPC0gXCIuL1Jhdy9TcGxlZW4vXCJcblxuIyB0aGVuIGNhbGw6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mb2xkZXIoXG4gIGZjcy5kaXIgPSBzcGxlZW4uZm9sZGVyLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIGZsb3cuY29udHJvbCA9IGNsZWFuZWQuY29udHJvbHMsXG4gIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSxcbiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgZmxvd2NvZGUuc3BlY3RyYSA9Zmxvd2NvZGUuc3BlY3RyYSxcbiAgcGFyYWxsZWwgPSBUUlVFXG4pXG5gYGAifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJtYjNJZ1pYaGhiWEJzWlRwY2JuTndiR1ZsYmk1bWIyeGtaWElnUEMwZ1hDSXVMMUpoZHk5VGNHeGxaVzR2WENKY2JseHVJeUIwYUdWdUlHTmhiR3c2WEc1R2JHOTNRMjlrWlZWdWJXbDRPanAxYm0xcGVDNW1iRzkzWTI5a1pTNW1iMnhrWlhJb1hHNGdJR1pqY3k1a2FYSWdQU0J6Y0d4bFpXNHVabTlzWkdWeUxGeHVJQ0J6Y0dWamRISmhJRDBnWm14MWIzSnZjR2h2Y21VdWMzQmxZM1J5WVN4Y2JpQWdZWE53SUQwZ1lYVjBiM053WldOMGNtRnNMbkJoY21GdFpYUmxjbk1zWEc0Z0lHWnNiM2N1WTI5dWRISnZiQ0E5SUdac2IzY3VZMjl1ZEhKdmJDeGNiaUFnWVdZdWMzQmxZM1J5WVNBOUlITndiR1ZsYmk1aGRYUnZabXgxYjNKbGMyTmxibU5sTEZ4dUlDQnpjR1ZqZEhKaExuWmhjbWxoYm5SeklEMGdabXgxYjNKdmNHaHZjbVV1ZG1GeWFXRjBhVzl1TEZ4dUlDQm1iRzkzWTI5a1pTNXpjR1ZqZEhKaElEMGdabXh2ZDJOdlpHVXVjM0JsWTNSeVlTeGNiaUFnY0dGeVlXeHNaV3dnUFNCVVVsVkZYRzRwWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG4jIGZvciBleGFtcGxlOlxuc3BsZWVuLmZvbGRlciA8LSBcIi4vUmF3L1NwbGVlbi9cIlxuXG4jIHRoZW4gY2FsbDpcbkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZvbGRlcihcbiAgZmNzLmRpciA9IHNwbGVlbi5mb2xkZXIsXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBmb3IgZXhhbXBsZTpcbnNwbGVlbi5mb2xkZXIgPC0gXCIuL1Jhdy9TcGxlZW4vXCJcblxuIyB0aGVuIGNhbGw6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mb2xkZXIoXG4gIGZjcy5kaXIgPSBzcGxlZW4uZm9sZGVyLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCxcbiAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgcGFyYWxsZWwgPSBUUlVFXG4pXG5gYGAifQ== -->
 <pre class="r"><code># for example:
 spleen.folder &lt;- &quot;./Raw/Spleen/&quot;
 
@@ -2228,10 +2332,10 @@ FlowCodeUnmix::unmix.flowcode.folder(
   fcs.dir = spleen.folder,
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
-  flowcode.spectra =flowcode.spectra,
+  flowcode.spectra = flowcode.spectra,
   parallel = TRUE
 )</code></pre>
 <!-- rnb-source-end -->
@@ -2247,8 +2351,8 @@ from those tissues, extracting the matching autofluorescence
 correctly.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJNWlhRbmN5QnpZWGtnZDJVZ2FHRjJaU0JpY21GcGJpQnpZVzF3YkdWelhHNWNiaU1nZEdocGN5QnBjeUJ2ZFhJZ2RXNXpkR0ZwYm1Wa0lHSnlZV2x1SUhOaGJYQnNaU0FvY21GM0lHUmhkR0VwWEc1MWJuTjBZV2x1WldRdVluSmhhVzRnUEMwZ1hDSXVMMUpoZHk5VmJuTjBZV2x1WldRZ1kyOXVkSEp2YkhNdlZXNXpkR0ZwYm1Wa0lHSnlZV2x1TG1aamMxd2lYRzVjYmlNZ2QyVWdaWGgwY21GamRDQjBhR1VnUVVZZ2NISnZabWxzWlhNZ1puSnZiU0JwZEZ4dVluSmhhVzR1WVhWMGIyWnNkVzl5WlhOalpXNWpaU0E4TFNCQmRYUnZVM0JsWTNSeVlXdzZPbWRsZEM1aFppNXpjR1ZqZEhKaEtGeHVJQ0IxYm5OMFlXbHVaV1F1YzJGdGNHeGxJRDBnZFc1emRHRnBibVZrTG1KeVlXbHVMRnh1SUNCaGMzQWdQU0JoZFhSdmMzQmxZM1J5WVd3dWNHRnlZVzFsZEdWeWN5eGNiaUFnYzNCbFkzUnlZU0E5SUdac2RXOXliM0JvYjNKbExuTndaV04wY21GY2JpbGNibHh1SXlCdWIzY2dkMlVnZDJGdWRDQjBhR1VnY21GM0lHUmhkR0VnWm05eUlIUm9aU0JtZFd4c2VTQnpkR0ZwYm1Wa0lHSnlZV2x1SUhOaGJYQnNaVnh1Wm5Wc2JIa3VjM1JoYVc1bFpDNWljbUZwYmlBOExTQmNJaTR2VW1GM0wwSnlZV2x1TDBKeVlXbHVYMDF2ZFhObFh6QXdNUzVtWTNOY0lseHVYRzRqSUhSb1pXNGdZMkZzYkNCMGJ5QjFibTFwZURwY2JrWnNiM2REYjJSbFZXNXRhWGc2T25WdWJXbDRMbVpzYjNkamIyUmxMbVpqY3loY2JpQWdabU56TG1acGJHVWdQU0JtZFd4c2VTNXpkR0ZwYm1Wa0xtSnlZV2x1TENBaklHTm9ZVzVuWlNCMGFHVWdjMkZ0Y0d4bFhHNGdJSE53WldOMGNtRWdQU0JtYkhWdmNtOXdhRzl5WlM1emNHVmpkSEpoTEZ4dUlDQmhjM0FnUFNCaGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcxbGRHVnljeXhjYmlBZ1pteHZkeTVqYjI1MGNtOXNJRDBnWTJ4bFlXNWxaQzVqYjI1MGNtOXNjeXhjYmlBZ1lXWXVjM0JsWTNSeVlTQTlJR0p5WVdsdUxtRjFkRzltYkhWdmNtVnpZMlZ1WTJVc0lDTWdZMmhoYm1kbElIUm9aU0JoZFhSdlpteDFiM0psYzJObGJtTmxJSFJ2SUcxaGRHTm9YRzRnSUhOd1pXTjBjbUV1ZG1GeWFXRnVkSE1nUFNCbWJIVnZjbTl3YUc5eVpTNTJZWEpwWVhScGIyNHNYRzRnSUdac2IzZGpiMlJsTG5Od1pXTjBjbUVnUFNCbWJHOTNZMjlrWlM1emNHVmpkSEpoTEZ4dUlDQndZWEpoYkd4bGJDQTlJRlJTVlVWY2JpbGNibUJnWUNKOSAtLT5cblxuYGBgclxuIyBMZXQncyBzYXkgd2UgaGF2ZSBicmFpbiBzYW1wbGVzXG5cbiMgdGhpcyBpcyBvdXIgdW5zdGFpbmVkIGJyYWluIHNhbXBsZSAocmF3IGRhdGEpXG51bnN0YWluZWQuYnJhaW4gPC0gXCIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjc1wiXG5cbiMgd2UgZXh0cmFjdCB0aGUgQUYgcHJvZmlsZXMgZnJvbSBpdFxuYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKFxuICB1bnN0YWluZWQuc2FtcGxlID0gdW5zdGFpbmVkLmJyYWluLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmFcbilcblxuIyBub3cgd2Ugd2FudCB0aGUgcmF3IGRhdGEgZm9yIHRoZSBmdWxseSBzdGFpbmVkIGJyYWluIHNhbXBsZVxuZnVsbHkuc3RhaW5lZC5icmFpbiA8LSBcIi4vUmF3L0JyYWluL0JyYWluX01vdXNlXzAwMS5mY3NcIlxuXG4jIHRoZW4gY2FsbCB0byB1bm1peDpcbkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcyhcbiAgZmNzLmZpbGUgPSBmdWxseS5zdGFpbmVkLmJyYWluLCAjIGNoYW5nZSB0aGUgc2FtcGxlXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scyxcbiAgYWYuc3BlY3RyYSA9IGJyYWluLmF1dG9mbHVvcmVzY2VuY2UsICMgY2hhbmdlIHRoZSBhdXRvZmx1b3Jlc2NlbmNlIHRvIG1hdGNoXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMZXQncyBzYXkgd2UgaGF2ZSBicmFpbiBzYW1wbGVzXG5cbiMgdGhpcyBpcyBvdXIgdW5zdGFpbmVkIGJyYWluIHNhbXBsZSAocmF3IGRhdGEpXG51bnN0YWluZWQuYnJhaW4gPC0gXCIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjc1wiXG5cbiMgd2UgZXh0cmFjdCB0aGUgQUYgcHJvZmlsZXMgZnJvbSBpdFxuYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKFxuICB1bnN0YWluZWQuc2FtcGxlID0gdW5zdGFpbmVkLmJyYWluLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmFcbilcblxuIyBub3cgd2Ugd2FudCB0aGUgcmF3IGRhdGEgZm9yIHRoZSBmdWxseSBzdGFpbmVkIGJyYWluIHNhbXBsZVxuZnVsbHkuc3RhaW5lZC5icmFpbiA8LSBcIi4vUmF3L0JyYWluL0JyYWluX01vdXNlXzAwMS5mY3NcIlxuXG4jIHRoZW4gY2FsbCB0byB1bm1peDpcbkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcyhcbiAgZmNzLmZpbGUgPSBmdWxseS5zdGFpbmVkLmJyYWluLCAjIGNoYW5nZSB0aGUgc2FtcGxlXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scyxcbiAgYWYuc3BlY3RyYSA9IGJyYWluLmF1dG9mbHVvcmVzY2VuY2UsICMgY2hhbmdlIHRoZSBhdXRvZmx1b3Jlc2NlbmNlIHRvIG1hdGNoXG4gIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcbmBgYCJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJNWlhRbmN5QnpZWGtnZDJVZ2FHRjJaU0JpY21GcGJpQnpZVzF3YkdWelhHNWNiaU1nZEdocGN5QnBjeUJ2ZFhJZ2RXNXpkR0ZwYm1Wa0lHSnlZV2x1SUhOaGJYQnNaU0FvY21GM0lHUmhkR0VwWEc1MWJuTjBZV2x1WldRdVluSmhhVzRnUEMwZ1hDSXVMMUpoZHk5VmJuTjBZV2x1WldRZ1kyOXVkSEp2YkhNdlZXNXpkR0ZwYm1Wa0lHSnlZV2x1TG1aamMxd2lYRzVjYmlNZ2QyVWdaWGgwY21GamRDQjBhR1VnUVVZZ2NISnZabWxzWlhNZ1puSnZiU0JwZEZ4dVluSmhhVzR1WVhWMGIyWnNkVzl5WlhOalpXNWpaU0E4TFNCQmRYUnZVM0JsWTNSeVlXdzZPbWRsZEM1aFppNXpjR1ZqZEhKaEtGeHVJQ0IxYm5OMFlXbHVaV1F1YzJGdGNHeGxJRDBnZFc1emRHRnBibVZrTG1KeVlXbHVMRnh1SUNCaGMzQWdQU0JoZFhSdmMzQmxZM1J5WVd3dWNHRnlZVzFsZEdWeWN5eGNiaUFnYzNCbFkzUnlZU0E5SUdac2RXOXliM0JvYjNKbExuTndaV04wY21GY2JpbGNibHh1SXlCdWIzY2dkMlVnZDJGdWRDQjBhR1VnY21GM0lHUmhkR0VnWm05eUlIUm9aU0JtZFd4c2VTQnpkR0ZwYm1Wa0lHSnlZV2x1SUhOaGJYQnNaVnh1Wm5Wc2JIa3VjM1JoYVc1bFpDNWljbUZwYmlBOExTQmNJaTR2VW1GM0wwSnlZV2x1TDBKeVlXbHVYMDF2ZFhObFh6QXdNUzVtWTNOY0lseHVYRzRqSUhSb1pXNGdZMkZzYkNCMGJ5QjFibTFwZURwY2JrWnNiM2REYjJSbFZXNXRhWGc2T25WdWJXbDRMbVpzYjNkamIyUmxMbVpqY3loY2JpQWdabU56TG1acGJHVWdQU0JtZFd4c2VTNXpkR0ZwYm1Wa0xtSnlZV2x1TENBaklHTm9ZVzVuWlNCMGFHVWdjMkZ0Y0d4bFhHNGdJSE53WldOMGNtRWdQU0JtYkhWdmNtOXdhRzl5WlM1emNHVmpkSEpoTEZ4dUlDQmhjM0FnUFNCaGRYUnZjM0JsWTNSeVlXd3VjR0Z5WVcxbGRHVnljeXhjYmlBZ1pteHZkeTVqYjI1MGNtOXNJRDBnWm14dmR5NWpiMjUwY205c0xGeHVJQ0JoWmk1emNHVmpkSEpoSUQwZ1luSmhhVzR1WVhWMGIyWnNkVzl5WlhOalpXNWpaU3dnSXlCamFHRnVaMlVnZEdobElHRjFkRzltYkhWdmNtVnpZMlZ1WTJVZ2RHOGdiV0YwWTJoY2JpQWdjM0JsWTNSeVlTNTJZWEpwWVc1MGN5QTlJR1pzZFc5eWIzQm9iM0psTG5aaGNtbGhkR2x2Yml4Y2JpQWdabXh2ZDJOdlpHVXVjM0JsWTNSeVlTQTlJR1pzYjNkamIyUmxMbk53WldOMGNtRXNYRzRnSUhCaGNtRnNiR1ZzSUQwZ1ZGSlZSVnh1S1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG4jIExldCdzIHNheSB3ZSBoYXZlIGJyYWluIHNhbXBsZXNcblxuIyB0aGlzIGlzIG91ciB1bnN0YWluZWQgYnJhaW4gc2FtcGxlIChyYXcgZGF0YSlcbnVuc3RhaW5lZC5icmFpbiA8LSBcIi4vUmF3L1Vuc3RhaW5lZCBjb250cm9scy9VbnN0YWluZWQgYnJhaW4uZmNzXCJcblxuIyB3ZSBleHRyYWN0IHRoZSBBRiBwcm9maWxlcyBmcm9tIGl0XG5icmFpbi5hdXRvZmx1b3Jlc2NlbmNlIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LmFmLnNwZWN0cmEoXG4gIHVuc3RhaW5lZC5zYW1wbGUgPSB1bnN0YWluZWQuYnJhaW4sXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYVxuKVxuXG4jIG5vdyB3ZSB3YW50IHRoZSByYXcgZGF0YSBmb3IgdGhlIGZ1bGx5IHN0YWluZWQgYnJhaW4gc2FtcGxlXG5mdWxseS5zdGFpbmVkLmJyYWluIDwtIFwiLi9SYXcvQnJhaW4vQnJhaW5fTW91c2VfMDAxLmZjc1wiXG5cbiMgdGhlbiBjYWxsIHRvIHVubWl4OlxuRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZmNzKFxuICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuYnJhaW4sICMgY2hhbmdlIHRoZSBzYW1wbGVcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsXG4gIGFmLnNwZWN0cmEgPSBicmFpbi5hdXRvZmx1b3Jlc2NlbmNlLCAjIGNoYW5nZSB0aGUgYXV0b2ZsdW9yZXNjZW5jZSB0byBtYXRjaFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgcGFyYWxsZWwgPSBUUlVFXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMZXQncyBzYXkgd2UgaGF2ZSBicmFpbiBzYW1wbGVzXG5cbiMgdGhpcyBpcyBvdXIgdW5zdGFpbmVkIGJyYWluIHNhbXBsZSAocmF3IGRhdGEpXG51bnN0YWluZWQuYnJhaW4gPC0gXCIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjc1wiXG5cbiMgd2UgZXh0cmFjdCB0aGUgQUYgcHJvZmlsZXMgZnJvbSBpdFxuYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKFxuICB1bnN0YWluZWQuc2FtcGxlID0gdW5zdGFpbmVkLmJyYWluLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmFcbilcblxuIyBub3cgd2Ugd2FudCB0aGUgcmF3IGRhdGEgZm9yIHRoZSBmdWxseSBzdGFpbmVkIGJyYWluIHNhbXBsZVxuZnVsbHkuc3RhaW5lZC5icmFpbiA8LSBcIi4vUmF3L0JyYWluL0JyYWluX01vdXNlXzAwMS5mY3NcIlxuXG4jIHRoZW4gY2FsbCB0byB1bm1peDpcbkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcyhcbiAgZmNzLmZpbGUgPSBmdWxseS5zdGFpbmVkLmJyYWluLCAjIGNoYW5nZSB0aGUgc2FtcGxlXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhZi5zcGVjdHJhID0gYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSwgIyBjaGFuZ2UgdGhlIGF1dG9mbHVvcmVzY2VuY2UgdG8gbWF0Y2hcbiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgZmxvd2NvZGUuc3BlY3RyYSA9IGZsb3djb2RlLnNwZWN0cmEsXG4gIHBhcmFsbGVsID0gVFJVRVxuKVxuYGBgIn0= -->
 <pre class="r"><code># Let&#39;s say we have brain samples
 
 # this is our unstained brain sample (raw data)
@@ -2269,7 +2373,7 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   fcs.file = fully.stained.brain, # change the sample
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = brain.autofluorescence, # change the autofluorescence to match
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
@@ -2279,6 +2383,136 @@ FlowCodeUnmix::unmix.flowcode.fcs(
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="looping-over-several-tissues" class="section level2">
+<h2>Looping over several tissues</h2>
+<p>Doing the above by hand for every tissue gets old fast once you have
+more than one or two sources. <code>unmix.flowcode.folder()</code>
+unmixes an entire directory of FCS files against a single
+<code>af.spectra</code>, so the natural setup is <strong>one subfolder
+per tissue</strong> for your fully-stained files, plus <strong>one
+unstained FCS file per tissue</strong> to build that tissue’s AF spectra
+from. Something like:</p>
+<pre><code>Raw/
+├── Unstained controls/
+│   ├── Unstained spleen.fcs
+│   ├── Unstained brain.fcs
+│   └── Unstained liver.fcs
+├── Spleen/
+│   ├── Spleen_Mouse_001.fcs
+│   └── Spleen_Mouse_002.fcs
+├── Brain/
+│   ├── Brain_Mouse_001.fcs
+│   └── Brain_Mouse_002.fcs
+└── Liver/
+    ├── Liver_Mouse_001.fcs
+    └── Liver_Mouse_002.fcs</code></pre>
+<p>The important thing is that a single
+<code>unmix.flowcode.folder()</code> call is all-or-nothing for a
+directory: every FCS file it finds there gets unmixed with the same
+<code>af.spectra</code>, so don’t mix tissues within one folder. It’s
+worth mirroring that structure on the output side too (one output
+subfolder per tissue), so you’re never relying on filename suffixes
+alone to tell tissues apart later.</p>
+<p>With that layout, key the unstained file, the stained folder, and the
+output folder by the same tissue name, so the loop matches them up by
+name rather than by position (much safer if you ever add or reorder a
+tissue):</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJ1WVcxbFpDQjJaV04wYjNJNklIUnBjM04xWlNCdVlXMWxJQzArSUhWdWMzUmhhVzVsWkNCR1ExTWdabWxzWlNCMWMyVmtJSFJ2SUdKMWFXeGtJSFJvWVhRZ2RHbHpjM1ZsSjNNZ1FVWWdjM0JsWTNSeVlWeHVkR2x6YzNWbExuVnVjM1JoYVc1bFpDQThMU0JqS0Z4dUlDQlRjR3hsWlc0Z1BTQmNJaTR2VW1GM0wxVnVjM1JoYVc1bFpDQmpiMjUwY205c2N5OVZibk4wWVdsdVpXUWdjM0JzWldWdUxtWmpjMXdpTEZ4dUlDQkNjbUZwYmlBZ1BTQmNJaTR2VW1GM0wxVnVjM1JoYVc1bFpDQmpiMjUwY205c2N5OVZibk4wWVdsdVpXUWdZbkpoYVc0dVptTnpYQ0lzWEc0Z0lFeHBkbVZ5SUNBOUlGd2lMaTlTWVhjdlZXNXpkR0ZwYm1Wa0lHTnZiblJ5YjJ4ekwxVnVjM1JoYVc1bFpDQnNhWFpsY2k1bVkzTmNJbHh1S1Z4dVhHNGpJRzVoYldWa0lIWmxZM1J2Y2pvZ2RHbHpjM1ZsSUc1aGJXVWdMVDRnWm05c1pHVnlJRzltSUdaMWJHeDVMWE4wWVdsdVpXUWdSa05USUdacGJHVnpJR1p2Y2lCMGFHRjBJSFJwYzNOMVpWeHVkR2x6YzNWbExtWnZiR1JsY25NZ1BDMGdZeWhjYmlBZ1UzQnNaV1Z1SUQwZ1hDSXVMMUpoZHk5VGNHeGxaVzR2WENJc1hHNGdJRUp5WVdsdUlDQTlJRndpTGk5U1lYY3ZRbkpoYVc0dlhDSXNYRzRnSUV4cGRtVnlJQ0E5SUZ3aUxpOVNZWGN2VEdsMlpYSXZYQ0pjYmlsY2JseHVJeUJ1WVcxbFpDQjJaV04wYjNJNklIUnBjM04xWlNCdVlXMWxJQzArSUc5MWRIQjFkQ0JtYjJ4a1pYSWdabTl5SUhSb1lYUWdkR2x6YzNWbEozTWdkVzV0YVhobFpDQm1hV3hsYzF4dWRHbHpjM1ZsTG05MWRIQjFkQ0E4TFNCaktGeHVJQ0JUY0d4bFpXNGdQU0JjSWk0dlZXNXRhWGhsWkM5VGNHeGxaVzR2WENJc1hHNGdJRUp5WVdsdUlDQTlJRndpTGk5VmJtMXBlR1ZrTDBKeVlXbHVMMXdpTEZ4dUlDQk1hWFpsY2lBZ1BTQmNJaTR2Vlc1dGFYaGxaQzlNYVhabGNpOWNJbHh1S1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG4jIG5hbWVkIHZlY3RvcjogdGlzc3VlIG5hbWUgLT4gdW5zdGFpbmVkIEZDUyBmaWxlIHVzZWQgdG8gYnVpbGQgdGhhdCB0aXNzdWUncyBBRiBzcGVjdHJhXG50aXNzdWUudW5zdGFpbmVkIDwtIGMoXG4gIFNwbGVlbiA9IFwiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBzcGxlZW4uZmNzXCIsXG4gIEJyYWluICA9IFwiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBicmFpbi5mY3NcIixcbiAgTGl2ZXIgID0gXCIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGxpdmVyLmZjc1wiXG4pXG5cbiMgbmFtZWQgdmVjdG9yOiB0aXNzdWUgbmFtZSAtPiBmb2xkZXIgb2YgZnVsbHktc3RhaW5lZCBGQ1MgZmlsZXMgZm9yIHRoYXQgdGlzc3VlXG50aXNzdWUuZm9sZGVycyA8LSBjKFxuICBTcGxlZW4gPSBcIi4vUmF3L1NwbGVlbi9cIixcbiAgQnJhaW4gID0gXCIuL1Jhdy9CcmFpbi9cIixcbiAgTGl2ZXIgID0gXCIuL1Jhdy9MaXZlci9cIlxuKVxuXG4jIG5hbWVkIHZlY3RvcjogdGlzc3VlIG5hbWUgLT4gb3V0cHV0IGZvbGRlciBmb3IgdGhhdCB0aXNzdWUncyB1bm1peGVkIGZpbGVzXG50aXNzdWUub3V0cHV0IDwtIGMoXG4gIFNwbGVlbiA9IFwiLi9Vbm1peGVkL1NwbGVlbi9cIixcbiAgQnJhaW4gID0gXCIuL1VubWl4ZWQvQnJhaW4vXCIsXG4gIExpdmVyICA9IFwiLi9Vbm1peGVkL0xpdmVyL1wiXG4pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBuYW1lZCB2ZWN0b3I6IHRpc3N1ZSBuYW1lIC0+IHVuc3RhaW5lZCBGQ1MgZmlsZSB1c2VkIHRvIGJ1aWxkIHRoYXQgdGlzc3VlJ3MgQUYgc3BlY3RyYVxudGlzc3VlLnVuc3RhaW5lZCA8LSBjKFxuICBTcGxlZW4gPSBcIi4vUmF3L1Vuc3RhaW5lZCBjb250cm9scy9VbnN0YWluZWQgc3BsZWVuLmZjc1wiLFxuICBCcmFpbiAgPSBcIi4vUmF3L1Vuc3RhaW5lZCBjb250cm9scy9VbnN0YWluZWQgYnJhaW4uZmNzXCIsXG4gIExpdmVyICA9IFwiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBsaXZlci5mY3NcIlxuKVxuXG4jIG5hbWVkIHZlY3RvcjogdGlzc3VlIG5hbWUgLT4gZm9sZGVyIG9mIGZ1bGx5LXN0YWluZWQgRkNTIGZpbGVzIGZvciB0aGF0IHRpc3N1ZVxudGlzc3VlLmZvbGRlcnMgPC0gYyhcbiAgU3BsZWVuID0gXCIuL1Jhdy9TcGxlZW4vXCIsXG4gIEJyYWluICA9IFwiLi9SYXcvQnJhaW4vXCIsXG4gIExpdmVyICA9IFwiLi9SYXcvTGl2ZXIvXCJcbilcblxuIyBuYW1lZCB2ZWN0b3I6IHRpc3N1ZSBuYW1lIC0+IG91dHB1dCBmb2xkZXIgZm9yIHRoYXQgdGlzc3VlJ3MgdW5taXhlZCBmaWxlc1xudGlzc3VlLm91dHB1dCA8LSBjKFxuICBTcGxlZW4gPSBcIi4vVW5taXhlZC9TcGxlZW4vXCIsXG4gIEJyYWluICA9IFwiLi9Vbm1peGVkL0JyYWluL1wiLFxuICBMaXZlciAgPSBcIi4vVW5taXhlZC9MaXZlci9cIlxuKVxuYGBgIn0= -->
+<pre class="r"><code># named vector: tissue name -&gt; unstained FCS file used to build that tissue&#39;s AF spectra
+tissue.unstained &lt;- c(
+  Spleen = &quot;./Raw/Unstained controls/Unstained spleen.fcs&quot;,
+  Brain  = &quot;./Raw/Unstained controls/Unstained brain.fcs&quot;,
+  Liver  = &quot;./Raw/Unstained controls/Unstained liver.fcs&quot;
+)
+
+# named vector: tissue name -&gt; folder of fully-stained FCS files for that tissue
+tissue.folders &lt;- c(
+  Spleen = &quot;./Raw/Spleen/&quot;,
+  Brain  = &quot;./Raw/Brain/&quot;,
+  Liver  = &quot;./Raw/Liver/&quot;
+)
+
+# named vector: tissue name -&gt; output folder for that tissue&#39;s unmixed files
+tissue.output &lt;- c(
+  Spleen = &quot;./Unmixed/Spleen/&quot;,
+  Brain  = &quot;./Unmixed/Brain/&quot;,
+  Liver  = &quot;./Unmixed/Liver/&quot;
+)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Then the loop itself just does, per tissue, what we did by hand
+above: extract that tissue’s AF spectra, then unmix its whole folder
+against it.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabTl5SUNnZ2RHbHpjM1ZsSUdsdUlHNWhiV1Z6S0NCMGFYTnpkV1V1ZFc1emRHRnBibVZrSUNrZ0tTQjdYRzVjYmlBZ2JXVnpjMkZuWlNnZ1hDSlFjbTlqWlhOemFXNW5JSFJwYzNOMVpUb2dYQ0lzSUhScGMzTjFaU0FwWEc1Y2JpQWdJeUF4TGlCbGVIUnlZV04wSUhSb2FYTWdkR2x6YzNWbEozTWdRVVlnY0hKdlptbHNaU0JtY205dElHbDBjeUIxYm5OMFlXbHVaV1FnYzJGdGNHeGxYRzRnSUhScGMzTjFaUzVoWmlBOExTQkJkWFJ2VTNCbFkzUnlZV3c2T21kbGRDNWhaaTV6Y0dWamRISmhLRnh1SUNBZ0lIVnVjM1JoYVc1bFpDNXpZVzF3YkdVZ1BTQjBhWE56ZFdVdWRXNXpkR0ZwYm1Wa1cxc2dkR2x6YzNWbElGMWRMRnh1SUNBZ0lHRnpjQ0E5SUdGMWRHOXpjR1ZqZEhKaGJDNXdZWEpoYldWMFpYSnpMRnh1SUNBZ0lITndaV04wY21FZ1BTQm1iSFZ2Y205d2FHOXlaUzV6Y0dWamRISmhYRzRnSUNsY2JseHVJQ0FqSURJdUlIVnViV2w0SUdWMlpYSjVJR1oxYkd4NUxYTjBZV2x1WldRZ1ptbHNaU0JtYjNJZ2RHaHBjeUIwYVhOemRXVWdZV2RoYVc1emRDQjBhR0YwSUVGR1hHNGdJRVpzYjNkRGIyUmxWVzV0YVhnNk9uVnViV2w0TG1ac2IzZGpiMlJsTG1admJHUmxjaWhjYmlBZ0lDQm1ZM011WkdseUlEMGdkR2x6YzNWbExtWnZiR1JsY25OYld5QjBhWE56ZFdVZ1hWMHNYRzRnSUNBZ2MzQmxZM1J5WVNBOUlHWnNkVzl5YjNCb2IzSmxMbk53WldOMGNtRXNYRzRnSUNBZ1lYTndJRDBnWVhWMGIzTndaV04wY21Gc0xuQmhjbUZ0WlhSbGNuTXNYRzRnSUNBZ1pteHZkeTVqYjI1MGNtOXNJRDBnWm14dmR5NWpiMjUwY205c0xGeHVJQ0FnSUdGbUxuTndaV04wY21FZ1BTQjBhWE56ZFdVdVlXWXNYRzRnSUNBZ2MzQmxZM1J5WVM1MllYSnBZVzUwY3lBOUlHWnNkVzl5YjNCb2IzSmxMblpoY21saGRHbHZiaXhjYmlBZ0lDQm1iRzkzWTI5a1pTNXpjR1ZqZEhKaElEMGdabXh2ZDJOdlpHVXVjM0JsWTNSeVlTeGNiaUFnSUNCdmRYUndkWFF1WkdseUlEMGdkR2x6YzNWbExtOTFkSEIxZEZ0YklIUnBjM04xWlNCZFhTeGNiaUFnSUNCd1lYSmhiR3hsYkNBOUlGUlNWVVZjYmlBZ0tWeHVmVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmZvciAoIHRpc3N1ZSBpbiBuYW1lcyggdGlzc3VlLnVuc3RhaW5lZCApICkge1xuXG4gIG1lc3NhZ2UoIFwiUHJvY2Vzc2luZyB0aXNzdWU6IFwiLCB0aXNzdWUgKVxuXG4gICMgMS4gZXh0cmFjdCB0aGlzIHRpc3N1ZSdzIEFGIHByb2ZpbGUgZnJvbSBpdHMgdW5zdGFpbmVkIHNhbXBsZVxuICB0aXNzdWUuYWYgPC0gQXV0b1NwZWN0cmFsOjpnZXQuYWYuc3BlY3RyYShcbiAgICB1bnN0YWluZWQuc2FtcGxlID0gdGlzc3VlLnVuc3RhaW5lZFtbIHRpc3N1ZSBdXSxcbiAgICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYVxuICApXG5cbiAgIyAyLiB1bm1peCBldmVyeSBmdWxseS1zdGFpbmVkIGZpbGUgZm9yIHRoaXMgdGlzc3VlIGFnYWluc3QgdGhhdCBBRlxuICBGbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mb2xkZXIoXG4gICAgZmNzLmRpciA9IHRpc3N1ZS5mb2xkZXJzW1sgdGlzc3VlIF1dLFxuICAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICAgIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICAgIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCxcbiAgICBhZi5zcGVjdHJhID0gdGlzc3VlLmFmLFxuICAgIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sXG4gICAgZmxvd2NvZGUuc3BlY3RyYSA9IGZsb3djb2RlLnNwZWN0cmEsXG4gICAgb3V0cHV0LmRpciA9IHRpc3N1ZS5vdXRwdXRbWyB0aXNzdWUgXV0sXG4gICAgcGFyYWxsZWwgPSBUUlVFXG4gIClcbn1cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9yICggdGlzc3VlIGluIG5hbWVzKCB0aXNzdWUudW5zdGFpbmVkICkgKSB7XG5cbiAgbWVzc2FnZSggXCJQcm9jZXNzaW5nIHRpc3N1ZTogXCIsIHRpc3N1ZSApXG5cbiAgIyAxLiBleHRyYWN0IHRoaXMgdGlzc3VlJ3MgQUYgcHJvZmlsZSBmcm9tIGl0cyB1bnN0YWluZWQgc2FtcGxlXG4gIHRpc3N1ZS5hZiA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKFxuICAgIHVuc3RhaW5lZC5zYW1wbGUgPSB0aXNzdWUudW5zdGFpbmVkW1sgdGlzc3VlIF1dLFxuICAgIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhXG4gIClcblxuICAjIDIuIHVubWl4IGV2ZXJ5IGZ1bGx5LXN0YWluZWQgZmlsZSBmb3IgdGhpcyB0aXNzdWUgYWdhaW5zdCB0aGF0IEFGXG4gIEZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZvbGRlcihcbiAgICBmY3MuZGlyID0gdGlzc3VlLmZvbGRlcnNbWyB0aXNzdWUgXV0sXG4gICAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gICAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gICAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICAgIGFmLnNwZWN0cmEgPSB0aXNzdWUuYWYsXG4gICAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgICBvdXRwdXQuZGlyID0gdGlzc3VlLm91dHB1dFtbIHRpc3N1ZSBdXSxcbiAgICBwYXJhbGxlbCA9IFRSVUVcbiAgKVxufVxuYGBgIn0= -->
+<pre class="r"><code>for ( tissue in names( tissue.unstained ) ) {
+
+  message( &quot;Processing tissue: &quot;, tissue )
+
+  # 1. extract this tissue&#39;s AF profile from its unstained sample
+  tissue.af &lt;- AutoSpectral::get.af.spectra(
+    unstained.sample = tissue.unstained[[ tissue ]],
+    asp = autospectral.parameters,
+    spectra = fluorophore.spectra
+  )
+
+  # 2. unmix every fully-stained file for this tissue against that AF
+  FlowCodeUnmix::unmix.flowcode.folder(
+    fcs.dir = tissue.folders[[ tissue ]],
+    spectra = fluorophore.spectra,
+    asp = autospectral.parameters,
+    flow.control = flow.control,
+    af.spectra = tissue.af,
+    spectra.variants = fluorophore.variation,
+    flowcode.spectra = flowcode.spectra,
+    output.dir = tissue.output[[ tissue ]],
+    parallel = TRUE
+  )
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>A couple of practical notes on this pattern:</p>
+<ul>
+<li>If you want to keep each tissue’s <code>af.spectra</code> around
+afterward (for later re-use, or for debugging a specific tissue), stash
+it in a list instead of letting the loop variable get overwritten each
+iteration:
+<code>tissue.af.list &lt;- list(); tissue.af.list[[ tissue ]] &lt;- tissue.af</code>.</li>
+<li><code>lapply</code> over <code>names( tissue.unstained )</code>
+works just as well as the <code>for</code> loop if you prefer that style
+– there’s nothing about this pattern that depends on the loop body
+running sequentially.</li>
+<li>This uses the same <code>spectra</code>, <code>flow.control</code>,
+<code>spectra.variants</code> and <code>flowcode.spectra</code> for
+every tissue – only <code>af.spectra</code> and the file locations
+change. That’s deliberate: the fluorophore spectra, spectral variants
+and the FRET correction library are all properties of your
+reagents/backbone, not of the tissue, and shouldn’t be recomputed per
+tissue.</li>
+<li><code>unmix.flowcode.folder()</code> doesn’t expose the
+staged-pipeline tuning parameters (<code>cell.weight</code>,
+<code>noise.floor</code>, <code>alpha</code>, etc. – see the note
+above), so if you need those per-tissue too, adapt the loop to call
+<code>unmix.flowcode.fcs()</code> over
+<code>list.files( tissue.folders[[ tissue ]], pattern = &quot;.fcs&quot;, full.names = TRUE )</code>
+instead of <code>unmix.flowcode.folder()</code>.</li>
+<li>As the next section covers, positivity thresholds can also drift by
+tissue – if you see that, add a <code>thresholds.file</code> lookup
+(keyed by tissue name the same way) alongside
+<code>tissue.unstained</code>/<code>tissue.folders</code>/<code>tissue.output</code>
+and pass <code>thresholds.file = tissue.thresholds[[ tissue ]]</code>
+into the unmixing call.</li>
+</ul>
 <p>In many cases, the thresholds for positivity may vary slightly by
 tissue type or sample source. If that is the case, you will need to
 provide new thresholds as part of the unmixing process. To start, unmix
@@ -2296,8 +2530,8 @@ from the backbone control we have used to establish the first set of
 thresholds.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVYRzRqSUhSb2FYTWdhWE1nYjNWeUlIVnVjM1JoYVc1bFpDQmljbUZwYmlCellXMXdiR1VnS0hKaGR5QmtZWFJoS1Z4dWRXNXpkR0ZwYm1Wa0xtSnlZV2x1SUR3dElGd2lMaTlTWVhjdlZXNXpkR0ZwYm1Wa0lHTnZiblJ5YjJ4ekwxVnVjM1JoYVc1bFpDQmljbUZwYmk1bVkzTmNJbHh1WEc0aklIZGxJR1Y0ZEhKaFkzUWdkR2hsSUVGR0lIQnliMlpwYkdWeklHWnliMjBnYVhSY2JtSnlZV2x1TG1GMWRHOW1iSFZ2Y21WelkyVnVZMlVnUEMwZ1FYVjBiMU53WldOMGNtRnNPanBuWlhRdVlXWXVjM0JsWTNSeVlTaGNiaUFnZFc1emRHRnBibVZrTG5OaGJYQnNaU0E5SUhWdWMzUmhhVzVsWkM1aWNtRnBiaXhjYmlBZ1lYTndJRDBnWVhWMGIzTndaV04wY21Gc0xuQmhjbUZ0WlhSbGNuTXNYRzRnSUhOd1pXTjBjbUVnUFNCbWJIVnZjbTl3YUc5eVpTNXpjR1ZqZEhKaFhHNHBYRzVjYmlNZ2JtOTNJSGRsSUhkaGJuUWdkR2hsSUhKaGR5QmtZWFJoSUdadmNpQjBhR1VnWm5Wc2JIa2djM1JoYVc1bFpDQmljbUZwYmlCellXMXdiR1ZjYm1aMWJHeDVMbk4wWVdsdVpXUXVZbkpoYVc0Z1BDMGdYQ0l1TDFKaGR5OUNjbUZwYmk5Q2NtRnBibDlOYjNWelpWOHdNREV1Wm1OelhDSmNibHh1WEc1c1lYVnVZMmd1ZEdoeVpYTm9iMnhrTG1Gd2NDaGNiaUFnWm14dmQyTnZaR1V1WTI5dFltOHVabWxzWlNBOUlHTnZiV0p2TG1acGJHVXNYRzRnSUdac2IzY3VZMjl1ZEhKdmJDQTlJR05zWldGdVpXUXVZMjl1ZEhKdmJITXNYRzRnSUhOd1pXTjBjbUVnUFNCbWJIVnZjbTl3YUc5eVpTNXpjR1ZqZEhKaFhHNHBYRzVjYm01bGR5NTBhSEpsYzJodmJHUnpJRHd0SUZ3aUxpOW1iRzkzWTI5a1pWOXpjR1ZqZEhKaEwwNWxkMTkwYUhKbGMyaHZiR1J6TG1OemRsd2lYRzVjYmlNZ2RHaGxiaUJqWVd4c0lIUnZJSFZ1YldsNE9seHVSbXh2ZDBOdlpHVlZibTFwZURvNmRXNXRhWGd1Wm14dmQyTnZaR1V1Wm1OektGeHVJQ0JtWTNNdVptbHNaU0E5SUdaMWJHeDVMbk4wWVdsdVpXUXVZbkpoYVc0c0lDTWdZMmhoYm1kbElIUm9aU0J6WVcxd2JHVmNiaUFnYzNCbFkzUnlZU0E5SUdac2RXOXliM0JvYjNKbExuTndaV04wY21Fc1hHNGdJR0Z6Y0NBOUlHRjFkRzl6Y0dWamRISmhiQzV3WVhKaGJXVjBaWEp6TEZ4dUlDQm1iRzkzTG1OdmJuUnliMndnUFNCamJHVmhibVZrTG1OdmJuUnliMnh6TEZ4dUlDQmhaaTV6Y0dWamRISmhJRDBnWW5KaGFXNHVZWFYwYjJac2RXOXlaWE5qWlc1alpTd2dJeUJqYUdGdVoyVWdkR2hsSUdGMWRHOW1iSFZ2Y21WelkyVnVZMlVnZEc4Z2JXRjBZMmhjYmlBZ2MzQmxZM1J5WVM1MllYSnBZVzUwY3lBOUlHWnNkVzl5YjNCb2IzSmxMblpoY21saGRHbHZiaXhjYmlBZ1pteHZkMk52WkdVdWMzQmxZM1J5WVNBOUlHWnNiM2RqYjJSbExuTndaV04wY21Fc1hHNGdJSFJvY21WemFHOXNaSE11Wm1sc1pTQTlJRzVsZHk1MGFISmxjMmh2YkdSekxGeHVJQ0J3WVhKaGJHeGxiQ0E5SUZSU1ZVVmNiaWxjYmx4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5cbiMgdGhpcyBpcyBvdXIgdW5zdGFpbmVkIGJyYWluIHNhbXBsZSAocmF3IGRhdGEpXG51bnN0YWluZWQuYnJhaW4gPC0gXCIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjc1wiXG5cbiMgd2UgZXh0cmFjdCB0aGUgQUYgcHJvZmlsZXMgZnJvbSBpdFxuYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKFxuICB1bnN0YWluZWQuc2FtcGxlID0gdW5zdGFpbmVkLmJyYWluLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmFcbilcblxuIyBub3cgd2Ugd2FudCB0aGUgcmF3IGRhdGEgZm9yIHRoZSBmdWxseSBzdGFpbmVkIGJyYWluIHNhbXBsZVxuZnVsbHkuc3RhaW5lZC5icmFpbiA8LSBcIi4vUmF3L0JyYWluL0JyYWluX01vdXNlXzAwMS5mY3NcIlxuXG5cbmxhdW5jaC50aHJlc2hvbGQuYXBwKFxuICBmbG93Y29kZS5jb21iby5maWxlID0gY29tYm8uZmlsZSxcbiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scyxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmFcbilcblxubmV3LnRocmVzaG9sZHMgPC0gXCIuL2Zsb3djb2RlX3NwZWN0cmEvTmV3X3RocmVzaG9sZHMuY3N2XCJcblxuIyB0aGVuIGNhbGwgdG8gdW5taXg6XG5GbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mY3MoXG4gIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5icmFpbiwgIyBjaGFuZ2UgdGhlIHNhbXBsZVxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSxcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIGZsb3cuY29udHJvbCA9IGNsZWFuZWQuY29udHJvbHMsXG4gIGFmLnNwZWN0cmEgPSBicmFpbi5hdXRvZmx1b3Jlc2NlbmNlLCAjIGNoYW5nZSB0aGUgYXV0b2ZsdW9yZXNjZW5jZSB0byBtYXRjaFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgdGhyZXNob2xkcy5maWxlID0gbmV3LnRocmVzaG9sZHMsXG4gIHBhcmFsbGVsID0gVFJVRVxuKVxuXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIHRoaXMgaXMgb3VyIHVuc3RhaW5lZCBicmFpbiBzYW1wbGUgKHJhdyBkYXRhKVxudW5zdGFpbmVkLmJyYWluIDwtIFwiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBicmFpbi5mY3NcIlxuXG4jIHdlIGV4dHJhY3QgdGhlIEFGIHByb2ZpbGVzIGZyb20gaXRcbmJyYWluLmF1dG9mbHVvcmVzY2VuY2UgPC0gQXV0b1NwZWN0cmFsOjpnZXQuYWYuc3BlY3RyYShcbiAgdW5zdGFpbmVkLnNhbXBsZSA9IHVuc3RhaW5lZC5icmFpbixcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhXG4pXG5cbiMgbm93IHdlIHdhbnQgdGhlIHJhdyBkYXRhIGZvciB0aGUgZnVsbHkgc3RhaW5lZCBicmFpbiBzYW1wbGVcbmZ1bGx5LnN0YWluZWQuYnJhaW4gPC0gXCIuL1Jhdy9CcmFpbi9CcmFpbl9Nb3VzZV8wMDEuZmNzXCJcblxuXG5sYXVuY2gudGhyZXNob2xkLmFwcChcbiAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsXG4gIGZsb3cuY29udHJvbCA9IGNsZWFuZWQuY29udHJvbHMsXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhXG4pXG5cbm5ldy50aHJlc2hvbGRzIDwtIFwiLi9mbG93Y29kZV9zcGVjdHJhL05ld190aHJlc2hvbGRzLmNzdlwiXG5cbiMgdGhlbiBjYWxsIHRvIHVubWl4OlxuRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZmNzKFxuICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuYnJhaW4sICMgY2hhbmdlIHRoZSBzYW1wbGVcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBmbG93LmNvbnRyb2wgPSBjbGVhbmVkLmNvbnRyb2xzLFxuICBhZi5zcGVjdHJhID0gYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSwgIyBjaGFuZ2UgdGhlIGF1dG9mbHVvcmVzY2VuY2UgdG8gbWF0Y2hcbiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgZmxvd2NvZGUuc3BlY3RyYSA9IGZsb3djb2RlLnNwZWN0cmEsXG4gIHRocmVzaG9sZHMuZmlsZSA9IG5ldy50aHJlc2hvbGRzLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcblxuYGBgIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVYRzRqSUhSb2FYTWdhWE1nYjNWeUlIVnVjM1JoYVc1bFpDQmljbUZwYmlCellXMXdiR1VnS0hKaGR5QmtZWFJoS1Z4dWRXNXpkR0ZwYm1Wa0xtSnlZV2x1SUR3dElGd2lMaTlTWVhjdlZXNXpkR0ZwYm1Wa0lHTnZiblJ5YjJ4ekwxVnVjM1JoYVc1bFpDQmljbUZwYmk1bVkzTmNJbHh1WEc0aklIZGxJR1Y0ZEhKaFkzUWdkR2hsSUVGR0lIQnliMlpwYkdWeklHWnliMjBnYVhSY2JtSnlZV2x1TG1GMWRHOW1iSFZ2Y21WelkyVnVZMlVnUEMwZ1FYVjBiMU53WldOMGNtRnNPanBuWlhRdVlXWXVjM0JsWTNSeVlTaGNiaUFnZFc1emRHRnBibVZrTG5OaGJYQnNaU0E5SUhWdWMzUmhhVzVsWkM1aWNtRnBiaXhjYmlBZ1lYTndJRDBnWVhWMGIzTndaV04wY21Gc0xuQmhjbUZ0WlhSbGNuTXNYRzRnSUhOd1pXTjBjbUVnUFNCbWJIVnZjbTl3YUc5eVpTNXpjR1ZqZEhKaFhHNHBYRzVjYmlNZ2JtOTNJSGRsSUhkaGJuUWdkR2hsSUhKaGR5QmtZWFJoSUdadmNpQjBhR1VnWm5Wc2JIa2djM1JoYVc1bFpDQmljbUZwYmlCellXMXdiR1ZjYm1aMWJHeDVMbk4wWVdsdVpXUXVZbkpoYVc0Z1BDMGdYQ0l1TDFKaGR5OUNjbUZwYmk5Q2NtRnBibDlOYjNWelpWOHdNREV1Wm1OelhDSmNibHh1WEc1R2JHOTNRMjlrWlZWdWJXbDRPanBzWVhWdVkyZ3VkR2h5WlhOb2IyeGtMbUZ3Y0NoY2JpQWdabXh2ZDJOdlpHVXVZMjl0WW04dVptbHNaU0E5SUdOdmJXSnZMbVpwYkdVc1hHNGdJR1pzYjNjdVkyOXVkSEp2YkNBOUlHWnNiM2N1WTI5dWRISnZiQ3hjYmlBZ2MzQmxZM1J5WVNBOUlHWnNkVzl5YjNCb2IzSmxMbk53WldOMGNtRXNYRzRnSUdGemNDQTlJR0YxZEc5emNHVmpkSEpoYkM1d1lYSmhiV1YwWlhKelhHNHBYRzVjYm01bGR5NTBhSEpsYzJodmJHUnpJRHd0SUZ3aUxpOW1iRzkzWTI5a1pWOXpjR1ZqZEhKaEwwNWxkMTkwYUhKbGMyaHZiR1J6TG1OemRsd2lYRzVjYmlNZ2RHaGxiaUJqWVd4c0lIUnZJSFZ1YldsNE9seHVSbXh2ZDBOdlpHVlZibTFwZURvNmRXNXRhWGd1Wm14dmQyTnZaR1V1Wm1OektGeHVJQ0JtWTNNdVptbHNaU0E5SUdaMWJHeDVMbk4wWVdsdVpXUXVZbkpoYVc0c0lDTWdZMmhoYm1kbElIUm9aU0J6WVcxd2JHVmNiaUFnYzNCbFkzUnlZU0E5SUdac2RXOXliM0JvYjNKbExuTndaV04wY21Fc1hHNGdJR0Z6Y0NBOUlHRjFkRzl6Y0dWamRISmhiQzV3WVhKaGJXVjBaWEp6TEZ4dUlDQm1iRzkzTG1OdmJuUnliMndnUFNCbWJHOTNMbU52Ym5SeWIyd3NYRzRnSUdGbUxuTndaV04wY21FZ1BTQmljbUZwYmk1aGRYUnZabXgxYjNKbGMyTmxibU5sTENBaklHTm9ZVzVuWlNCMGFHVWdZWFYwYjJac2RXOXlaWE5qWlc1alpTQjBieUJ0WVhSamFGeHVJQ0J6Y0dWamRISmhMblpoY21saGJuUnpJRDBnWm14MWIzSnZjR2h2Y21VdWRtRnlhV0YwYVc5dUxGeHVJQ0JtYkc5M1kyOWtaUzV6Y0dWamRISmhJRDBnWm14dmQyTnZaR1V1YzNCbFkzUnlZU3hjYmlBZ2RHaHlaWE5vYjJ4a2N5NW1hV3hsSUQwZ2JtVjNMblJvY21WemFHOXNaSE1zWEc0Z0lIQmhjbUZzYkdWc0lEMGdWRkpWUlZ4dUtWeHVYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcblxuIyB0aGlzIGlzIG91ciB1bnN0YWluZWQgYnJhaW4gc2FtcGxlIChyYXcgZGF0YSlcbnVuc3RhaW5lZC5icmFpbiA8LSBcIi4vUmF3L1Vuc3RhaW5lZCBjb250cm9scy9VbnN0YWluZWQgYnJhaW4uZmNzXCJcblxuIyB3ZSBleHRyYWN0IHRoZSBBRiBwcm9maWxlcyBmcm9tIGl0XG5icmFpbi5hdXRvZmx1b3Jlc2NlbmNlIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LmFmLnNwZWN0cmEoXG4gIHVuc3RhaW5lZC5zYW1wbGUgPSB1bnN0YWluZWQuYnJhaW4sXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYVxuKVxuXG4jIG5vdyB3ZSB3YW50IHRoZSByYXcgZGF0YSBmb3IgdGhlIGZ1bGx5IHN0YWluZWQgYnJhaW4gc2FtcGxlXG5mdWxseS5zdGFpbmVkLmJyYWluIDwtIFwiLi9SYXcvQnJhaW4vQnJhaW5fTW91c2VfMDAxLmZjc1wiXG5cblxuRmxvd0NvZGVVbm1peDo6bGF1bmNoLnRocmVzaG9sZC5hcHAoXG4gIGZsb3djb2RlLmNvbWJvLmZpbGUgPSBjb21iby5maWxlLFxuICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVyc1xuKVxuXG5uZXcudGhyZXNob2xkcyA8LSBcIi4vZmxvd2NvZGVfc3BlY3RyYS9OZXdfdGhyZXNob2xkcy5jc3ZcIlxuXG4jIHRoZW4gY2FsbCB0byB1bm1peDpcbkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcyhcbiAgZmNzLmZpbGUgPSBmdWxseS5zdGFpbmVkLmJyYWluLCAjIGNoYW5nZSB0aGUgc2FtcGxlXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLFxuICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycyxcbiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLFxuICBhZi5zcGVjdHJhID0gYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSwgIyBjaGFuZ2UgdGhlIGF1dG9mbHVvcmVzY2VuY2UgdG8gbWF0Y2hcbiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbixcbiAgZmxvd2NvZGUuc3BlY3RyYSA9IGZsb3djb2RlLnNwZWN0cmEsXG4gIHRocmVzaG9sZHMuZmlsZSA9IG5ldy50aHJlc2hvbGRzLFxuICBwYXJhbGxlbCA9IFRSVUVcbilcblxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIHRoaXMgaXMgb3VyIHVuc3RhaW5lZCBicmFpbiBzYW1wbGUgKHJhdyBkYXRhKVxudW5zdGFpbmVkLmJyYWluIDwtIFwiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBicmFpbi5mY3NcIlxuXG4jIHdlIGV4dHJhY3QgdGhlIEFGIHByb2ZpbGVzIGZyb20gaXRcbmJyYWluLmF1dG9mbHVvcmVzY2VuY2UgPC0gQXV0b1NwZWN0cmFsOjpnZXQuYWYuc3BlY3RyYShcbiAgdW5zdGFpbmVkLnNhbXBsZSA9IHVuc3RhaW5lZC5icmFpbixcbiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsXG4gIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhXG4pXG5cbiMgbm93IHdlIHdhbnQgdGhlIHJhdyBkYXRhIGZvciB0aGUgZnVsbHkgc3RhaW5lZCBicmFpbiBzYW1wbGVcbmZ1bGx5LnN0YWluZWQuYnJhaW4gPC0gXCIuL1Jhdy9CcmFpbi9CcmFpbl9Nb3VzZV8wMDEuZmNzXCJcblxuXG5GbG93Q29kZVVubWl4OjpsYXVuY2gudGhyZXNob2xkLmFwcChcbiAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsXG4gIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCxcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzXG4pXG5cbm5ldy50aHJlc2hvbGRzIDwtIFwiLi9mbG93Y29kZV9zcGVjdHJhL05ld190aHJlc2hvbGRzLmNzdlwiXG5cbiMgdGhlbiBjYWxsIHRvIHVubWl4OlxuRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZmNzKFxuICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuYnJhaW4sICMgY2hhbmdlIHRoZSBzYW1wbGVcbiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsXG4gIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLFxuICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsXG4gIGFmLnNwZWN0cmEgPSBicmFpbi5hdXRvZmx1b3Jlc2NlbmNlLCAjIGNoYW5nZSB0aGUgYXV0b2ZsdW9yZXNjZW5jZSB0byBtYXRjaFxuICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLFxuICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSxcbiAgdGhyZXNob2xkcy5maWxlID0gbmV3LnRocmVzaG9sZHMsXG4gIHBhcmFsbGVsID0gVFJVRVxuKVxuXG5gYGAifQ== -->
 <pre class="r"><code>
 # this is our unstained brain sample (raw data)
 unstained.brain &lt;- &quot;./Raw/Unstained controls/Unstained brain.fcs&quot;
@@ -2313,10 +2547,11 @@ brain.autofluorescence &lt;- AutoSpectral::get.af.spectra(
 fully.stained.brain &lt;- &quot;./Raw/Brain/Brain_Mouse_001.fcs&quot;
 
 
-launch.threshold.app(
+FlowCodeUnmix::launch.threshold.app(
   flowcode.combo.file = combo.file,
-  flow.control = cleaned.controls,
-  spectra = fluorophore.spectra
+  flow.control = flow.control,
+  spectra = fluorophore.spectra,
+  asp = autospectral.parameters
 )
 
 new.thresholds &lt;- &quot;./flowcode_spectra/New_thresholds.csv&quot;
@@ -2326,7 +2561,7 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   fcs.file = fully.stained.brain, # change the sample
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = brain.autofluorescence, # change the autofluorescence to match
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
@@ -2338,6 +2573,13 @@ FlowCodeUnmix::unmix.flowcode.fcs(
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Note that <code>flowcode.combo.file</code> and
+<code>flow.control</code> must be supplied to
+<code>launch.threshold.app()</code> together, or not at all – a partial
+pair now raises an explicit error up front, rather than failing
+confusingly later on. As above, you can also just point
+<code>backbone.rds</code> at any RDS produced by
+<code>unmix.backbone()</code> and skip supplying these separately.</p>
 </div>
 </div>
 <div id="flowcode-debarcoding-workflow" class="section level1">
@@ -2367,7 +2609,7 @@ both for the barcodes and for the phenotyping and gating markers.</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmxvd0NvZGUgU3BlY3RyYWwgRmxvdyBVbm1peGluZyBXb3JrZmxvdyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ3RybCtTaGlmdCtFbnRlciouIAoKYGBge3J9CjIgKyAyCmBgYAoKV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuCgpUaGUgcHJldmlldyBzaG93cyB5b3UgYSByZW5kZXJlZCBIVE1MIGNvcHkgb2YgdGhlIGNvbnRlbnRzIG9mIHRoZSBlZGl0b3IuIENvbnNlcXVlbnRseSwgdW5saWtlICpLbml0KiwgKlByZXZpZXcqIGRvZXMgbm90IHJ1biBhbnkgUiBjb2RlIGNodW5rcy4gSW5zdGVhZCwgdGhlIG91dHB1dCBvZiB0aGUgY2h1bmsgd2hlbiBpdCB3YXMgbGFzdCBydW4gaW4gdGhlIGVkaXRvciBpcyBkaXNwbGF5ZWQuCgojIEluc3RhbGxhdGlvbgoKWW91IHdpbGwgYm90aCBuZWVkIGBBdXRvU3BlY3RyYWxgIGFuZCBgRmxvd0NvZGVVbm1peGAgdG8gcnVuIHRoaXMuIElmIHRoaXMgaXMgeW91ciBmaXJzdCB0aW1lIHVzaW5nIHRoZXNlLCBydW4gdGhlIGluc3RhbGxhdGlvbiBjb2RlIGJlbG93LCB3aGljaCBzaG91bGQgdGFrZSBjYXJlIG9mIGV2ZXJ5dGhpbmcgZm9yIHlvdS4KCmBgYHtyfQojIEluc3RhbGwgQmlvY29uZHVjdG9yIHBhY2thZ2VzCmlmICghcmVxdWlyZU5hbWVzcGFjZSgiQmlvY01hbmFnZXIiLCBxdWlldGx5ID0gVFJVRSkpCiAgaW5zdGFsbC5wYWNrYWdlcygiQmlvY01hbmFnZXIiKQpCaW9jTWFuYWdlcjo6aW5zdGFsbChjKCJmbG93V29ya3NwYWNlIiwgIkZsb3dTT00iKSkKCiMgSW5zdGFsbCBhbnkgbWlzc2luZyBDUkFOIHBhY2thZ2VzIHRoYXQgd2UnbGwgbmVlZApjcmFuLnBhY2thZ2VzIDwtIGMoCiAgInNoaW55IiwKICAic2hpbnlGaWxlcyIsCiAgImdncGxvdDIiLAogICJzY2F0dGVybW9yZSIsCiAgImRwbHlyIgopCgptaXNzaW5nLnBrZ3MgPC0gc2V0ZGlmZigKICBjcmFuLnBhY2thZ2VzLAogIHJvd25hbWVzKGluc3RhbGxlZC5wYWNrYWdlcygpKQopCgppZiAobGVuZ3RoKG1pc3NpbmcucGtncykgPiAwKSB7CiAgaW5zdGFsbC5wYWNrYWdlcyhtaXNzaW5nLnBrZ3MsIGRlcGVuZGVuY2llcyA9IFRSVUUpCn0KCiMgaW5zdGFsbCBgcmVtb3Rlc2AgdG8gYWxsb3cgeW91IHRvIGluc3RhbGwgR2l0SHViIHBhY2thZ2VzIChkZXZ0b29scyBhbHNvIHdvcmtzKQppbnN0YWxsLnBhY2thZ2VzKCJyZW1vdGVzIikKcmVtb3Rlczo6aW5zdGFsbF9naXRodWIoIkRyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbCIpCnJlbW90ZXM6Omluc3RhbGxfZ2l0aHViKCJEckN5dG9tZXRlci9GbG93Q29kZVVubWl4IikKYGBgCgoKIyBCYXNpYyBBdXRvU3BlY3RyYWwgd29ya2Zsb3cKCldlIHN0YXJ0IGFzIHdlIHdvdWxkIHdpdGggYW55IHNwZWN0cmFsIGZsb3cgY3l0b21ldHJ5IGRhdGEgc2V0IGluIEF1dG9TcGVjdHJhbC4gV2Ugd2lsbCBsb2FkIHRoZSBjeXRvbWV0ZXItc3BlY2lmaWMgcGFyYW1ldGVycywgbG9hZCBpbiB0aGUgc2luZ2xlLXN0YWluZWQgY29udHJvbCBGQ1MgZGF0YSwgY2xlYW4tdXAgdGhlIGNvbnRyb2wgZGF0YSwgZXh0cmFjdCB0aGUgc3BlY3RyYWwgcHJvZmlsZXMgb2YgdGhlIGZsdW9yb3Bob3JlcywgaWRlbnRpZnkgYXV0b2ZsdW9yZXNjZW5jZSBzaWduYXR1cmVzIGFuZCBtZWFzdXJlIHRoZSBzcGVjdHJhbCB2YXJpYXRpb24gaW4gdGhlIGZsdW9yb3Bob3JlIG91dHB1dC4KCgojIyBMb2FkIHRoZSBwYXJhbWV0ZXJzCgpIZXJlIHdlIGFyZSB1c2luZyBkYXRhIGZyb20gdGhlIEN5dGVrIEF1cm9yYSAoNS1sYXNlciBzeXN0ZW0pLiBGb3IgZGF0YSBmcm9tIGEgZGlmZmVyZW50IHNwZWN0cmFsIGN5dG9tZXRlciwgY2FsbCB0aGUgYXBwcm9wcmlhdGUgY3l0b21ldGVyIGFzICJjeXRvbWV0ZXIiLiBGb3IgbW9yZSBkZXRhaWxzIG9uIHRoZSBBdXRvU3BlY3RyYWwgd29ya2Zsb3csIHNlZSBbQXV0b1NwZWN0cmFsIGhlbHBdKGh0dHBzOi8vZHJjeXRvbWV0ZXIuZ2l0aHViLmlvL0F1dG9TcGVjdHJhbC8pLgoKYGBge3IsIHN0YXJ0dXB9CmxpYnJhcnkoQXV0b1NwZWN0cmFsKQphdXRvc3BlY3RyYWwucGFyYW1ldGVycyA8LSBBdXRvU3BlY3RyYWw6OmdldC5hdXRvc3BlY3RyYWwucGFyYW0oCiAgY3l0b21ldGVyID0gImF1cm9yYSIsCiAgZmlndXJlID0gVFJVRQopCmBgYAoKCiMjIENyZWF0ZSBhbmQgY2hlY2sgdGhlIGNvbnRyb2wgZmlsZQoKVGhlIGNvbnRyb2wgZmlsZSBpcyBhIENTViBmaWxlIChzcHJlYWRzaGVldCkgdGhhdCBkZXNjcmliZXMgeW91ciBjb250cm9sIGZpbGVzIGZvciBBdXRvU3BlY3RyYWwuIEEgZHJhZnQgb2YgdGhpcyB3aWxsIGJlIGNyZWF0ZWQgYXV0b21hdGljYWxseSBieSBBdXRvU3BlY3RyYWwgaWYgeW91IHRlbGwgaXQgd2hlcmUgeW91ciBzaW5nbGUtc3RhaW5lZCBjb250cm9sIGZpbGVzIGFyZS4gWW91IHdpbGwgbmVlZCB0byBlZGl0IHRoaXMgYW5kIGNoZWNrIGl0IHRvIGJlIHN1cmUgaXQgaXMgY29ycmVjdC4gRGV0YWlscyBvbiBob3cgdG8gZG8gdGhpcyBhcmUgaW4gdGhpcyBbYXJ0aWNsZV0oaHR0cHM6Ly9kcmN5dG9tZXRlci5naXRodWIuaW8vQXV0b1NwZWN0cmFsL2FydGljbGVzLzAyX0NvbnRyb2xfRmlsZV9leGFtcGxlLmh0bWwpLiBUaGVyZSBpcyBhbHNvIGEgW1NoaW55IGhlbHBlcl0oaHR0cHM6Ly9naXRodWIuY29tL0RyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbEhlbHBlcikgYXBwbGljYXRpb24gZm9yIHRoaXMsIHdoaWNoIG9wZW5zIGFzIGFuIGludGVyYWN0aXZlIHdlYnBhZ2UuCgoKYGBge3IsIGRlZmluZSB0aGUgY29udHJvbHN9CiMgd2hlcmUgYXJlIHlvdXIgc2luZ2xlLXN0YWluZWQgY29udHJvbCBmaWxlcz8KIyByZXBsYWNlIHRoZSAibXlfY29udHJvbF9mb2xkZXIiIHdpdGggdGhlIHBhdGggdG8geW91ciBmaWxlcy4KIyBUaXA6IGlmIHlvdSBzdGFydCBSU3R1ZGlvIGJ5IGRvdWJsZS1jbGlja2luZyBvbiB0aGlzIG9yIGFub3RoZXIgUiBkb2N1bWVudCwKIyB0aGF0IHRlbGxzIFJTdHVkaW8gd2hlcmUgeW91IHdhbnQgdG8gd29yay4gSWYgeW91IHBsYWNlIGEgZm9sZGVyIChzYXksIGNhbGxlZCBTU0MpCiMgY29udGFpbmluZyB5b3VyIGNvbnRyb2wgZmNzIGZpbGVzIGluIHRoYXQgZm9sZGVyLCB5b3Ugd2lsbCBiZSBhYmxlIHRvIGFjY2VzcyAKIyBpdCB3aXRoIGp1c3QgIi4vU1NDCmNvbnRyb2wuZm9sZGVyIDwtICJDOi8vVXNlci9Eb2N1bWVudHMvbXlfY29udHJvbF9mb2xkZXIiCgojIG9yCmNvbnRyb2wuZm9sZGVyIDwtICIuL1NTQyIKCkF1dG9TcGVjdHJhbDo6Y3JlYXRlLmNvbnRyb2wuZmlsZSgKICBjb250cm9sLmRpciA9IGNvbnRyb2wuZm9sZGVyLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzCikKYGBgCgpPbmNlIHlvdSBoYXZlIGVkaXRlZCB5b3VyIGNvbnRyb2wgZmlsZSwgY2hlY2sgaXQ6CgpgYGB7ciwgY2hlY2sgdGhlIGNvbnRyb2xzfQpjb250cm9sLmZpbGUgPC0gImZjc19jb250cm9sX2ZpbGUuY3N2IgpBdXRvU3BlY3RyYWw6OmNoZWNrLmNvbnRyb2wuZmlsZSgKICBjb250cm9sLmRpciA9IGNvbnRyb2wuZm9sZGVyLAogIGNvbnRyb2wuZGVmLmZpbGUgPSBjb250cm9sLmZpbGUsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMKKQpgYGAKCgojIyBMb2FkIHRoZSBkYXRhCgpUaGlzIHN0ZXAgd2lsbCBsaWtlbHkgdGFrZSBhIGZldyBtaW51dGVzLiBBdXRvU3BlY3RyYWwgd2lsbCBub3cgdGFrZSBhbGwgb2YgdGhlIGluZm9ybWF0aW9uIGluIHRoZSBjb250cm9sIGZpbGUsIHJlYWQgaW4gYWxsIHRoZSBzaW5nbGUtc3RhaW5lZCBGQ1MgZmlsZXMsIGRldGVybWluZSBnYXRlcyB0byB1c2UgYW5kIGV4dHJhY3QgdGhlIGluZm9ybWF0aW9uIGluIHRoZSBnYXRlcyBmb3IgZG93bnN0cmVhbSB1c2FnZS4gVGhpcyBjYW4gZ28gZmFzdGVyIGJ5IHNldHRpbmcgYHBhcmFsbGVsID0gVFJVRWAuCgpgYGB7ciwgbG9hZCB0aGUgY29udHJvbHN9CmZsb3cuY29udHJvbCA8LSBBdXRvU3BlY3RyYWw6OmRlZmluZS5mbG93LmNvbnRyb2woCiAgY29udHJvbC5kaXIgPSBjb250cm9sLmZvbGRlciwKICBjb250cm9sLmRlZi5maWxlID0gY29udHJvbC5maWxlLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLAogIHBhcmFsbGVsID0gRkFMU0UKKQpgYGAKCkNoZWNrIHRoZSBwbG90cyBpbiBmb2xkZXIgYGZpZ3VyZV9nYXRlYCB0byBiZSBzdXJlIHRoZSBnYXRpbmcgaXMgd29ya2luZyBhcHByb3ByaWF0ZWx5IGZvciB5b3VyIHNhbXBsZXMuIFNlZSB0aGUgaGVscCBwYWdlcyBpZiBpdCBkb2VzIG5vdCBsb29rIGdvb2QuCgoKIyMgQ2xlYW4gdGhlIGNvbnRyb2xzCgpUaGlzIHdpbGwgYWxzbyB0YWtlIGEgZmV3IG1pbnV0ZXMsIG1vc3QgbGlrZWx5LiBJbiB0aGlzIHN0ZXAsIHdlIGFyZSB0cnlpbmcgdG8gaWRlbnRpZnkgdGhlIG1vc3QgdXNlZnVsIGV2ZW50cyBpbiB0aGUgc2luZ2xlLXN0YWluZWQgY29udHJvbHMgZm9yIGRldGVybWluaW5nIHRoZSBmbHVvcm9waG9yZSBzcGVjdHJhLiBUaGlzIGludm9sdmVzIHJlbW92aW5nIGFueSBjZWxscyAoaW4gY2VsbC1iYXNlZCBjb250cm9scykgdGhhdCBpbnRlcmZlcmUgd2l0aCB0aGUgbWVhc3VyZW1lbnQgKGUuZy4sIGF1dG9mbHVvcmVzY2VudCBtYWNyb3BoYWdlcyBvciBkZWFkIGNlbGxzKSwgc2VsZWN0aW5nIHRoZSBicmlnaHRlc3QgZXZlbnRzIGFuZCBtYXRjaGluZyB0aGUgYmFja2dyb3VuZCBvZiB0aG9zZSBldmVudHMgaW4gdGhlIHVuc3RhaW5lZCBzYW1wbGUuCgpgYGB7ciwgY2xlYW4gdGhlIGNvbnRyb2xzfQpjbGVhbmVkLmNvbnRyb2xzIDwtIEF1dG9TcGVjdHJhbDo6Y2xlYW4uY29udHJvbHMoCiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzCikKYGBgCgojIyBNZWFzdXJlIHRoZSBmbHVvcm9waG9yZSBzcGVjdHJhbCBwcm9maWxlcwoKTm93IHdlIHdpbGwgZXh0cmFjdCB0aGUgZmx1b3JvcGhvcmUgc3BlY3RyYWwgaW5mb3JtYXRpb24gZnJvbSB0aGUgY2xlYW5lZCBkYXRhLiBUaGlzIHNob3VsZCBiZSByZWxhdGl2ZWx5IHF1aWNrLiBQbG90cyB3aWxsIGFwcGVhciBpbiBgZmlndXJlX3NwZWN0cmFgIGFuZCBgZmlndXJlX3NpbWlsYXJpdHlfaGVhdG1hcGAuCgpgYGB7ciwgZ2V0IHRoZSBzcGVjdHJhbCBwcm9maWxlc30KZmx1b3JvcGhvcmUuc3BlY3RyYSA8LSBBdXRvU3BlY3RyYWw6OmdldC5mbHVvcm9waG9yZS5zcGVjdHJhKAogIGZsb3cuY29udHJvbCA9IGNsZWFuZWQuY29udHJvbHMsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgdXNlLmNsZWFuLmV4cHIgPSBUUlVFCikKYGBgCgoKIyMgTWVhc3VyZSBhdXRvZmx1b3Jlc2NlbmNlIHNwZWN0cmEKCkF1dG9mbHVvcmVzY2VuY2UgaXMgYWx3YXlzIHByZXNlbnQgaW4gb3VyIHN0YWluZWQgY2VsbHMsIGluY2x1ZGluZyBvdXIgc2luZ2xlLXN0YWluZWQgY2VsbCBjb250cm9scy4gVGhpcyBpcyBhIHNvdXJjZSBvZiB2YXJpYWJpbGl0eSB0aGF0IGNvbnRyaWJ1dGVzIHRvIG5vaXNlIChzcHJlYWQpIGluIG91ciB1bm1peGVkIGRhdGEuIFdlIG5lZWQgdG8gaWRlbnRpZnkgdGhlIHZhcmlhYmlsaXR5IGluIGF1dG9mbHVvcmVzY2VuY2UgdG8gY291bnRlcmFjdCB0aGlzLiBXaXRoIEZsb3dDb2RlIGRhdGEsIHdlIHdpbGwgb2Z0ZW4gaGF2ZSBkaWZmZXJlbnQgdGlzc3VlIHNvdXJjZXMsIGVhY2ggb2Ygd2hpY2ggd2lsbCBoYXZlIGEgZGlzdGluY3QgZGlzdHJpYnV0aW9uIG9mIGF1dG9mbHVvcmVzY2VuY2UgcHJvZmlsZXMuIFdlIHdpbGwgZXZlbnR1YWxseSBuZWVkIHRvIGlkZW50aWZ5IGFsbCBvZiB0aG9zZS4gVG8gc3RhcnQsIHRob3VnaCwgd2Ugd2lsbCBpZGVudGlmeSBvbmx5IHRoZSB2YXJpYWJpbGl0eSBpbiB0aGUgdHlwZSBvZiBzYW1wbGUgd2UgYXJlIHVzaW5nIGZvciB0aGUgc2luZ2xlLXN0YWluZWQgY29udHJvbHMuIEZvciBpbnN0YW5jZSwgd2l0aCBtb3VzZSBzdHVkaWVzLCB0aGVzZSB3aWxsIGxpa2VseSBiZSBzcGxlbm9jeXRlcywgc28gd2Ugd2lsbCB1c2UgdW5zdGFpbmVkIHNwbGVlbiBhcyB0aGUgc291cmNlIG9mIG91ciBhdXRvZmx1b3Jlc2NlbmNlLgoKSW4gdGhpcyBleGFtcGxlLCBJIGhhdmUgYW4gdW5zdGFpbmVkIHNwbGVlbiBzYW1wbGUgYXMgdGhlICJVbnN0YWluZWQiIChzbyBuYW1lZCBieSBTcGVjdHJvRmxvKSBpbiBteSByZWZlcmVuY2UgY29udHJvbCBncm91cC4gVGhpcyBGQ1MgZmlsZSBpcyBpbiB0aGUgc2luZ2xlLXN0YWluZWQgY29udHJvbCBmb2xkZXIsIGFsb25nIHdpdGggYWxsIG9mIHRoZSBvdGhlciBjb250cm9scy4KCmBgYHtyLCBtZWFzdXJlIEFGfQpzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKAogIHVuc3RhaW5lZC5zYW1wbGUgPSBmaWxlLnBhdGgoIGNvbnRyb2wuZm9sZGVyLCAiVW5zdGFpbmVkLmZjcyIgKSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYQopCmBgYAoKCiMjIERldGVybWluZSBzcGVjdHJhbCB2YXJpYXRpb24gaW4gdGhlIGZsdW9yb3Bob3JlcwoKTm93IHRoYXQgd2Uga25vdyB0aGUgY29udHJpYnV0aW9uIG9mIGF1dG9mbHVvcmVzY2VuY2UgdG8gdGhlIHZhcmlhdGlvbiwgd2UgY2FuIGV4dHJhY3QgdGhlIHZhcmlhdGlvbiBmcm9tIHRoZSBmbHVvcm9waG9yZSBlbWlzc2lvbnMgdGhlbXNlbHZlcy4KCmBgYHtyLCBtZWFzdXJlIHZhcmlhdGlvbn0KZmx1b3JvcGhvcmUudmFyaWF0aW9uIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LnNwZWN0cmFsLnZhcmlhbnRzKAogIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsCiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSwKICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsCiAgcGFyYWxsZWwgPSBGQUxTRQopCmBgYAoKVGhhdCBpcyB0aGUgZW5kIG9mIHRoZSBub3JtYWwgQXV0b1NwZWN0cmFsIHdvcmtmbG93IGZvciB1cy4gV2Ugbm93IG5lZWQgdG8gZG8gc29tZSBGbG93Q29kZS1zcGVjaWZpYyBzdGVwcyBiZWZvcmUgcHJvY2VlZGluZyB0byB0aGUgZGViYXJjb2RpbmcgYW5kIHVubWl4aW5nLgoKCgojIEZsb3dDb2RlIFVubWl4aW5nIFdvcmtmbG93CgpGb3IgdGhlIEZsb3dDb2RlIHdvcmtmbG93LCB3ZSBuZWVkIHNvbWUgYWRkaXRpb25hbCBwaWVjZXMgb2YgaW5mb3JtYXRpb246CiogV2hpY2ggYXJlIHRoZSBGbG93Q29kZSBlcGl0b3BlIHRhZyBjaGFubmVscz8KKiBXaGF0IGFyZSB0aGUgdmFsaWQgRmxvd0NvZGUgY29tYmluYXRpb25zIChpbiB0aGUgY29tYmluYXRpb24gZmlsZSk/CiogV2hhdCBpcyB0aGUgbmFtZSAoZ3VpZGUvVENSKSBvZiBlYWNoIGNvbWJpbmF0aW9uIChpbiB0aGUgY29tYmluYXRpb24gZmlsZSk/CiogV2hlcmUgYXJlIHRoZSBjZWxscyAodXNlci1kcmF3biBnYXRlKT8KKiBXaGF0IHZhcmlhdGlvbiBpbiBmbHVvcm9waG9yZSBvdXRwdXQgaXMgY3JlYXRlZCBieSB0aGUgY29tYmluYXRpb25zIGR1ZSB0byBGUkVUIG9yIGEgRlJFVC1saWtlIGFydGlmYWN0PyBGb3IgdGhpcywgd2UgbmVlZCB5b3VyIGJhY2tib25lIGNvbnRyb2wsIHN0YWluZWQgb25seSB3aXRoIHRoZSBGbG93Q29kZSBlcGl0b3BlIGFudGlib2RpZXMuIEFsbCBjb21iaW5hdGlvbnMgc2hvdWxkIGJlIHdlbGwgcmVwcmVzZW50ZWQgZm9yIGJlc3QgcmVzdWx0cy4KCgojIyBXaGVyZSBpcyBldmVyeXRoaW5nPwoKUHJvdmlkZSB0aGUgbG9jYXRpb24gKGZpbGUgcGF0aCkgYW5kIG5hbWUgb2YgeW91ciBiYWNrYm9uZSBGQ1MgZmlsZS4gUHJvdmlkZSB0aGUgbmFtZSAoYW5kIGZpbGUgcGF0aCkgb2YgeW91ciBjb21iaW5hdGlvbiBDU1YgZmlsZS4KCmBgYHtyLCBGbG93Q29kZSBjb21ib3N9CmZsb3djb2RlLmJhY2tib25lIDwtICIuL1Jhdy9GQyBjb250cm9sIChTcGxlZW4pL0YyIEZDX0ZSRVRfMDJfUGxhdGVfMDAyLmZjcyIgCmNvbWJvLmZpbGUgPC0gIk9UQjAxIFRyZWcgVHggZmFjdG9yIGNvbWJpbmF0aW9ucy5jc3YiCmBgYAoKCk5vdyB3ZSBjYW4gdW5taXggdGhlIGJhY2tib25lIGNvbnRyb2wsIHVzaW5nIGEgc2xpZ2h0IGFkYXB0YXRpb24gb2YgdGhlIEF1dG9TcGVjdHJhbCB1bm1peGluZyBhcHByb2FjaC4gVGhpcyBpcyBhIHNwbGVlbi1iYXNlZCBzYW1wbGUsIHNvIHdlIHVzZSBgc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2VgLgoKYGBge3IsIGxvYWQgdGhlIGJhY2tib25lIGRhdGF9CkZsb3dDb2RlVW5taXg6OnVubWl4LmJhY2tib25lKAogICBmbG93Y29kZS5iYWNrYm9uZS5mY3MgPSBmbG93Y29kZS5iYWNrYm9uZSwKICAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsCiAgIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSwKICAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scywKICAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgIGZsb3djb2RlLmNvbWJvLmZpbGUgPSBjb21iby5maWxlLAogICBvdXRwdXQuZGlyID0gIi4vZmxvd2NvZGVfc3BlY3RyYSIsCiAgIGZpbGVuYW1lID0gIkZsb3dDb2RlX0JhY2tib25lLnJkcyIKKQpgYGAKClRoaXMgc2F2ZXMgdGhlIG91dHB1dCBhcyBhbiBSRFMgZmlsZSBpbiB0aGUgZm9sZGVyIHNwZWNpZmllZCBieSBgb3V0cHV0LmRpcmAuIElmIHlvdSBjaGFuZ2UgYG91dHB1dC5kaXJgLCB5b3UnbGwgbmVlZCB0byBjaGFuZ2UgaXQgbGF0ZXIgaW4gYGdldC5mbG93Y29kZS5zcGVjdHJhKClgLgoqTm90ZTogY2hhbmdlIHRvIHJldHVybmluZyBvYmplY3QKCiMjIFNldHRpbmcgdGhyZXNob2xkcwoKVGhpcyBwYXJ0IHJlcXVpcmVzIHlvdSB0byBtYW51YWxseSBzZWxlY3QgdGhlIHBvaW50IG9uIHRoZSBncmFwaCB3aGVyZSB0aGUgZGF0YSBzdGFydCBiZWNvbWluZyAicG9zaXRpdmUiIGZvciBlYWNoIG9mIHRoZSBGbG93Q29kZSBlcGl0b3BlIHRhZ3MuIFRoYXQgaXMsIHdoZXJlIGlzIHRoZSB0aHJlc2hvbGQgZm9yIGhhdmluZyB0aGUgRmxvd0NvZGUgb3Igbm90PyBUaGlzIGlzIG1hbnVhbCBiZWNhdXNlIGl0J3MgcHJldHR5IGhhcmQgdG8gZG8gaXQgd2VsbCBpbiBhbiBhdXRvbWF0ZWQgbWFubmVyIGNvbnNpZGVyaW5nIHRoYXQgYXQgdGhpcyBzdGFnZSB3ZSBzdGlsbCBoYXZlIEZSRVQtYmFzZWQgdW5taXhpbmcgaXNzdWVzLgoKSSBoYXZlIGNyZWF0ZWQgYSBTaGlueSBhcHAgdG8gYWxsb3cgeW91IHRvIGRvIHRoaXMgaW50ZXJhY3RpdmVseSwgYXMgaW4gT3JpYW4gQnJpY2FyZCdzIEZsb3dDb2RlIGRlYmFyY29kaW5nIGFwcC4KCmBgYHtyLCBydW4gYXBwfQpGbG93Q29kZVVubWl4OjpsYXVuY2gudGhyZXNob2xkLmFwcCgpCmBgYAoKV2hlbiB5b3UncmUgZG9uZSwgeW91IHNob3VsZCBoYXZlIGEgQ1NWIGZpbGUgKHNwcmVhZHNoZWV0KSwgd2hpY2ggaXMgcHJldHR5IHNpbXBsZSBhbmQganVzdCBjb250YWlucyB0aGUgbnVtZXJpY2FsIHZhbHVlIGNvcnJlc3BvbmRpbmcgdG8gdGhlIHRocmVzaG9sZCBmb3IgZWFjaCBGbG93Q29kZSBjaGFubmVsLgoKCiMjIE1lYXN1cmluZyBGUkVUICh1bm1peGluZykgZXJyb3JzIGR1ZSB0byBGbG93Q29kZXMKCkluIHRoaXMgc3RlcCwgd2Ugd2lsbCB0YWtlIHRoZSBGbG93Q29kZSBlcGl0b3BlLXN0YWluZWQgYmFja2JvbmUgZGF0YSAoZnJvbSB0aGUgdW5taXhlZCBkYXRhIGluIHRoZSBSRFMgZmlsZSksIGRlYmFyY29kZSBpdCB0byBpZGVudGlmeSB2YWxpZCBjb21iaW5hdGlvbnMsIGFuZCBhc3Nlc3Mgc3BlY3RyYWwgdW5taXhpbmcgZXJyb3JzIHBlciBjb21iaW5hdGlvbi4gVGhpcyBnaXZlcyB1cyBhIHNldCBvZiBwb3RlbnRpYWwgY29ycmVjdGlvbnMgdG8gYXBwbHkgdG8gZWFjaCBjZWxsIGZvciBhIGdpdmVuIGJhcmNvZGUgY29tYmluYXRpb24uCgpgYGB7ciwgZmluZCBGUkVUIGVycm9yc30KZmxvd2NvZGUuc3BlY3RyYSA8LSBGbG93Q29kZVVubWl4OjpnZXQuZmxvd2NvZGUuc3BlY3RyYSgKICBiYWNrYm9uZS5yZHMgPSAiLi9mbG93Y29kZV9zcGVjdHJhL0Zsb3dDb2RlX0JhY2tib25lLnJkcyIsCiAgdGhyZXNob2xkcy5maWxlID0gIi4vZmxvd2NvZGVfc3BlY3RyYS90aHJlc2hvbGRzLmNzdiIsCiAgb3V0cHV0LmRpciA9ICIuL2Zsb3djb2RlX3NwZWN0cmEiLAogIGZpbGVuYW1lID0gIkZsb3dDb2RlX1NwZWN0cmEucmRzIiwKICBwbG90LmNvcnJlY3Rpb25zID0gVFJVRQopCmBgYAoKVGhpcyBjYWxsIHNhdmVzIHRoZSBvdXRwdXQgYXMgYW4gUkRTIGZpbGUgaW4gdGhlIGZvbGRlciBzcGVjaWZpZWQgYnkgYG91dHB1dC5kaXJgLiBJZiB5b3Ugc2VsZWN0IGBwbG90LmNvcnJlY3Rpb25zID0gVFJVRWAsIGl0IHdpbGwgaWRlbnRpZnkgdGhlIEZSRVQgZXJyb3JzIG9uIGEgY2VsbC1ieS1jZWxsIGJhc2lzLCBjb3JyZWN0IHRoZW0sIGFuZCBwbG90IGV4YW1wbGVzIG9mIHdoYXQgdGhlIEZsb3dDb2RlIGVwaXRvcGUgdW5taXhpbmcgbG9va3MgbGlrZSBvbiB0aGUgYmFja2JvbmUgZmlsZSB3aXRoIGFuZCB3aXRob3V0IGNvcnJlY3Rpb25zLiBUaGF0IGNhbiBiZSBhIGJpdCBzbG93LCBidXQgaXMgZGVmaW5pdGVseSB3b3J0aCBkb2luZyB0aGUgZmlyc3QgY291cGxlIG9mIHRpbWVzLgoKCiMjIEZsb3dDb2RlIFVubWl4aW5nCgpXZSBub3cgaGF2ZSBhbGwgdGhlIGRhdGEgcmVxdWlyZWQgZm9yIHVubWl4aW5nLCBvciwgYXQgbGVhc3Qgd2UgZG8gZm9yIHRoZSBhbnkgZmlsZXMgY29taW5nIGZyb20gc3BsZWVuLiBXZSdsbCBnZXQgdG8gb3RoZXIgdGlzc3VlIHNvdXJjZXMgaW4gYSBzZWNvbmQuCgpUbyB1bm1peCBhIHNpbmdsZSBmaWxlLCBjYWxsIGB1bm1peC5mbG93Y29kZS5mY3MoKWAuCgpgYGB7ciwgdW5taXhpbmd9CiMgZm9yIGV4YW1wbGU6CmZ1bGx5LnN0YWluZWQuc3BsZWVuIDwtICIuL1Jhdy9TcGxlZW4vU3BsZWVuX01vdXNlXzAwMS5mY3MiCgojIHRoZW4gY2FsbDoKRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZmNzKAogIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5zcGxlZW4sCiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scywKICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsCiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbiwKICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSwKICBrID0gMTAsICMgdXNlIGs9MSBmb3IgZmFzdGVzdCB1bm1peGluZywgayA9IDEwIChkZWZhdWx0KSBmb3Igc2xvd2VyIGJ1dCBiZXR0ZXIsIGsgfiAzIGNvbXByb21pc2UKICBwYXJhbGxlbCA9IFRSVUUKKQpgYGAKClRvIHVubWl4IGEgZm9sZGVyIGNvbnRhaW5pbmcgbWFueSBmaWxlcywgY2FsbCBgdW5taXguZmxvd2NvZGUuZm9sZGVyKClgLgoKYGBge3IsIHVubWl4aW5nIGEgYnVuY2ggb2Ygc3R1ZmZ9CiMgZm9yIGV4YW1wbGU6CnNwbGVlbi5mb2xkZXIgPC0gIi4vUmF3L1NwbGVlbi8iCgojIHRoZW4gY2FsbDoKRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZm9sZGVyKAogIGZjcy5kaXIgPSBzcGxlZW4uZm9sZGVyLAogIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLAogIGZsb3cuY29udHJvbCA9IGNsZWFuZWQuY29udHJvbHMsCiAgYWYuc3BlY3RyYSA9IHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlLAogIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sCiAgZmxvd2NvZGUuc3BlY3RyYSA9Zmxvd2NvZGUuc3BlY3RyYSwKICBwYXJhbGxlbCA9IFRSVUUKKQpgYGAKCklmIHdlIHdhbnQgdG8gbG9vayBhdCBvdGhlciB0aXNzdWVzIHNvdXJjZXMsIG9yIGFueSBzYW1wbGVzIHdoZXJlIHRoZSBhdXRvZmx1b3Jlc2NlbmNlIG1heSBkaWZmZXIgZnJvbSB0aGUgYXV0b2ZsdW9yZXNjZW5jZSBwcm9maWxlcyB3ZSBoYXZlIGFscmVhZHkgZXh0cmFjdGVkLCB3ZSBmaXJzdCBuZWVkIHRvIGNhbGwgYEF1dG9TcGVjdHJhbDo6Z2V0LmFmLnNwZWN0cmEoKWAgb24gdW5zdGFpbmVkIHNhbXBsZXMgcmVwcmVzZW50aW5nIHRob3NlIGF1dG9mbHVvcmVzY2VuY2Ugc291cmNlcy4gV2UgY2FuIHRoZW4gdW5taXggc2FtcGxlcyBmcm9tIHRob3NlIHRpc3N1ZXMsIGV4dHJhY3RpbmcgdGhlIG1hdGNoaW5nIGF1dG9mbHVvcmVzY2VuY2UgY29ycmVjdGx5LgoKYGBge3IsIHVubWl4aW5nIGRpZmZlcmVudCB0aXNzdWVzfQojIExldCdzIHNheSB3ZSBoYXZlIGJyYWluIHNhbXBsZXMKCiMgdGhpcyBpcyBvdXIgdW5zdGFpbmVkIGJyYWluIHNhbXBsZSAocmF3IGRhdGEpCnVuc3RhaW5lZC5icmFpbiA8LSAiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBicmFpbi5mY3MiCgojIHdlIGV4dHJhY3QgdGhlIEFGIHByb2ZpbGVzIGZyb20gaXQKYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKAogIHVuc3RhaW5lZC5zYW1wbGUgPSB1bnN0YWluZWQuYnJhaW4sCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEKKQoKIyBub3cgd2Ugd2FudCB0aGUgcmF3IGRhdGEgZm9yIHRoZSBmdWxseSBzdGFpbmVkIGJyYWluIHNhbXBsZQpmdWxseS5zdGFpbmVkLmJyYWluIDwtICIuL1Jhdy9CcmFpbi9CcmFpbl9Nb3VzZV8wMDEuZmNzIgoKIyB0aGVuIGNhbGwgdG8gdW5taXg6CkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcygKICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuYnJhaW4sICMgY2hhbmdlIHRoZSBzYW1wbGUKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBmbG93LmNvbnRyb2wgPSBjbGVhbmVkLmNvbnRyb2xzLAogIGFmLnNwZWN0cmEgPSBicmFpbi5hdXRvZmx1b3Jlc2NlbmNlLCAjIGNoYW5nZSB0aGUgYXV0b2ZsdW9yZXNjZW5jZSB0byBtYXRjaAogIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sCiAgZmxvd2NvZGUuc3BlY3RyYSA9IGZsb3djb2RlLnNwZWN0cmEsCiAgcGFyYWxsZWwgPSBUUlVFCikKYGBgCgpJbiBtYW55IGNhc2VzLCB0aGUgdGhyZXNob2xkcyBmb3IgcG9zaXRpdml0eSBtYXkgdmFyeSBzbGlnaHRseSBieSB0aXNzdWUgdHlwZSBvciBzYW1wbGUgc291cmNlLiBJZiB0aGF0IGlzIHRoZSBjYXNlLCB5b3Ugd2lsbCBuZWVkIHRvIHByb3ZpZGUgbmV3IHRocmVzaG9sZHMgYXMgcGFydCBvZiB0aGUgdW5taXhpbmcgcHJvY2Vzcy4gVG8gc3RhcnQsIHVubWl4IGEgc2luZ2xlIEZDUyBmaWxlIGZyb20gdGhlIHNvdXJjZSB5b3Ugd2FudCB0byB1c2UgdG8gc2V0IG5ldyB0aHJlc2hvbGRzLiBEbyB0aGUgdW5taXhpbmcgd2l0aCBBdXRvU3BlY3RyYWwsIGV4dHJhY3RpbmcgdGhlIEFGIHBlciBjZWxsLCBzaW5jZSB0aGlzIHdpbGwgZ2V0IHlvdSBjbG9zZXIgdG8gd2hhdCB0aGUgZGF0YSB3aWxsIGxvb2sgbGlrZSB3aXRoIHRoZSBGbG93Q29kZVVubWl4LiBUaGVuIGxvYWQgdGhpcyBmaWxlIGludG8gdGhlIFRocmVzaG9sZEFwcCwgc2VsZWN0IG5ldyB0aHJlc2hvbGRzIGZvciBlYWNoIEZsb3dDb2RlIG1hcmtlciwgYW5kIHNhdmUgdGhlIHJlc3VsdHMgKHlvdSBjYW4gYW5kIHNob3VsZCByZW5hbWUgdGhlIENTViBmaWxlKS4gTm93IHByb3ZpZGUgdGhpcyBuZXcgQ1NWIGZpbGUgY29udGFpbmluZyB0aGUgdXBkYXRlZCB0aHJlc2hvbGRzIHRvIHRoZSB1bm1peGluZy4KCkkgc3VzcGVjdCB0aGF0IGluIG1vc3QgY2FzZXMgdGhlcmUgd2lsbCBiZSBsaXR0bGUgbmVlZCBmb3IgcmUtdGhyZXNob2xkaW5nIGJldHdlZW4gZGlmZmVyZW50IHRpc3N1ZXMuIFRoZXJlIG1heSBiZSBhIG5lZWQgdG8gcmUtdGhyZXNob2xkIG9uIGEgZnVsbHkgc3RhaW5lZCBzYW1wbGUsIHRob3VnaCwgc2luY2UgdGhpcyB3aWxsIGRpZmZlciBmcm9tIHRoZSBiYWNrYm9uZSBjb250cm9sIHdlIGhhdmUgdXNlZCB0byBlc3RhYmxpc2ggdGhlIGZpcnN0IHNldCBvZiB0aHJlc2hvbGRzLgoKYGBge3IsIGNoYW5naW5nIHRoZSB0aHJlc2hvbGRzfQoKIyB0aGlzIGlzIG91ciB1bnN0YWluZWQgYnJhaW4gc2FtcGxlIChyYXcgZGF0YSkKdW5zdGFpbmVkLmJyYWluIDwtICIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjcyIKCiMgd2UgZXh0cmFjdCB0aGUgQUYgcHJvZmlsZXMgZnJvbSBpdApicmFpbi5hdXRvZmx1b3Jlc2NlbmNlIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LmFmLnNwZWN0cmEoCiAgdW5zdGFpbmVkLnNhbXBsZSA9IHVuc3RhaW5lZC5icmFpbiwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYQopCgojIG5vdyB3ZSB3YW50IHRoZSByYXcgZGF0YSBmb3IgdGhlIGZ1bGx5IHN0YWluZWQgYnJhaW4gc2FtcGxlCmZ1bGx5LnN0YWluZWQuYnJhaW4gPC0gIi4vUmF3L0JyYWluL0JyYWluX01vdXNlXzAwMS5mY3MiCgoKbGF1bmNoLnRocmVzaG9sZC5hcHAoCiAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsCiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scywKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYQopCgpuZXcudGhyZXNob2xkcyA8LSAiLi9mbG93Y29kZV9zcGVjdHJhL05ld190aHJlc2hvbGRzLmNzdiIKCiMgdGhlbiBjYWxsIHRvIHVubWl4OgpGbG93Q29kZVVubWl4Ojp1bm1peC5mbG93Y29kZS5mY3MoCiAgZmNzLmZpbGUgPSBmdWxseS5zdGFpbmVkLmJyYWluLCAjIGNoYW5nZSB0aGUgc2FtcGxlCiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgZmxvdy5jb250cm9sID0gY2xlYW5lZC5jb250cm9scywKICBhZi5zcGVjdHJhID0gYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSwgIyBjaGFuZ2UgdGhlIGF1dG9mbHVvcmVzY2VuY2UgdG8gbWF0Y2gKICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLAogIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLAogIHRocmVzaG9sZHMuZmlsZSA9IG5ldy50aHJlc2hvbGRzLAogIHBhcmFsbGVsID0gVFJVRQopCgpgYGAKCiMgRmxvd0NvZGUgRGViYXJjb2RpbmcgV29ya2Zsb3cKCldpdGggdGhlIG5ldyB1bm1peGluZywgdGhlIHJlc3VsdGluZyBGQ1MgZmlsZXMgYXJlIGFscmVhZHkgZGViYXJjb2RlZC4gSWYgeW91IGluc3BlY3QgdGhlIGZpbGVzIGluIFIgb3IgRmxvd0pvLCB5b3Ugc2hvdWxkIHNlZSBhIGNoYW5uZWwgZm9yIGVhY2ggb2YgdGhlIHRhZ3MgKG5hbWVzLCBndWlkZXMsIFRDUnMpIHlvdSBoYXZlIGxpbmtlZCB0byBlYWNoIEZsb3dDb2RlIGNvbWJpbmF0aW9uLiBUaGUgZXhwcmVzc2lvbiBpbiB0aGVzZSBjaGFubmVscyBpcyB0aGUgZXhwcmVzc2lvbiBvZiB0aGF0IGNvbWJpbmF0aW9uIG9mIEZsb3dDb2RlIGVwaXRvcGVzIGluIHRoZSBjZWxscy4gQWRkaXRpb25hbGx5LCB5b3Ugc2hvdWxkIGhhdmUgYSAiRmxvd0NvZGUiIGNoYW5uZWwsIHdoaWNoIGlzIHRoZSBleHByZXNzaW9uIGxldmVsIG9mIHRoZSBlcGlvcGVzIGluIGNlbGxzIHdpdGggdmFsaWQgRmxvd0NvZGUgY29tYmluYXRpb25zLiBJbiBvdGhlciB3b3JkcywgdGhlICJGbG93Q29kZSIgY2hhbm5lbCBtZWFzdXJlcyB0cmFuc2R1Y3Rpb24uCgpTbywgaW4gRmxvd0pvLCB5b3UgY2FuIGdhdGUgb24geW91ciBjZWxscyBhbmQgdGhlbiBwbG90IGEgdGFnIGNvbWJvIHZlcnN1cyB3aGF0ZXZlciBtYXJrZXJzIHlvdSBoYXZlIGluIHlvdXIgZmxvdyBwYW5lbC4gVGhpcyBpcyB1c2VmdWwgZm9yIGNoZWNraW5nIENSSVNQUiBndWlkZSBlZmZpY2llbmN5IChmb3IgZXhhbXBsZSwgcGxvdHRpbmcgR0FUQS0zIGV4cHJlc3Npb24gaW4gR2F0YTMtdGFyZ2V0ZWQgY2VsbHMpIG9yIGZvciBwaGVub3R5cGluZy4gSWYgeW91IHdhbnQsIHlvdSBjYW4gcnVuIGRpbWVuc2lvbmFsaXR5IHJlZHVjdGlvbiBhbmQgY2x1c3RlcmluZyBhcHByb2FjaGVzIGluIEZsb3dKbywgUiBvciBQeXRob24gb24gdGhlIEZDUyBmaWxlcyBhcyB0aGV5IGFyZSBvciB3aXRoIHNvbWUgcHJlLWdhdGluZy4KCkZvciBvdXIgYW5hbHlzZXMsIHdlIHJlY29tbWVuZCBwcmUtZ2F0aW5nIHRvIHNwZWNpZmljIGJpb2xvZ2ljYWxseSByZWxldmFudCBjZWxsIHBvcHVsYXRpb25zLiBJIHN0aWxsIG5lZWQgdG8gd3JpdGUgdGhlIHBhcnQgdG8gZG8gdGhpcyBpbiBSLiBBdCBwcmVzZW50LCB5b3Ugc2hvdWxkIGJlIGFibGUgdG8gdHJlYXQgdGhlIHVubWl4ZWQgRkNTIGZpbGVzIHlvdSBnZXQgZnJvbSB0aGlzIHdvcmtmbG93IGFzIHlvdSB3b3VsZCBwcmV2aW91c2x5LCBydW5uaW5nIHRoZW0gdGhyb3VnaCBPcmlhbiBCcmljYXJkJ3MgW0Zsb3dDb2RlRGVjb2Rlcl0oaHR0cHM6Ly9naXRodWIuY29tL0RyQ3l0b21ldGVyL0Zsb3djb2RlRGVjb2RlcikuIFRoZSBkaWZmZXJlbmNlIGlzIHRoYXQgdGhlIHVubWl4aW5nIHdpbGwgbm93IGJlIGNvcnJlY3QgKGhvcGVmdWxseSksIGJvdGggZm9yIHRoZSBiYXJjb2RlcyBhbmQgZm9yIHRoZSBwaGVub3R5cGluZyBhbmQgZ2F0aW5nIG1hcmtlcnMuCgoKCgoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmxvd0NvZGUgU3BlY3RyYWwgRmxvdyBVbm1peGluZyBXb3JrZmxvdyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ3RybCtTaGlmdCtFbnRlciouIAoKYGBge3J9CjIgKyAyCmBgYAoKV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuCgpUaGUgcHJldmlldyBzaG93cyB5b3UgYSByZW5kZXJlZCBIVE1MIGNvcHkgb2YgdGhlIGNvbnRlbnRzIG9mIHRoZSBlZGl0b3IuIENvbnNlcXVlbnRseSwgdW5saWtlICpLbml0KiwgKlByZXZpZXcqIGRvZXMgbm90IHJ1biBhbnkgUiBjb2RlIGNodW5rcy4gSW5zdGVhZCwgdGhlIG91dHB1dCBvZiB0aGUgY2h1bmsgd2hlbiBpdCB3YXMgbGFzdCBydW4gaW4gdGhlIGVkaXRvciBpcyBkaXNwbGF5ZWQuCgojIEluc3RhbGxhdGlvbgoKWW91IHdpbGwgYm90aCBuZWVkIGBBdXRvU3BlY3RyYWxgIGFuZCBgRmxvd0NvZGVVbm1peGAgdG8gcnVuIHRoaXMsIHBsdXMgdGhlaXIgY29tcGlsZWQgYWNjZWxlcmF0b3JzLCBgQXV0b1NwZWN0cmFsUmNwcGAgYW5kIGBGbG93Q29kZVVubWl4UmNwcGAuIFRoZSBhY2NlbGVyYXRvcnMgYXJlIG5vIGxvbmdlciBqdXN0IGEgc3BlZWQgY29udmVuaWVuY2U6IGBnZXQuZmxvd2NvZGUuc3BlY3RyYSgpYCBub3cgKnJlcXVpcmVzKiBgQXV0b1NwZWN0cmFsUmNwcGAgKHRoZXJlJ3Mgbm8gcHVyZS1SIGZhbGxiYWNrIGZvciBpdCksIGFuZCB0aGUgc3RhZ2VkIHBpcGVsaW5lIHVzZWQgYnkgYHVubWl4LmZsb3djb2RlLmZjcygpYC9gdW5taXguZmxvd2NvZGUuZm9sZGVyKClgIHJlcXVpcmVzIGBBdXRvU3BlY3RyYWxSY3BwID49IDEuMS4wYCBzcGVjaWZpY2FsbHkuCgpUaGUgZWFzaWVzdCB3YXkgdG8gZ2V0IGV2ZXJ5dGhpbmcgaXMgW2BwYWtgXShodHRwczovL3Bhay5yLWxpYi5vcmcvKS4gYHBhazo6cGtnX2luc3RhbGwoKWAgcmVzb2x2ZXMgQ1JBTiwgQmlvY29uZHVjdG9yICh2aWEgdGhlIGBiaW9jOjpgIHByZWZpeCkgYW5kIEdpdEh1YiAoYCJvd25lci9yZXBvImApIHBhY2thZ2VzIHRvZ2V0aGVyIGluIG9uZSBjYWxsLCB3aXRoIHByb3BlciBkZXBlbmRlbmN5IHJlc29sdXRpb24gYW5kIHBhcmFsbGVsIGRvd25sb2FkcyAtLSB0aGVyZSdzIG5vIHNlcGFyYXRlIGBCaW9jTWFuYWdlcjo6aW5zdGFsbCgpYCBvciBgcmVtb3Rlczo6aW5zdGFsbF9naXRodWIoKWAgc3RlcCBuZWVkZWQuCgpgYGB7cn0KIyBvbmUtdGltZSwgaWYgeW91IGRvbid0IGFscmVhZHkgaGF2ZSBpdAppbnN0YWxsLnBhY2thZ2VzKCJwYWsiKQoKcGFrOjpwa2dfaW5zdGFsbChjKAogICJiaW9jOjpmbG93V29ya3NwYWNlIiwKICAiYmlvYzo6Rmxvd1NPTSIsCiAgInNoaW55IiwKICAic2hpbnlGaWxlcyIsCiAgImdncGxvdDIiLAogICJzY2F0dGVybW9yZSIsCiAgImRwbHlyIiwKICAiRHJDeXRvbWV0ZXIvQXV0b1NwZWN0cmFsIiwKICAiRHJDeXRvbWV0ZXIvRmxvd0NvZGVVbm1peCIsCiAgIkRyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbFJjcHAiLAogICJEckN5dG9tZXRlci9GbG93Q29kZVVubWl4UmNwcCIKKSkKYGBgCgpPbmNlIGV2ZXJ5dGhpbmcgaXMgaW5zdGFsbGVkLCB0aGUgUmNwcCBhY2NlbGVyYXRvcnMgYXJlIHBpY2tlZCB1cCBhdXRvbWF0aWNhbGx5IHdoZXJldmVyIHRoZXkgaGVscCwgbm8gZnVydGhlciBhY3Rpb24gbmVlZGVkLgoKCiMgQmFzaWMgQXV0b1NwZWN0cmFsIHdvcmtmbG93CgpXZSBzdGFydCBhcyB3ZSB3b3VsZCB3aXRoIGFueSBzcGVjdHJhbCBmbG93IGN5dG9tZXRyeSBkYXRhIHNldCBpbiBBdXRvU3BlY3RyYWwsIHVzaW5nIHRoZSBhdXRvbWF0ZWQgc3BlY3RyYWwgZXh0cmFjdGlvbiBwaXBlbGluZS4gV2Ugd2lsbCBsb2FkIHRoZSBjeXRvbWV0ZXItc3BlY2lmaWMgcGFyYW1ldGVycywgY3JlYXRlIGFuZCBjaGVjayB0aGUgY29udHJvbCBmaWxlLCBleHRyYWN0IHRoZSBmbHVvcm9waG9yZSBzcGVjdHJhIGRpcmVjdGx5IGZyb20gdGhlIHJhdyBzaW5nbGUtc3RhaW5lZCBjb250cm9scywgaWRlbnRpZnkgYXV0b2ZsdW9yZXNjZW5jZSBzaWduYXR1cmVzIGFuZCBtZWFzdXJlIHRoZSBzcGVjdHJhbCB2YXJpYXRpb24gaW4gdGhlIGZsdW9yb3Bob3JlIG91dHB1dC4gRm9yIHRoZSBmdWxsIHdhbGt0aHJvdWdoIG9mIHRoaXMgcGlwZWxpbmUsIGluY2x1ZGluZyBhbGwgb2YgdGhlIGRpYWdub3N0aWMgcGxvdHMgaXQgcHJvZHVjZXMsIHNlZSBbQXV0b1NwZWN0cmFsIFdvcmtmbG93XShodHRwczovL2RyY3l0b21ldGVyLmdpdGh1Yi5pby9BdXRvU3BlY3RyYWwvYXJ0aWNsZXMvMDFfQXV0b21hdGVkX1NwZWN0cmFsX1dvcmtmbG93Lmh0bWwpLgoKCiMjIExvYWQgdGhlIHBhcmFtZXRlcnMKCkhlcmUgd2UgYXJlIHVzaW5nIGRhdGEgZnJvbSB0aGUgQ3l0ZWsgQXVyb3JhICg1LWxhc2VyIHN5c3RlbSkuIEZvciBkYXRhIGZyb20gYSBkaWZmZXJlbnQgc3BlY3RyYWwgY3l0b21ldGVyLCBjYWxsIHRoZSBhcHByb3ByaWF0ZSBjeXRvbWV0ZXIgYXMgImN5dG9tZXRlciIuIEZvciBtb3JlIGRldGFpbHMgb24gdGhlIEF1dG9TcGVjdHJhbCB3b3JrZmxvdywgc2VlIFtBdXRvU3BlY3RyYWwgaGVscF0oaHR0cHM6Ly9kcmN5dG9tZXRlci5naXRodWIuaW8vQXV0b1NwZWN0cmFsLykuCgpgYGB7ciwgc3RhcnR1cH0KbGlicmFyeShBdXRvU3BlY3RyYWwpCmF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LmF1dG9zcGVjdHJhbC5wYXJhbSgKICBjeXRvbWV0ZXIgPSAiYXVyb3JhIiwKICBmaWd1cmVzID0gVFJVRQopCmBgYAoKCiMjIENyZWF0ZSBhbmQgY2hlY2sgdGhlIGNvbnRyb2wgZmlsZQoKVGhlIGNvbnRyb2wgZmlsZSBpcyBhIENTViBmaWxlIChzcHJlYWRzaGVldCkgdGhhdCBkZXNjcmliZXMgeW91ciBjb250cm9sIGZpbGVzIGZvciBBdXRvU3BlY3RyYWwuIEEgZHJhZnQgb2YgdGhpcyB3aWxsIGJlIGNyZWF0ZWQgYXV0b21hdGljYWxseSBieSBBdXRvU3BlY3RyYWwgaWYgeW91IHRlbGwgaXQgd2hlcmUgeW91ciBzaW5nbGUtc3RhaW5lZCBjb250cm9sIGZpbGVzIGFyZS4gWW91IHdpbGwgbmVlZCB0byBlZGl0IHRoaXMgYW5kIGNoZWNrIGl0IHRvIGJlIHN1cmUgaXQgaXMgY29ycmVjdC4gRGV0YWlscyBvbiBob3cgdG8gZG8gdGhpcyBhcmUgaW4gdGhpcyBbYXJ0aWNsZV0oaHR0cHM6Ly9kcmN5dG9tZXRlci5naXRodWIuaW8vQXV0b1NwZWN0cmFsL2FydGljbGVzLzAyX0NvbnRyb2xfRmlsZV9leGFtcGxlLmh0bWwpLiBUaGVyZSBpcyBhbHNvIGEgW1NoaW55IGhlbHBlcl0oaHR0cHM6Ly9naXRodWIuY29tL0RyQ3l0b21ldGVyL0F1dG9TcGVjdHJhbEhlbHBlcikgYXBwbGljYXRpb24gZm9yIHRoaXMsIHdoaWNoIG9wZW5zIGFzIGFuIGludGVyYWN0aXZlIHdlYnBhZ2UuCgpgYGB7ciwgZGVmaW5lIHRoZSBjb250cm9sc30KIyB3aGVyZSBhcmUgeW91ciBzaW5nbGUtc3RhaW5lZCBjb250cm9sIGZpbGVzPwojIHJlcGxhY2UgdGhlICJteV9jb250cm9sX2ZvbGRlciIgd2l0aCB0aGUgcGF0aCB0byB5b3VyIGZpbGVzLgojIFRpcDogaWYgeW91IHN0YXJ0IFJTdHVkaW8gYnkgZG91YmxlLWNsaWNraW5nIG9uIHRoaXMgb3IgYW5vdGhlciBSIGRvY3VtZW50LAojIHRoYXQgdGVsbHMgUlN0dWRpbyB3aGVyZSB5b3Ugd2FudCB0byB3b3JrLiBJZiB5b3UgcGxhY2UgYSBmb2xkZXIgKHNheSwgY2FsbGVkIFNTQykKIyBjb250YWluaW5nIHlvdXIgY29udHJvbCBmY3MgZmlsZXMgaW4gdGhhdCBmb2xkZXIsIHlvdSB3aWxsIGJlIGFibGUgdG8gYWNjZXNzIAojIGl0IHdpdGgganVzdCAiLi9TU0MKY29udHJvbC5mb2xkZXIgPC0gIkM6Ly9Vc2VyL0RvY3VtZW50cy9teV9jb250cm9sX2ZvbGRlciIKCiMgb3IKY29udHJvbC5mb2xkZXIgPC0gIi4vU1NDIgoKQXV0b1NwZWN0cmFsOjpjcmVhdGUuY29udHJvbC5maWxlKAogIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMKKQpgYGAKCmBjcmVhdGUuY29udHJvbC5maWxlKClgIG5vdyBkZWZhdWx0cyB0byBgbGVnYWN5ID0gRkFMU0VgLCBzbyB0aGUgZHJhZnQgY29udHJvbCBmaWxlIGlzIHNldCB1cCBmb3IgdGhlIGF1dG9tYXRlZCBleHRyYWN0aW9uIHBpcGVsaW5lIGJlbG93OiB5b3UnbGwgc3RpbGwgbmVlZCB0byBmaWxsIGluIGBtYXJrZXJgLCBgZmx1b3JvcGhvcmVgLCBgY29udHJvbC50eXBlYCwgYW5kIGB1bml2ZXJzYWwubmVnYXRpdmVgLCBidXQgeW91IGNhbiBsZWF2ZSBgZ2F0ZS5uYW1lYC9gZ2F0ZS5kZWZpbmVgIGJsYW5rIC0tIHRob3NlIGNvbHVtbnMgYXJlIG9ubHkgcmVhZCBieSB0aGUgbGVnYWN5IGdhdGluZyBwaXBlbGluZS4gVGhlIHBlYWstY2hhbm5lbCBgY2hhbm5lbGAgY29sdW1uIGlzIG9wdGlvbmFsIHRvbzsgaXQncyBkZXRlcm1pbmVkIGF1dG9tYXRpY2FsbHkgZnJvbSB0aGUgZGF0YS4KCk9uY2UgeW91IGhhdmUgZWRpdGVkIHlvdXIgY29udHJvbCBmaWxlLCBjaGVjayBpdDoKCmBgYHtyLCBjaGVjayB0aGUgY29udHJvbHN9CmNvbnRyb2wuZmlsZSA8LSAiZmNzX2NvbnRyb2xfZmlsZS5jc3YiCkF1dG9TcGVjdHJhbDo6Y2hlY2suY29udHJvbC5maWxlKAogIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsCiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycwopCmBgYAoKCiMjIEV4dHJhY3QgdGhlIGZsdW9yb3Bob3JlIHNwZWN0cmFsIHByb2ZpbGVzCgpUaGlzIHJlcGxhY2VzIHRoZSBvbGQgdGhyZWUtc3RlcCBgZGVmaW5lLmZsb3cuY29udHJvbCgpYCAtPiBgY2xlYW4uY29udHJvbHMoKWAgLT4gYGdldC5mbHVvcm9waG9yZS5zcGVjdHJhKClgIHNlcXVlbmNlIHdpdGggYSBzaW5nbGUgY2FsbC4gTm8gbWFudWFsIGdhdGluZyBpcyByZXF1aXJlZDogc2F0dXJhdGlvbiByZW1vdmFsLCBzaW5nbGV0IGdhdGluZywgQUYtb3J0aG9nb25hbGlzZWQgY29zaW5lIGZpbHRlcmluZyBvZiB0aGUgYnJpZ2h0ZXN0IGNhbmRpZGF0ZSBldmVudHMsIGFuZCBrTk4gc2NhdHRlci1tYXRjaGVkIHBlci1ldmVudCBiYWNrZ3JvdW5kIHN1YnRyYWN0aW9uIGFsbCBoYXBwZW4gaW50ZXJuYWxseSwgd2l0aCBhbiBhdXRvbWF0aWMgcGVyLWZsdW9yb3Bob3JlIGZhbGxiYWNrIHRvIHRoZSBsZWdhY3kgcGlwZWxpbmUgaWYgdGhlIGF1dG9tYXRlZCByZXN1bHQgZG9lc24ndCBwYXNzIGl0cyBvd24gY29zaW5lLXNpbWlsYXJpdHkgUUMgY2hlY2sgYWdhaW5zdCB0aGUgcmVmZXJlbmNlIHNwZWN0cmFsIGxpYnJhcnkuCgpgYGB7ciwgZ2V0IHRoZSBzcGVjdHJhbCBwcm9maWxlc30KZmx1b3JvcGhvcmUuc3BlY3RyYSA8LSBBdXRvU3BlY3RyYWw6OmdldC5zcGVjdHJhLmF1dG9tYXRlZCgKICBjb250cm9sLmRpciA9IGNvbnRyb2wuZm9sZGVyLAogIGNvbnRyb2wuZGVmLmZpbGUgPSBjb250cm9sLmZpbGUsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMKKQpgYGAKClRoZSBkZWZhdWx0IHNldHRpbmdzIHdvcmsgd2VsbCBhY3Jvc3MgYSB3aWRlIHJhbmdlIG9mIHBhbmVscywgYnV0IGNhbiBiZSB0dW5lZCBpZiBuZWVkZWQgKGBuLmNhbmRpZGF0ZXNgLCBgbi5zcGVjdHJhbGAsIGBrLm5laWdoYm9yc2AsIGBjb3NpbmUudGhyZXNob2xkYCwgZXRjLiAtLSBzZWUgW0F1dG9TcGVjdHJhbCBXb3JrZmxvd10oaHR0cHM6Ly9kcmN5dG9tZXRlci5naXRodWIuaW8vQXV0b1NwZWN0cmFsL2FydGljbGVzLzAxX0F1dG9tYXRlZF9TcGVjdHJhbF9Xb3JrZmxvdy5odG1sKSBmb3IgdGhlIGZ1bGwgcGFyYW1ldGVyIHJlZmVyZW5jZSkuIENoZWNrIHRoZSBkaWFnbm9zdGljIHBsb3RzIGluIGBmaWd1cmVfc3BlY3RyYWAsIGBmaWd1cmVfc2ltaWxhcml0eV9oZWF0bWFwYCwgYGZpZ3VyZV9zY2F0dGVyX21hdGNoYCBhbmQgdGhlIHBlci1mbHVvcm9waG9yZSBRQyByZXBvcnQgaW4gYGZpZ3VyZV9zcGVjdHJhbF9yaWJib25gOyBhbnl0aGluZyBmbGFnZ2VkIGBMRUdBQ1lfUkVGSU5FTUVOVGAgaW4gdGhlIGNvbnNvbGUgUUMgc3VtbWFyeSBpcyB3b3J0aCBhIGxvb2suCgpXZSBhbHNvIG5lZWQgYSBtaW5pbWFsIGBmbG93LmNvbnRyb2xgIG9iamVjdCAtLSB0aGlzIGp1c3QgY2FycmllcyB0aGUgYW50aWdlbi9mbHVvcm9waG9yZSBuYW1lIGxvb2t1cCB1c2VkIGxhdGVyIG9uIChlLmcuIGJ5IGB1bm1peC5iYWNrYm9uZSgpYCwgYGxhdW5jaC50aHJlc2hvbGQuYXBwKClgLCBhbmQgd2hlbiB3cml0aW5nIEZDUyBrZXl3b3JkcykuIEl0IHJlcGxhY2VzIHRoZSBvbGQsIGZ1bGx5LWdhdGVkIG9iamVjdCB0aGF0IHVzZWQgdG8gY29tZSBvdXQgb2YgYGRlZmluZS5mbG93LmNvbnRyb2woKWAvYGNsZWFuLmNvbnRyb2xzKClgLgoKYGBge3IsIG1pbmltYWwgZmxvdyBjb250cm9sfQpmbG93LmNvbnRyb2wgPC0gQXV0b1NwZWN0cmFsOjpyZWxvYWQuZmxvdy5jb250cm9sKAogIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsCiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycwopCmBgYAoKCiMjIE1lYXN1cmUgYXV0b2ZsdW9yZXNjZW5jZSBzcGVjdHJhCgpBdXRvZmx1b3Jlc2NlbmNlIGlzIGFsd2F5cyBwcmVzZW50IGluIG91ciBzdGFpbmVkIGNlbGxzLCBpbmNsdWRpbmcgb3VyIHNpbmdsZS1zdGFpbmVkIGNlbGwgY29udHJvbHMuIFRoaXMgaXMgYSBzb3VyY2Ugb2YgdmFyaWFiaWxpdHkgdGhhdCBjb250cmlidXRlcyB0byBub2lzZSAoc3ByZWFkKSBpbiBvdXIgdW5taXhlZCBkYXRhLiBXZSBuZWVkIHRvIGlkZW50aWZ5IHRoZSB2YXJpYWJpbGl0eSBpbiBhdXRvZmx1b3Jlc2NlbmNlIHRvIGNvdW50ZXJhY3QgdGhpcy4gV2l0aCBGbG93Q29kZSBkYXRhLCB3ZSB3aWxsIG9mdGVuIGhhdmUgZGlmZmVyZW50IHRpc3N1ZSBzb3VyY2VzLCBlYWNoIG9mIHdoaWNoIHdpbGwgaGF2ZSBhIGRpc3RpbmN0IGRpc3RyaWJ1dGlvbiBvZiBhdXRvZmx1b3Jlc2NlbmNlIHByb2ZpbGVzLiBXZSB3aWxsIGV2ZW50dWFsbHkgbmVlZCB0byBpZGVudGlmeSBhbGwgb2YgdGhvc2UuIFRvIHN0YXJ0LCB0aG91Z2gsIHdlIHdpbGwgaWRlbnRpZnkgb25seSB0aGUgdmFyaWFiaWxpdHkgaW4gdGhlIHR5cGUgb2Ygc2FtcGxlIHdlIGFyZSB1c2luZyBmb3IgdGhlIHNpbmdsZS1zdGFpbmVkIGNvbnRyb2xzLiBGb3IgaW5zdGFuY2UsIHdpdGggbW91c2Ugc3R1ZGllcywgdGhlc2Ugd2lsbCBsaWtlbHkgYmUgc3BsZW5vY3l0ZXMsIHNvIHdlIHdpbGwgdXNlIHVuc3RhaW5lZCBzcGxlZW4gYXMgdGhlIHNvdXJjZSBvZiBvdXIgYXV0b2ZsdW9yZXNjZW5jZS4KCkluIHRoaXMgZXhhbXBsZSwgSSBoYXZlIGFuIHVuc3RhaW5lZCBzcGxlZW4gc2FtcGxlIGFzIHRoZSAiVW5zdGFpbmVkIiAoc28gbmFtZWQgYnkgU3BlY3Ryb0ZsbykgaW4gbXkgcmVmZXJlbmNlIGNvbnRyb2wgZ3JvdXAuIFRoaXMgRkNTIGZpbGUgaXMgaW4gdGhlIHNpbmdsZS1zdGFpbmVkIGNvbnRyb2wgZm9sZGVyLCBhbG9uZyB3aXRoIGFsbCBvZiB0aGUgb3RoZXIgY29udHJvbHMuCgpgYGB7ciwgbWVhc3VyZSBBRn0Kc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UgPC0gQXV0b1NwZWN0cmFsOjpnZXQuYWYuc3BlY3RyYSgKICB1bnN0YWluZWQuc2FtcGxlID0gZmlsZS5wYXRoKCBjb250cm9sLmZvbGRlciwgIlVuc3RhaW5lZC5mY3MiICksCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEKKQpgYGAKCk5vdGUgdGhhdCBgcmVmaW5lYCBjdXJyZW50bHkgZGVmYXVsdHMgdG8gYFRSVUVgOiBhZnRlciB0aGUgaW5pdGlhbCBTT00tYmFzZWQgY2x1c3RlcmluZywgYSBzZWNvbmQgcGFzcyBvZiB0YXJnZXRlZCBtb2R1bGF0aW9uIHJ1bnMgb24gY2VsbHMgdGhhdCByZW1haW4gZnVydGhlc3QgZnJvbSB6ZXJvLCB3aGljaCBoZWxwcyB3aXRoIG1lc3NpZXIgdGlzc3VlIHNhbXBsZXMgYXQgdGhlIGNvc3Qgb2Ygc29tZSBleHRyYSB0aW1lLiBJZiB5b3UncmUgd29ya2luZyB3aXRoIGNsZWFuIGx5bXBob2lkIHNhbXBsZXMgKHNwbGVlbiwgUEJNQ3MpIGFuZCB3YW50IHRoZSBxdWlja2VyIGZpcnN0LXBhc3Mtb25seSByZXN1bHQsIHNldCBgcmVmaW5lID0gRkFMU0VgLgoKCiMjIERldGVybWluZSBzcGVjdHJhbCB2YXJpYXRpb24gaW4gdGhlIGZsdW9yb3Bob3JlcwoKTm93IHRoYXQgd2Uga25vdyB0aGUgY29udHJpYnV0aW9uIG9mIGF1dG9mbHVvcmVzY2VuY2UgdG8gdGhlIHZhcmlhdGlvbiwgd2UgY2FuIGV4dHJhY3QgdGhlIHZhcmlhdGlvbiBmcm9tIHRoZSBmbHVvcm9waG9yZSBlbWlzc2lvbnMgdGhlbXNlbHZlcy4KCmBgYHtyLCBtZWFzdXJlIHZhcmlhdGlvbn0KZmx1b3JvcGhvcmUudmFyaWF0aW9uIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LnNwZWN0cmFsLnZhcmlhbnRzKAogIGNvbnRyb2wuZGlyID0gY29udHJvbC5mb2xkZXIsCiAgY29udHJvbC5kZWYuZmlsZSA9IGNvbnRyb2wuZmlsZSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSwKICBwYXJhbGxlbCA9IEZBTFNFCikKYGBgCgpBcyBvZiBBdXRvU3BlY3RyYWwgMS42LjAsIGBnZXQuc3BlY3RyYWwudmFyaWFudHMoKWAgbm8gbG9uZ2VyIHRha2VzIGFuIGBhZi5zcGVjdHJhYCBhcmd1bWVudCAtLSBhdXRvZmx1b3Jlc2NlbmNlIGZvciB0aGlzIHN0ZXAgaXMgbm93IGRlcml2ZWQgaW4gc2l0dSwgcGVyIGZsdW9yb3Bob3JlLCBmcm9tIHRoZSB1bml2ZXJzYWwtbmVnYXRpdmUgZmlsZXMgYWxyZWFkeSBsaXN0ZWQgaW4geW91ciBjb250cm9sIHRhYmxlLiBQYXNzaW5nIGBhZi5zcGVjdHJhYCBoZXJlIChldmVuIHBvc2l0aW9uYWxseSkgd2lsbCB0cmlnZ2VyIGEgZGVwcmVjYXRpb24gd2FybmluZyBhbmQgYmUgc2lsZW50bHkgaWdub3JlZCwgc28gZG9uJ3QgcmVseSBvbiBpdC4KClRoYXQgaXMgdGhlIGVuZCBvZiB0aGUgbm9ybWFsIEF1dG9TcGVjdHJhbCB3b3JrZmxvdyBmb3IgdXMuIFdlIG5vdyBuZWVkIHRvIGRvIHNvbWUgRmxvd0NvZGUtc3BlY2lmaWMgc3RlcHMgYmVmb3JlIHByb2NlZWRpbmcgdG8gdGhlIGRlYmFyY29kaW5nIGFuZCB1bm1peGluZy4KCgojIEZsb3dDb2RlIFVubWl4aW5nIFdvcmtmbG93CgpGb3IgdGhlIEZsb3dDb2RlIHdvcmtmbG93LCB3ZSBuZWVkIHNvbWUgYWRkaXRpb25hbCBwaWVjZXMgb2YgaW5mb3JtYXRpb246CiogV2hpY2ggYXJlIHRoZSBGbG93Q29kZSBlcGl0b3BlIHRhZyBjaGFubmVscz8KKiBXaGF0IGFyZSB0aGUgdmFsaWQgRmxvd0NvZGUgY29tYmluYXRpb25zIChpbiB0aGUgY29tYmluYXRpb24gZmlsZSk/CiogV2hhdCBpcyB0aGUgbmFtZSAoZ3VpZGUvVENSKSBvZiBlYWNoIGNvbWJpbmF0aW9uIChpbiB0aGUgY29tYmluYXRpb24gZmlsZSk/CiogV2hlcmUgYXJlIHRoZSBjZWxscyAoYXV0b21hdGljYWxseSBnYXRlZCBhcm91bmQgdGhlIGJyaWdodGVzdCBGbG93Q29kZS1leHByZXNzaW5nIGV2ZW50cyk/CiogV2hhdCB2YXJpYXRpb24gaW4gZmx1b3JvcGhvcmUgb3V0cHV0IGlzIGNyZWF0ZWQgYnkgdGhlIGNvbWJpbmF0aW9ucyBkdWUgdG8gRlJFVCBvciBhIEZSRVQtbGlrZSBhcnRpZmFjdD8gRm9yIHRoaXMsIHdlIG5lZWQgeW91ciBiYWNrYm9uZSBjb250cm9sLCBzdGFpbmVkIG9ubHkgd2l0aCB0aGUgRmxvd0NvZGUgZXBpdG9wZSBhbnRpYm9kaWVzLiBBbGwgY29tYmluYXRpb25zIHNob3VsZCBiZSB3ZWxsIHJlcHJlc2VudGVkIGZvciBiZXN0IHJlc3VsdHMuCgoKIyMgV2hlcmUgaXMgZXZlcnl0aGluZz8KClByb3ZpZGUgdGhlIGxvY2F0aW9uIChmaWxlIHBhdGgpIGFuZCBuYW1lIG9mIHlvdXIgYmFja2JvbmUgRkNTIGZpbGUuIFByb3ZpZGUgdGhlIG5hbWUgKGFuZCBmaWxlIHBhdGgpIG9mIHlvdXIgY29tYmluYXRpb24gQ1NWIGZpbGUuCgpgYGB7ciwgRmxvd0NvZGUgY29tYm9zfQpmbG93Y29kZS5iYWNrYm9uZSA8LSAiLi9SYXcvRkMgY29udHJvbCAoU3BsZWVuKS9GMiBGQ19GUkVUXzAyX1BsYXRlXzAwMi5mY3MiIApjb21iby5maWxlIDwtICJPVEIwMSBUcmVnIFR4IGZhY3RvciBjb21iaW5hdGlvbnMuY3N2IgpgYGAKCgpOb3cgd2UgY2FuIHVubWl4IHRoZSBiYWNrYm9uZSBjb250cm9sLCB1c2luZyBhIHNsaWdodCBhZGFwdGF0aW9uIG9mIHRoZSBBdXRvU3BlY3RyYWwgdW5taXhpbmcgYXBwcm9hY2guIFRoaXMgaXMgYSBzcGxlZW4tYmFzZWQgc2FtcGxlLCBzbyB3ZSB1c2UgYHNwbGVlbi5hdXRvZmx1b3Jlc2NlbmNlYC4KCmBgYHtyLCBsb2FkIHRoZSBiYWNrYm9uZSBkYXRhfQpGbG93Q29kZVVubWl4Ojp1bm1peC5iYWNrYm9uZSgKICAgZmxvd2NvZGUuYmFja2JvbmUuZmNzID0gZmxvd2NvZGUuYmFja2JvbmUsCiAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLAogICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsCiAgIHNwZWN0cmEudmFyaWFudHMgPSBmbHVvcm9waG9yZS52YXJpYXRpb24sCiAgIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCwKICAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgIGZsb3djb2RlLmNvbWJvLmZpbGUgPSBjb21iby5maWxlLAogICBvdXRwdXQuZGlyID0gIi4vZmxvd2NvZGVfc3BlY3RyYSIsCiAgIGZpbGVuYW1lID0gIkZsb3dDb2RlX0JhY2tib25lLnJkcyIsCiAgIHBhcmFsbGVsID0gVFJVRQopCmBgYAoKQSBjb3VwbGUgb2YgdGhpbmdzIGNoYW5nZWQgaGVyZSBiZXlvbmQgdGhlIGBmbG93LmNvbnRyb2xgIHJlbmFtZSBhYm92ZToKCiogYHNwZWN0cmEudmFyaWFudHNgIGlzIGEgbmV3LCBvcHRpb25hbC1idXQtcmVjb21tZW5kZWQgYXJndW1lbnQuIFdoZW4gc3VwcGxpZWQsIGVhY2ggY29tYm8gZmx1b3JvcGhvcmUncyBwZXItY2VsbCBiZXN0LWZpdHRpbmcgc3BlY3RyYWwgdmFyaWFudCBpcyBzdWJzdGl0dXRlZCBiZWZvcmUgdGhlIEZSRVQgcmVzaWR1YWwgaXMgY29tcHV0ZWQgKGlkZW50aWNhbGx5IGZvciB0aGUgY29tYm8ncyBvd24gY2VsbHMgYW5kIGZvciB0aGUgdW50cmFuc2R1Y2VkIGJhY2tncm91bmQgcG9vbCksIHNvIG9yZGluYXJ5IHNpbmdsZS1jb2xvdXIgc3BlY3RyYWwgZHJpZnQgaXNuJ3QgbWlzdGFrZW4gZm9yIEZSRVQuIEl0J3MgYWxzbyBhIHByZXJlcXVpc2l0ZSwgdG9nZXRoZXIgd2l0aCBgYWYuc3BlY3RyYWAsIGZvciBgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUVgIGxhdGVyIGluIGBnZXQuZmxvd2NvZGUuc3BlY3RyYSgpYC4KKiBCZWZvcmUgdGhlIGdhdGUgaXMgZXZlbiBkZWZpbmVkLCB0aGUgYmFja2JvbmUgZGF0YSBub3cgZ29lcyB0aHJvdWdoIGF1dG9tYXRpYyBzYXR1cmF0aW9uIHJlbW92YWwgYW5kIGEgdHdvLXBhc3MgQXJlYS9IZWlnaHQgc2NhdHRlci1yYXRpbyBzaW5nbGV0IGdhdGUgKGBzaW5nbGV0LnF1YW50aWxlcyA9IGMoMC44NSwgMC45NzUpYCBieSBkZWZhdWx0LCBza2lwcGVkIHdpdGggYSBtZXNzYWdlIGlmIEhlaWdodCBjaGFubmVscyBhcmVuJ3QgcHJlc2VudCkuIEEgZG91YmxldCBjYXJyeWluZyB0d28gZGlmZmVyZW50IGJhcmNvZGVzIHdvdWxkIG90aGVyd2lzZSBzdGlsbCBkZWJhcmNvZGUgdG8gYSBzaW5nbGUgSWQsIGFuZCBpdHMgdW5taXhpbmcgcmVzaWR1YWwgLS0gZHJpdmVuIGJ5IHRoZSBzZWNvbmQsIHVuY291bnRlZCBiYXJjb2RlJ3Mgb3duIHNwaWxsb3ZlciAtLSB3b3VsZCBsb29rIGV4YWN0bHkgbGlrZSBGUkVUIGFuZCBjb250YW1pbmF0ZSB0aGUgbWVhc3VyZWQgRlJFVCBzcGVjdHJhLgoqIGBwYXJhbGxlbGAvYHRocmVhZHNgIG5vdyBjb250cm9sIHRoZSBBRi1leHRyYWN0aW9uIHVubWl4IG92ZXIgdGhlIGdhdGVkIGV2ZW50cywgc2FtZSBjb252ZW50aW9uIGFzIGVsc2V3aGVyZSAoYHRocmVhZHMgPSAwYCBtZWFucyAiYWxsIGF2YWlsYWJsZSBjb3JlcyIpLgoKVGhpcyBzYXZlcyB0aGUgb3V0cHV0IGFzIGFuIFJEUyBmaWxlIChhIGxhcmdlIG9uZSwgcGx1cyBhIGRvd25zYW1wbGVkIGBTbWFsbF8uLi5gIGNvbXBhbmlvbiBjYXBwZWQgYXQgMzAsMDAwIGV2ZW50cykgaW4gdGhlIGZvbGRlciBzcGVjaWZpZWQgYnkgYG91dHB1dC5kaXJgLiBJZiB5b3UgY2hhbmdlIGBvdXRwdXQuZGlyYCwgeW91J2xsIG5lZWQgdG8gY2hhbmdlIGl0IGxhdGVyIGluIGBnZXQuZmxvd2NvZGUuc3BlY3RyYSgpYC4KKk5vdGU6IGNoYW5nZSB0byByZXR1cm5pbmcgb2JqZWN0CgojIyBTZXR0aW5nIHRocmVzaG9sZHMKClRoaXMgcGFydCByZXF1aXJlcyB5b3UgdG8gbWFudWFsbHkgc2VsZWN0IHRoZSBwb2ludCBvbiB0aGUgZ3JhcGggd2hlcmUgdGhlIGRhdGEgc3RhcnQgYmVjb21pbmcgInBvc2l0aXZlIiBmb3IgZWFjaCBvZiB0aGUgRmxvd0NvZGUgZXBpdG9wZSB0YWdzLiBUaGF0IGlzLCB3aGVyZSBpcyB0aGUgdGhyZXNob2xkIGZvciBoYXZpbmcgdGhlIEZsb3dDb2RlIG9yIG5vdD8gVGhpcyBpcyBtYW51YWwgYmVjYXVzZSBpdCdzIHByZXR0eSBoYXJkIHRvIGRvIGl0IHdlbGwgaW4gYW4gYXV0b21hdGVkIG1hbm5lciBjb25zaWRlcmluZyB0aGF0IGF0IHRoaXMgc3RhZ2Ugd2Ugc3RpbGwgaGF2ZSBGUkVULWJhc2VkIHVubWl4aW5nIGlzc3Vlcy4KCkkgaGF2ZSBjcmVhdGVkIGEgU2hpbnkgYXBwIHRvIGFsbG93IHlvdSB0byBkbyB0aGlzIGludGVyYWN0aXZlbHksIGFzIGluIE9yaWFuIEJyaWNhcmQncyBGbG93Q29kZSBkZWJhcmNvZGluZyBhcHAuCgpgYGB7ciwgcnVuIGFwcH0KRmxvd0NvZGVVbm1peDo6bGF1bmNoLnRocmVzaG9sZC5hcHAoCiAgYmFja2JvbmUucmRzID0gIi4vZmxvd2NvZGVfc3BlY3RyYS9GbG93Q29kZV9CYWNrYm9uZS5yZHMiCikKYGBgCgpQb2ludGluZyBgYmFja2JvbmUucmRzYCBhdCB0aGUgUkRTIGZpbGUgc2F2ZWQgYnkgYHVubWl4LmJhY2tib25lKClgIGxldHMgdGhlIGFwcCBsb2FkIHRoZSBmbHVvcm9waG9yZS10YWcgbWFwcGluZyBhbmQgc3BlY3RyYSBzdHJhaWdodCBvdXQgb2YgaXQsIHNvIHlvdSBubyBsb25nZXIgbmVlZCB0byBzZXBhcmF0ZWx5IHBhc3MgYGZsb3djb2RlLmNvbWJvLmZpbGVgL2BmbG93LmNvbnRyb2xgIGhlcmUgKHRoZSBkb3duc2FtcGxlZCBgU21hbGxfLi4uYCBmaWxlIHdvcmtzIGp1c3QgYXMgd2VsbCBhbmQgbG9hZHMgZmFzdGVyKS4gSWYgeW91J2QgcmF0aGVyIGJyb3dzZSBmb3IgYSBmaWxlIGludGVyYWN0aXZlbHksIG9yIHBvaW50IHRoZSBhcHAgYXQgYSByYXcvbm90LXlldC11bm1peGVkIEZDUyBmaWxlLCB5b3UgY2FuIHN0aWxsIGxlYXZlIGBiYWNrYm9uZS5yZHNgIGFzIGBOVUxMYCBhbmQgdXNlIHRoZSBhcHAncyBvd24gZmlsZSBwaWNrZXIuCgpXaGVuIHlvdSdyZSBkb25lLCB5b3Ugc2hvdWxkIGhhdmUgYSBDU1YgZmlsZSAoc3ByZWFkc2hlZXQpIHdpdGggYEZsdW9yYCBhbmQgYFRocmVzaG9sZF9SYXdgIGNvbHVtbnMsIGdpdmluZyB0aGUgdGhyZXNob2xkIGZvciBlYWNoIEZsb3dDb2RlIGNoYW5uZWwgaW4gcmF3LCB1bnRyYW5zZm9ybWVkIHVubWl4ZWQgc2NhbGUuCgoKIyMgTWVhc3VyaW5nIEZSRVQgKHVubWl4aW5nKSBlcnJvcnMgZHVlIHRvIEZsb3dDb2RlcwoKSW4gdGhpcyBzdGVwLCB3ZSB3aWxsIHRha2UgdGhlIEZsb3dDb2RlIGVwaXRvcGUtc3RhaW5lZCBiYWNrYm9uZSBkYXRhIChmcm9tIHRoZSB1bm1peGVkIGRhdGEgaW4gdGhlIFJEUyBmaWxlKSwgZGViYXJjb2RlIGl0IHRvIGlkZW50aWZ5IHZhbGlkIGNvbWJpbmF0aW9ucywgYW5kIGFzc2VzcyBzcGVjdHJhbCB1bm1peGluZyBlcnJvcnMgcGVyIGNvbWJpbmF0aW9uLiBUaGlzIGdpdmVzIHVzIGEgc2V0IG9mIHBvdGVudGlhbCBjb3JyZWN0aW9ucyB0byBhcHBseSB0byBlYWNoIGNlbGwgZm9yIGEgZ2l2ZW4gYmFyY29kZSBjb21iaW5hdGlvbi4KCmBgYHtyLCBmaW5kIEZSRVQgZXJyb3JzfQpmbG93Y29kZS5zcGVjdHJhIDwtIEZsb3dDb2RlVW5taXg6OmdldC5mbG93Y29kZS5zcGVjdHJhKAogIGJhY2tib25lLnJkcyA9ICIuL2Zsb3djb2RlX3NwZWN0cmEvRmxvd0NvZGVfQmFja2JvbmUucmRzIiwKICB0aHJlc2hvbGRzLmZpbGUgPSAiLi9mbG93Y29kZV9zcGVjdHJhL3RocmVzaG9sZHMuY3N2IiwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLAogIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSwKICBvdXRwdXQuZGlyID0gIi4vZmxvd2NvZGVfc3BlY3RyYSIsCiAgZmlsZW5hbWUgPSAiRmxvd0NvZGVfU3BlY3RyYS5yZHMiLAogIHBsb3QuY29ycmVjdGlvbnMgPSBUUlVFCikKYGBgCgpUaGlzIGZ1bmN0aW9uIGhhcyBjaGFuZ2VkIHN1YnN0YW50aWFsbHkuIE5vdGUgaW4gcGFydGljdWxhcjoKCiogKipgQXV0b1NwZWN0cmFsUmNwcGAgaXMgbm93IGEgaGFyZCByZXF1aXJlbWVudCoqIC0tIFN0YWdlIDEgKGEgZGViYXJjb2RpbmctcXVhbGl0eSB1bm1peCwgdXNpbmcgdGhlIHNhbWUgdHVuaW5nIHRoZSBwcm9kdWN0aW9uIHBpcGVsaW5lIHVzZXMgc28gY2hhcmFjdGVyaXNhdGlvbiBhbmQgY29ycmVjdGlvbiBhZ3JlZSBvbiBkZWJhcmNvZGluZy9iYWNrZ3JvdW5kL0FGIGZyb20gdGhlIHN0YXJ0KSBydW5zIHRocm91Z2ggYEF1dG9TcGVjdHJhbFJjcHA6OnVubWl4LmF1dG9zcGVjdHJhbC5yY3BwKClgLiBUaGVyZSBpcyBjdXJyZW50bHkgbm8gcHVyZS1SIGZhbGxiYWNrIGZvciB0aGlzIGZ1bmN0aW9uLgoqIGBzcGVjdHJhLnZhcmlhbnRzYCBhbmQgYGFmLnNwZWN0cmFgIGFyZSBub3cgcmVxdWlyZWQgYXJndW1lbnRzIHRvIGdldCBgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUVgIHRvIHdvcmssIHNpbmNlIHRoZSBiZWZvcmUvYWZ0ZXIgcGxvdHMgcmUtcnVuIHRoZSBmdWxsIHByb2R1Y3Rpb24gcGlwZWxpbmUgKGB1bm1peC5mbG93Y29kZS5jcHAuc3RhZ2VkKClgKSBvbiB0aGUgYmFja2JvbmUuCiogQmFja2dyb3VuZCBpcyBub3cgaGFuZGxlZCBieSBhIHNpbmdsZSAqKnBvb2xlZCwgY3Jvc3MtY29tYm8qKiBtZWRpYW4gY29ycmVjdGlvbiBwZXIgRmxvd0NvZGUgZmx1b3JvcGhvcmUgKGNvbXB1dGVkIGZyb20gb2ZmLXRhcmdldCBvYnNlcnZhdGlvbnMgYWNyb3NzIGV2ZXJ5IHZhbGlkIGNvbWJvLCB0aGVuIHN1YnRyYWN0ZWQgZnJvbSBldmVyeSBjZWxsLCB0cmFuc2R1Y2VkIG9yIG5vdCksIHJhdGhlciB0aGFuIGFueXRoaW5nIHBlci1jb21ibyAtLSB0aGlzIGlzIHdoYXQgc2VwYXJhdGVzIGdlbnVpbmUgbm9uLXNwZWNpZmljIGJhY2tncm91bmQvc3RhaW5pbmcgZnJvbSByZWFsIEZSRVQuCiogYGJhY2tncm91bmQucG9vbC5uYCAoZGVmYXVsdCBgNTAwMGApIGNvbnRyb2xzIGhvdyBtYW55IHVudHJhbnNkdWNlZCBjZWxscyBhcmUgdXNlZCBhcyB0aGUgc2NhdHRlci1tYXRjaGluZy9yZWZlcmVuY2UgcG9vbCwgYW5kIGBuLmNlbGxzLnBlci5jb21ib2AgKGRlZmF1bHQgYDUwMGApIGNhcHMgaG93IG1hbnkgb2YgYSBjb21ibydzIG93biBicmlnaHRlc3QgZXZlbnRzIGFyZSB1c2VkIHdoZW4gbWVhc3VyaW5nIGl0cyBGUkVUIHNwZWN0cmEuCiogYHNvbS5kaW1gIChkZWZhdWx0IGAxMGApIGlzIHRoZSBiYXNlIFNPTSBncmlkIHNpZGUgbGVuZ3RoIHVzZWQgdG8gY2x1c3RlciBlYWNoIGNvbWJvJ3MgcmVzaWR1YWxzIGludG8gY2FuZGlkYXRlIEZSRVQgdmFyaWFudHM7IGl0J3Mgc2hydW5rIGF1dG9tYXRpY2FsbHkgZm9yIGNvbWJvcyB3aXRoIGZld2VyIHRoYW4gNTAwIHJldGFpbmVkIGNlbGxzLgoKVGhlcmUgYXJlIGFsc28gdHdvIG9wdGlvbmFsIFFDIGZpbHRlcnMsIGJvdGggb2ZmIGJ5IGRlZmF1bHQsIHRoYXQgeW91IGNhbiB0dXJuIG9uIGlmIHlvdSBzZWUgbm9pc3kgb3IgaW1wbGF1c2libGUgRlJFVCB2YXJpYW50cyBjb21pbmcgb3V0IG9mIGEgY29tYm86CgpgYGB7ciwgZmluZCBGUkVUIGVycm9ycyB3aXRoIFFDfQpmbG93Y29kZS5zcGVjdHJhIDwtIEZsb3dDb2RlVW5taXg6OmdldC5mbG93Y29kZS5zcGVjdHJhKAogIGJhY2tib25lLnJkcyA9ICIuL2Zsb3djb2RlX3NwZWN0cmEvRmxvd0NvZGVfQmFja2JvbmUucmRzIiwKICB0aHJlc2hvbGRzLmZpbGUgPSAiLi9mbG93Y29kZV9zcGVjdHJhL3RocmVzaG9sZHMuY3N2IiwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLAogIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSwKICBvdXRwdXQuZGlyID0gIi4vZmxvd2NvZGVfc3BlY3RyYSIsCiAgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUUsCiAgZnJldC5tZWRpYW4ucWMgPSBUUlVFLCAgICAgICAgICAgICAgICMgbG9vc2Ugc2FuaXR5IGZpbHRlciB2cy4gdGhlIGNvbWJvJ3Mgb3duIG1lZGlhbiBGUkVUIGRpcmVjdGlvbgogIGZyZXQubWVkaWFuLnNpbS50aHJlc2hvbGQgPSAwLCAgICAgICAjIDAgPSBvbmx5IGV4Y2x1ZGVzIGV2ZW50cyBwb2ludGluZyB0aGUgb3Bwb3NpdGUgd2F5CiAgZnJldC5iYWNrZ3JvdW5kLnFjID0gVFJVRSwgICAgICAgICAgICMgc2NyZWVucyBjYW5kaWRhdGUgdmFyaWFudHMgYWdhaW5zdCBiYWNrZ3JvdW5kLXBvb2wgY29udGFtaW5hdGlvbgogIGZyZXQuYmFja2dyb3VuZC5zaW0udGhyZXNob2xkID0gMC44ICAjIGFic29sdXRlIGNvc2luZSBzaW1pbGFyaXR5IGN1dG9mZiBmb3IgdGhhdCBzY3JlZW4KKQpgYGAKCmBmcmV0Lm1lZGlhbi5xY2AgZHJvcHMgZXZlbnRzLCBiZWZvcmUgU09NIGNsdXN0ZXJpbmcsIHRoYXQgcG9pbnQgYXdheSBmcm9tIHRoZSBjb21ibydzIG93biBtZWRpYW4gRlJFVCBkaXJlY3Rpb24gLS0gaXQncyBhIGxvb3NlIGZpbHRlciwgbm90IGEgc2FtZS1zaGFwZSBvbmUsIHNpbmNlIGEgY29tYm8ncyB0cnVlIEZSRVQgaXNuJ3QgZ3VhcmFudGVlZCB0byBoYXZlIGEgc2luZ2xlIGRpcmVjdGlvbi4gYGZyZXQuYmFja2dyb3VuZC5xY2AgaW5zdGVhZCBzY3JlZW5zIHRoZSBTT00tZGVyaXZlZCBjYW5kaWRhdGUgdmFyaWFudHMgKG5ldmVyIHRoZSBtZWRpYW4gcm93KSBhZnRlciBjbHVzdGVyaW5nLCBhZ2FpbnN0IHRoZSBGUkVULXNoYXBlZCBzaWduYWwgZm91bmQgaW4gdGhlIHVudHJhbnNkdWNlZCBiYWNrZ3JvdW5kIHBvb2wgcnVuIHRocm91Z2ggdGhlIHNhbWUgY2xlYW5pbmc7IHZhcmlhbnRzIHRoYXQgY2xvc2VseSByZXNlbWJsZSB0aGF0IGJhY2tncm91bmQgY29udGFtaW5hdGlvbiBhcmUgZHJvcHBlZC4gVGhleSBhZGRyZXNzIGRpZmZlcmVudCBmYWlsdXJlIG1vZGVzIGFuZCBjYW4gYmUgdXNlZCB0b2dldGhlci4KClRoaXMgY2FsbCBzYXZlcyB0aGUgb3V0cHV0IGFzIGFuIFJEUyBmaWxlIGluIHRoZSBmb2xkZXIgc3BlY2lmaWVkIGJ5IGBvdXRwdXQuZGlyYC4gSWYgeW91IHNlbGVjdCBgcGxvdC5jb3JyZWN0aW9ucyA9IFRSVUVgLCBpdCB3aWxsIGlkZW50aWZ5IHRoZSBGUkVUIGVycm9ycyBvbiBhIGNlbGwtYnktY2VsbCBiYXNpcywgY29ycmVjdCB0aGVtLCBhbmQgcGxvdCBleGFtcGxlcyBvZiB3aGF0IHRoZSBGbG93Q29kZSBlcGl0b3BlIHVubWl4aW5nIGxvb2tzIGxpa2Ugb24gdGhlIGJhY2tib25lIGZpbGUgd2l0aCBhbmQgd2l0aG91dCBjb3JyZWN0aW9ucy4gVGhhdCBjYW4gYmUgYSBiaXQgc2xvdywgYnV0IGlzIGRlZmluaXRlbHkgd29ydGggZG9pbmcgdGhlIGZpcnN0IGNvdXBsZSBvZiB0aW1lcy4KCgojIyBGbG93Q29kZSBVbm1peGluZwoKV2Ugbm93IGhhdmUgYWxsIHRoZSBkYXRhIHJlcXVpcmVkIGZvciB1bm1peGluZywgb3IsIGF0IGxlYXN0IHdlIGRvIGZvciB0aGUgYW55IGZpbGVzIGNvbWluZyBmcm9tIHNwbGVlbi4gV2UnbGwgZ2V0IHRvIG90aGVyIHRpc3N1ZSBzb3VyY2VzIGluIGEgc2Vjb25kLgoKVG8gdW5taXggYSBzaW5nbGUgZmlsZSwgY2FsbCBgdW5taXguZmxvd2NvZGUuZmNzKClgLgoKYGBge3IsIHVubWl4aW5nfQojIGZvciBleGFtcGxlOgpmdWxseS5zdGFpbmVkLnNwbGVlbiA8LSAiLi9SYXcvU3BsZWVuL1NwbGVlbl9Nb3VzZV8wMDEuZmNzIgoKIyB0aGVuIGNhbGw6CkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcygKICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuc3BsZWVuLAogIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLAogIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCwKICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsCiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbiwKICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSwKICBwYXJhbGxlbCA9IFRSVUUKKQpgYGAKCkJ5IGRlZmF1bHQgdGhpcyBydW5zIHRoZSBuZXcgKipzdGFnZWQqKiBwaXBlbGluZSAoYHVubWl4LmZsb3djb2RlLmNwcC5zdGFnZWQoKWApOiBhIGdlbmVyaWMgQXV0b1NwZWN0cmFsIHVubWl4IGZvciBkZWJhcmNvZGluZywgdGhlIHBvb2xlZCBjcm9zcy1jb21ibyBiYWNrZ3JvdW5kIHN1YnRyYWN0aW9uIGRlc2NyaWJlZCBhYm92ZSwgYSBzbWFsbCBqb2ludCBGUkVUIGZpdCBhZ2FpbnN0IHRoZSBiYWNrZ3JvdW5kLWNvcnJlY3RlZCByYXcgZGF0YSwgYW5kIGEgZmluYWwgZ2VuZXJpYyBBdXRvU3BlY3RyYWwgdW5taXggZm9yIHRoZSByZXBvcnRlZCB2YWx1ZXMuIFRoaXMgcmVxdWlyZXMgYEF1dG9TcGVjdHJhbFJjcHAgPj0gMS4xLjBgOyBpZiBpdCdzIG1pc3Npbmcgb3Igb3V0IG9mIGRhdGUgeW91J2xsIGdldCBhbiBleHBsaWNpdCBlcnJvciB0ZWxsaW5nIHlvdSB0byB1cGRhdGUgaXQsIGFuZCBpZiB0aGUgQysrIGNhbGwgaXRzZWxmIGZhaWxzIGZvciBzb21lIG90aGVyIHJlYXNvbiwgaXQgZmFsbHMgYmFjayB3aXRoIGEgd2FybmluZyB0byB0aGUgKGN1cnJlbnRseSBvdXRkYXRlZCkgcHVyZS1SIGB1bm1peC5mbG93Y29kZSgpYCwgd2hpY2ggZG9lc24ndCB5ZXQgc3VwcG9ydCB0aGUgZXh0cmEgdHVuaW5nIHBhcmFtZXRlcnMgYmVsb3cuCgpJZiB5b3Ugd2FudCB0byB0dW5lIHRoZSBzdGFnZWQgcGlwZWxpbmUsIHRoZSBrZXkgZXh0cmEgcGFyYW1ldGVycyAoYWxsIHdpdGggc2Vuc2libGUgZGVmYXVsdHMsIHNvIHlvdSBvbmx5IG5lZWQgdG8gdG91Y2ggdGhlIG9uZXMgeW91IGNhcmUgYWJvdXQpIGFyZToKCmBgYHtyLCB1bm1peGluZyB3aXRoIHR1bmluZ30KRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZmNzKAogIGZjcy5maWxlID0gZnVsbHkuc3RhaW5lZC5zcGxlZW4sCiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEsCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLAogIGFmLnNwZWN0cmEgPSBzcGxlZW4uYXV0b2ZsdW9yZXNjZW5jZSwKICBzcGVjdHJhLnZhcmlhbnRzID0gZmx1b3JvcGhvcmUudmFyaWF0aW9uLAogIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLAogIG4ucGFzc2VzID0gMSwgICAgICAgICAgICAgICAjIHJvdW5kcyBvZiBwZXItY2VsbCBzcGVjdHJhbCBvcHRpbWl6YXRpb24KICBuLmFmLnBhc3NlcyA9IDEsICAgICAgICAgICAgIyByb3VuZHMgb2YgQUYgZXh0cmFjdGlvbgogIHJlZmluZS5hZi5xdWFudGlsZSA9IDAuNSwgICAjIHBhc3NlZCB0aHJvdWdoIHRvIHVubWl4LmF1dG9zcGVjdHJhbC5yY3BwKCkKICBhbHBoYSA9IDAuNSwKICBjb2xsaW5lYXIudGhyZXNob2xkID0gMC41LAogIGpvaW50LnBhaXIucmVzb2x1dGlvbiA9IFRSVUUsCiAgZnJldC5tZWRpYW4ub25seSA9IEZBTFNFLCAgICMgVFJVRSBza2lwcyB0aGUgcGVyLWNlbGwgRlJFVCB2YXJpYW50IHNjYW4sIGFsd2F5cyB1c2VzIHRoZSBtZWRpYW4gRlJFVCByb3cKICByZXR1cm4uZGlhZ25vc3RpY3MgPSBGQUxTRSwgIyBUUlVFIHJldHVybnMgcGVyLWNlbGwgZGlhZ25vc3RpY3MgaW5zdGVhZCBvZiBOVUxMIChzZWUgYmVsb3cpCiAgY2h1bmsuc2l6ZSA9IDJlNiwgICAgICAgICAgICMgZXZlbnRzIHBlciBjaHVuaywgZm9yIG1lbW9yeSBtYW5hZ2VtZW50IG9uIGxhcmdlIGZpbGVzCiAgcGFyYWxsZWwgPSBUUlVFCikKYGBgCgpgcmV0dXJuLmRpYWdub3N0aWNzID0gVFJVRWAgaXMgd29ydGgga25vd2luZyBhYm91dCBpZiB5b3UncmUgZGVidWdnaW5nIGEgc3BlY2lmaWMgY29tYm8gb3IgZmx1b3JvcGhvcmU6IGluc3RlYWQgb2Ygd3JpdGluZyB0aGUgZmlsZSBhbmQgcmV0dXJuaW5nIGBOVUxMYCwgeW91IGdldCBiYWNrIChpbnZpc2libHkpIGEgbGlzdCB3aXRoIGBtZWRpYW4uYmFja2dyb3VuZGAsIGBmbG93Y29kZS5pZHNgLCBgZnJldC5rYCwgYGZyZXQuaW5kZXhgLCBgcmVzaWQucmF0aW9gIGFuZCBgbGVha2FnZS5yYXRpb2AgLS0gbm90ZSBgbWVkaWFuLmJhY2tncm91bmRgIGlzIHBvb2xlZCBwZXIgY2h1bmsgcmF0aGVyIHRoYW4gYWNyb3NzIHRoZSB3aG9sZSBmaWxlLCBzbyB0cmVhdCBpdCBhcyBpbmRpY2F0aXZlIHJhdGhlciB0aGFuIGV4YWN0IGZvciB2ZXJ5IGxhcmdlIGZpbGVzIHByb2Nlc3NlZCBpbiBzZXZlcmFsIGNodW5rcy4KClRvIHVubWl4IGEgZm9sZGVyIGNvbnRhaW5pbmcgbWFueSBmaWxlcywgY2FsbCBgdW5taXguZmxvd2NvZGUuZm9sZGVyKClgLgoKYGBge3IsIHVubWl4aW5nIGEgYnVuY2ggb2Ygc3R1ZmZ9CiMgZm9yIGV4YW1wbGU6CnNwbGVlbi5mb2xkZXIgPC0gIi4vUmF3L1NwbGVlbi8iCgojIHRoZW4gY2FsbDoKRmxvd0NvZGVVbm1peDo6dW5taXguZmxvd2NvZGUuZm9sZGVyKAogIGZjcy5kaXIgPSBzcGxlZW4uZm9sZGVyLAogIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzLAogIGZsb3cuY29udHJvbCA9IGZsb3cuY29udHJvbCwKICBhZi5zcGVjdHJhID0gc3BsZWVuLmF1dG9mbHVvcmVzY2VuY2UsCiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbiwKICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSwKICBwYXJhbGxlbCA9IFRSVUUKKQpgYGAKCklmIHdlIHdhbnQgdG8gbG9vayBhdCBvdGhlciB0aXNzdWVzIHNvdXJjZXMsIG9yIGFueSBzYW1wbGVzIHdoZXJlIHRoZSBhdXRvZmx1b3Jlc2NlbmNlIG1heSBkaWZmZXIgZnJvbSB0aGUgYXV0b2ZsdW9yZXNjZW5jZSBwcm9maWxlcyB3ZSBoYXZlIGFscmVhZHkgZXh0cmFjdGVkLCB3ZSBmaXJzdCBuZWVkIHRvIGNhbGwgYEF1dG9TcGVjdHJhbDo6Z2V0LmFmLnNwZWN0cmEoKWAgb24gdW5zdGFpbmVkIHNhbXBsZXMgcmVwcmVzZW50aW5nIHRob3NlIGF1dG9mbHVvcmVzY2VuY2Ugc291cmNlcy4gV2UgY2FuIHRoZW4gdW5taXggc2FtcGxlcyBmcm9tIHRob3NlIHRpc3N1ZXMsIGV4dHJhY3RpbmcgdGhlIG1hdGNoaW5nIGF1dG9mbHVvcmVzY2VuY2UgY29ycmVjdGx5LgoKYGBge3IsIHVubWl4aW5nIGRpZmZlcmVudCB0aXNzdWVzfQojIExldCdzIHNheSB3ZSBoYXZlIGJyYWluIHNhbXBsZXMKCiMgdGhpcyBpcyBvdXIgdW5zdGFpbmVkIGJyYWluIHNhbXBsZSAocmF3IGRhdGEpCnVuc3RhaW5lZC5icmFpbiA8LSAiLi9SYXcvVW5zdGFpbmVkIGNvbnRyb2xzL1Vuc3RhaW5lZCBicmFpbi5mY3MiCgojIHdlIGV4dHJhY3QgdGhlIEFGIHByb2ZpbGVzIGZyb20gaXQKYnJhaW4uYXV0b2ZsdW9yZXNjZW5jZSA8LSBBdXRvU3BlY3RyYWw6OmdldC5hZi5zcGVjdHJhKAogIHVuc3RhaW5lZC5zYW1wbGUgPSB1bnN0YWluZWQuYnJhaW4sCiAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgc3BlY3RyYSA9IGZsdW9yb3Bob3JlLnNwZWN0cmEKKQoKIyBub3cgd2Ugd2FudCB0aGUgcmF3IGRhdGEgZm9yIHRoZSBmdWxseSBzdGFpbmVkIGJyYWluIHNhbXBsZQpmdWxseS5zdGFpbmVkLmJyYWluIDwtICIuL1Jhdy9CcmFpbi9CcmFpbl9Nb3VzZV8wMDEuZmNzIgoKIyB0aGVuIGNhbGwgdG8gdW5taXg6CkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcygKICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuYnJhaW4sICMgY2hhbmdlIHRoZSBzYW1wbGUKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsCiAgYWYuc3BlY3RyYSA9IGJyYWluLmF1dG9mbHVvcmVzY2VuY2UsICMgY2hhbmdlIHRoZSBhdXRvZmx1b3Jlc2NlbmNlIHRvIG1hdGNoCiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbiwKICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSwKICBwYXJhbGxlbCA9IFRSVUUKKQpgYGAKCiMjIExvb3Bpbmcgb3ZlciBzZXZlcmFsIHRpc3N1ZXMKCkRvaW5nIHRoZSBhYm92ZSBieSBoYW5kIGZvciBldmVyeSB0aXNzdWUgZ2V0cyBvbGQgZmFzdCBvbmNlIHlvdSBoYXZlIG1vcmUgdGhhbiBvbmUgb3IgdHdvIHNvdXJjZXMuIGB1bm1peC5mbG93Y29kZS5mb2xkZXIoKWAgdW5taXhlcyBhbiBlbnRpcmUgZGlyZWN0b3J5IG9mIEZDUyBmaWxlcyBhZ2FpbnN0IGEgc2luZ2xlIGBhZi5zcGVjdHJhYCwgc28gdGhlIG5hdHVyYWwgc2V0dXAgaXMgKipvbmUgc3ViZm9sZGVyIHBlciB0aXNzdWUqKiBmb3IgeW91ciBmdWxseS1zdGFpbmVkIGZpbGVzLCBwbHVzICoqb25lIHVuc3RhaW5lZCBGQ1MgZmlsZSBwZXIgdGlzc3VlKiogdG8gYnVpbGQgdGhhdCB0aXNzdWUncyBBRiBzcGVjdHJhIGZyb20uIFNvbWV0aGluZyBsaWtlOgoKYGBgClJhdy8K4pSc4pSA4pSAIFVuc3RhaW5lZCBjb250cm9scy8K4pSCICAg4pSc4pSA4pSAIFVuc3RhaW5lZCBzcGxlZW4uZmNzCuKUgiAgIOKUnOKUgOKUgCBVbnN0YWluZWQgYnJhaW4uZmNzCuKUgiAgIOKUlOKUgOKUgCBVbnN0YWluZWQgbGl2ZXIuZmNzCuKUnOKUgOKUgCBTcGxlZW4vCuKUgiAgIOKUnOKUgOKUgCBTcGxlZW5fTW91c2VfMDAxLmZjcwrilIIgICDilJTilIDilIAgU3BsZWVuX01vdXNlXzAwMi5mY3MK4pSc4pSA4pSAIEJyYWluLwrilIIgICDilJzilIDilIAgQnJhaW5fTW91c2VfMDAxLmZjcwrilIIgICDilJTilIDilIAgQnJhaW5fTW91c2VfMDAyLmZjcwrilJTilIDilIAgTGl2ZXIvCiAgICDilJzilIDilIAgTGl2ZXJfTW91c2VfMDAxLmZjcwogICAg4pSU4pSA4pSAIExpdmVyX01vdXNlXzAwMi5mY3MKYGBgCgpUaGUgaW1wb3J0YW50IHRoaW5nIGlzIHRoYXQgYSBzaW5nbGUgYHVubWl4LmZsb3djb2RlLmZvbGRlcigpYCBjYWxsIGlzIGFsbC1vci1ub3RoaW5nIGZvciBhIGRpcmVjdG9yeTogZXZlcnkgRkNTIGZpbGUgaXQgZmluZHMgdGhlcmUgZ2V0cyB1bm1peGVkIHdpdGggdGhlIHNhbWUgYGFmLnNwZWN0cmFgLCBzbyBkb24ndCBtaXggdGlzc3VlcyB3aXRoaW4gb25lIGZvbGRlci4gSXQncyB3b3J0aCBtaXJyb3JpbmcgdGhhdCBzdHJ1Y3R1cmUgb24gdGhlIG91dHB1dCBzaWRlIHRvbyAob25lIG91dHB1dCBzdWJmb2xkZXIgcGVyIHRpc3N1ZSksIHNvIHlvdSdyZSBuZXZlciByZWx5aW5nIG9uIGZpbGVuYW1lIHN1ZmZpeGVzIGFsb25lIHRvIHRlbGwgdGlzc3VlcyBhcGFydCBsYXRlci4KCldpdGggdGhhdCBsYXlvdXQsIGtleSB0aGUgdW5zdGFpbmVkIGZpbGUsIHRoZSBzdGFpbmVkIGZvbGRlciwgYW5kIHRoZSBvdXRwdXQgZm9sZGVyIGJ5IHRoZSBzYW1lIHRpc3N1ZSBuYW1lLCBzbyB0aGUgbG9vcCBtYXRjaGVzIHRoZW0gdXAgYnkgbmFtZSByYXRoZXIgdGhhbiBieSBwb3NpdGlvbiAobXVjaCBzYWZlciBpZiB5b3UgZXZlciBhZGQgb3IgcmVvcmRlciBhIHRpc3N1ZSk6CgpgYGB7ciwgdGlzc3VlIGxvb2t1cCB0YWJsZXN9CiMgbmFtZWQgdmVjdG9yOiB0aXNzdWUgbmFtZSAtPiB1bnN0YWluZWQgRkNTIGZpbGUgdXNlZCB0byBidWlsZCB0aGF0IHRpc3N1ZSdzIEFGIHNwZWN0cmEKdGlzc3VlLnVuc3RhaW5lZCA8LSBjKAogIFNwbGVlbiA9ICIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIHNwbGVlbi5mY3MiLAogIEJyYWluICA9ICIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjcyIsCiAgTGl2ZXIgID0gIi4vUmF3L1Vuc3RhaW5lZCBjb250cm9scy9VbnN0YWluZWQgbGl2ZXIuZmNzIgopCgojIG5hbWVkIHZlY3RvcjogdGlzc3VlIG5hbWUgLT4gZm9sZGVyIG9mIGZ1bGx5LXN0YWluZWQgRkNTIGZpbGVzIGZvciB0aGF0IHRpc3N1ZQp0aXNzdWUuZm9sZGVycyA8LSBjKAogIFNwbGVlbiA9ICIuL1Jhdy9TcGxlZW4vIiwKICBCcmFpbiAgPSAiLi9SYXcvQnJhaW4vIiwKICBMaXZlciAgPSAiLi9SYXcvTGl2ZXIvIgopCgojIG5hbWVkIHZlY3RvcjogdGlzc3VlIG5hbWUgLT4gb3V0cHV0IGZvbGRlciBmb3IgdGhhdCB0aXNzdWUncyB1bm1peGVkIGZpbGVzCnRpc3N1ZS5vdXRwdXQgPC0gYygKICBTcGxlZW4gPSAiLi9Vbm1peGVkL1NwbGVlbi8iLAogIEJyYWluICA9ICIuL1VubWl4ZWQvQnJhaW4vIiwKICBMaXZlciAgPSAiLi9Vbm1peGVkL0xpdmVyLyIKKQpgYGAKClRoZW4gdGhlIGxvb3AgaXRzZWxmIGp1c3QgZG9lcywgcGVyIHRpc3N1ZSwgd2hhdCB3ZSBkaWQgYnkgaGFuZCBhYm92ZTogZXh0cmFjdCB0aGF0IHRpc3N1ZSdzIEFGIHNwZWN0cmEsIHRoZW4gdW5taXggaXRzIHdob2xlIGZvbGRlciBhZ2FpbnN0IGl0LgoKYGBge3IsIHRpc3N1ZSBsb29wfQpmb3IgKCB0aXNzdWUgaW4gbmFtZXMoIHRpc3N1ZS51bnN0YWluZWQgKSApIHsKCiAgbWVzc2FnZSggIlByb2Nlc3NpbmcgdGlzc3VlOiAiLCB0aXNzdWUgKQoKICAjIDEuIGV4dHJhY3QgdGhpcyB0aXNzdWUncyBBRiBwcm9maWxlIGZyb20gaXRzIHVuc3RhaW5lZCBzYW1wbGUKICB0aXNzdWUuYWYgPC0gQXV0b1NwZWN0cmFsOjpnZXQuYWYuc3BlY3RyYSgKICAgIHVuc3RhaW5lZC5zYW1wbGUgPSB0aXNzdWUudW5zdGFpbmVkW1sgdGlzc3VlIF1dLAogICAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYQogICkKCiAgIyAyLiB1bm1peCBldmVyeSBmdWxseS1zdGFpbmVkIGZpbGUgZm9yIHRoaXMgdGlzc3VlIGFnYWluc3QgdGhhdCBBRgogIEZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZvbGRlcigKICAgIGZjcy5kaXIgPSB0aXNzdWUuZm9sZGVyc1tbIHRpc3N1ZSBdXSwKICAgIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLAogICAgYXNwID0gYXV0b3NwZWN0cmFsLnBhcmFtZXRlcnMsCiAgICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsCiAgICBhZi5zcGVjdHJhID0gdGlzc3VlLmFmLAogICAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbiwKICAgIGZsb3djb2RlLnNwZWN0cmEgPSBmbG93Y29kZS5zcGVjdHJhLAogICAgb3V0cHV0LmRpciA9IHRpc3N1ZS5vdXRwdXRbWyB0aXNzdWUgXV0sCiAgICBwYXJhbGxlbCA9IFRSVUUKICApCn0KYGBgCgpBIGNvdXBsZSBvZiBwcmFjdGljYWwgbm90ZXMgb24gdGhpcyBwYXR0ZXJuOgoKKiBJZiB5b3Ugd2FudCB0byBrZWVwIGVhY2ggdGlzc3VlJ3MgYGFmLnNwZWN0cmFgIGFyb3VuZCBhZnRlcndhcmQgKGZvciBsYXRlciByZS11c2UsIG9yIGZvciBkZWJ1Z2dpbmcgYSBzcGVjaWZpYyB0aXNzdWUpLCBzdGFzaCBpdCBpbiBhIGxpc3QgaW5zdGVhZCBvZiBsZXR0aW5nIHRoZSBsb29wIHZhcmlhYmxlIGdldCBvdmVyd3JpdHRlbiBlYWNoIGl0ZXJhdGlvbjogYHRpc3N1ZS5hZi5saXN0IDwtIGxpc3QoKTsgdGlzc3VlLmFmLmxpc3RbWyB0aXNzdWUgXV0gPC0gdGlzc3VlLmFmYC4KKiBgbGFwcGx5YCBvdmVyIGBuYW1lcyggdGlzc3VlLnVuc3RhaW5lZCApYCB3b3JrcyBqdXN0IGFzIHdlbGwgYXMgdGhlIGBmb3JgIGxvb3AgaWYgeW91IHByZWZlciB0aGF0IHN0eWxlIC0tIHRoZXJlJ3Mgbm90aGluZyBhYm91dCB0aGlzIHBhdHRlcm4gdGhhdCBkZXBlbmRzIG9uIHRoZSBsb29wIGJvZHkgcnVubmluZyBzZXF1ZW50aWFsbHkuCiogVGhpcyB1c2VzIHRoZSBzYW1lIGBzcGVjdHJhYCwgYGZsb3cuY29udHJvbGAsIGBzcGVjdHJhLnZhcmlhbnRzYCBhbmQgYGZsb3djb2RlLnNwZWN0cmFgIGZvciBldmVyeSB0aXNzdWUgLS0gb25seSBgYWYuc3BlY3RyYWAgYW5kIHRoZSBmaWxlIGxvY2F0aW9ucyBjaGFuZ2UuIFRoYXQncyBkZWxpYmVyYXRlOiB0aGUgZmx1b3JvcGhvcmUgc3BlY3RyYSwgc3BlY3RyYWwgdmFyaWFudHMgYW5kIHRoZSBGUkVUIGNvcnJlY3Rpb24gbGlicmFyeSBhcmUgYWxsIHByb3BlcnRpZXMgb2YgeW91ciByZWFnZW50cy9iYWNrYm9uZSwgbm90IG9mIHRoZSB0aXNzdWUsIGFuZCBzaG91bGRuJ3QgYmUgcmVjb21wdXRlZCBwZXIgdGlzc3VlLgoqIGB1bm1peC5mbG93Y29kZS5mb2xkZXIoKWAgZG9lc24ndCBleHBvc2UgdGhlIHN0YWdlZC1waXBlbGluZSB0dW5pbmcgcGFyYW1ldGVycyAoYGNlbGwud2VpZ2h0YCwgYG5vaXNlLmZsb29yYCwgYGFscGhhYCwgZXRjLiAtLSBzZWUgdGhlIG5vdGUgYWJvdmUpLCBzbyBpZiB5b3UgbmVlZCB0aG9zZSBwZXItdGlzc3VlIHRvbywgYWRhcHQgdGhlIGxvb3AgdG8gY2FsbCBgdW5taXguZmxvd2NvZGUuZmNzKClgIG92ZXIgYGxpc3QuZmlsZXMoIHRpc3N1ZS5mb2xkZXJzW1sgdGlzc3VlIF1dLCBwYXR0ZXJuID0gIi5mY3MiLCBmdWxsLm5hbWVzID0gVFJVRSApYCBpbnN0ZWFkIG9mIGB1bm1peC5mbG93Y29kZS5mb2xkZXIoKWAuCiogQXMgdGhlIG5leHQgc2VjdGlvbiBjb3ZlcnMsIHBvc2l0aXZpdHkgdGhyZXNob2xkcyBjYW4gYWxzbyBkcmlmdCBieSB0aXNzdWUgLS0gaWYgeW91IHNlZSB0aGF0LCBhZGQgYSBgdGhyZXNob2xkcy5maWxlYCBsb29rdXAgKGtleWVkIGJ5IHRpc3N1ZSBuYW1lIHRoZSBzYW1lIHdheSkgYWxvbmdzaWRlIGB0aXNzdWUudW5zdGFpbmVkYC9gdGlzc3VlLmZvbGRlcnNgL2B0aXNzdWUub3V0cHV0YCBhbmQgcGFzcyBgdGhyZXNob2xkcy5maWxlID0gdGlzc3VlLnRocmVzaG9sZHNbWyB0aXNzdWUgXV1gIGludG8gdGhlIHVubWl4aW5nIGNhbGwuCgpJbiBtYW55IGNhc2VzLCB0aGUgdGhyZXNob2xkcyBmb3IgcG9zaXRpdml0eSBtYXkgdmFyeSBzbGlnaHRseSBieSB0aXNzdWUgdHlwZSBvciBzYW1wbGUgc291cmNlLiBJZiB0aGF0IGlzIHRoZSBjYXNlLCB5b3Ugd2lsbCBuZWVkIHRvIHByb3ZpZGUgbmV3IHRocmVzaG9sZHMgYXMgcGFydCBvZiB0aGUgdW5taXhpbmcgcHJvY2Vzcy4gVG8gc3RhcnQsIHVubWl4IGEgc2luZ2xlIEZDUyBmaWxlIGZyb20gdGhlIHNvdXJjZSB5b3Ugd2FudCB0byB1c2UgdG8gc2V0IG5ldyB0aHJlc2hvbGRzLiBEbyB0aGUgdW5taXhpbmcgd2l0aCBBdXRvU3BlY3RyYWwsIGV4dHJhY3RpbmcgdGhlIEFGIHBlciBjZWxsLCBzaW5jZSB0aGlzIHdpbGwgZ2V0IHlvdSBjbG9zZXIgdG8gd2hhdCB0aGUgZGF0YSB3aWxsIGxvb2sgbGlrZSB3aXRoIHRoZSBGbG93Q29kZVVubWl4LiBUaGVuIGxvYWQgdGhpcyBmaWxlIGludG8gdGhlIFRocmVzaG9sZEFwcCwgc2VsZWN0IG5ldyB0aHJlc2hvbGRzIGZvciBlYWNoIEZsb3dDb2RlIG1hcmtlciwgYW5kIHNhdmUgdGhlIHJlc3VsdHMgKHlvdSBjYW4gYW5kIHNob3VsZCByZW5hbWUgdGhlIENTViBmaWxlKS4gTm93IHByb3ZpZGUgdGhpcyBuZXcgQ1NWIGZpbGUgY29udGFpbmluZyB0aGUgdXBkYXRlZCB0aHJlc2hvbGRzIHRvIHRoZSB1bm1peGluZy4KCkkgc3VzcGVjdCB0aGF0IGluIG1vc3QgY2FzZXMgdGhlcmUgd2lsbCBiZSBsaXR0bGUgbmVlZCBmb3IgcmUtdGhyZXNob2xkaW5nIGJldHdlZW4gZGlmZmVyZW50IHRpc3N1ZXMuIFRoZXJlIG1heSBiZSBhIG5lZWQgdG8gcmUtdGhyZXNob2xkIG9uIGEgZnVsbHkgc3RhaW5lZCBzYW1wbGUsIHRob3VnaCwgc2luY2UgdGhpcyB3aWxsIGRpZmZlciBmcm9tIHRoZSBiYWNrYm9uZSBjb250cm9sIHdlIGhhdmUgdXNlZCB0byBlc3RhYmxpc2ggdGhlIGZpcnN0IHNldCBvZiB0aHJlc2hvbGRzLgoKYGBge3IsIGNoYW5naW5nIHRoZSB0aHJlc2hvbGRzfQoKIyB0aGlzIGlzIG91ciB1bnN0YWluZWQgYnJhaW4gc2FtcGxlIChyYXcgZGF0YSkKdW5zdGFpbmVkLmJyYWluIDwtICIuL1Jhdy9VbnN0YWluZWQgY29udHJvbHMvVW5zdGFpbmVkIGJyYWluLmZjcyIKCiMgd2UgZXh0cmFjdCB0aGUgQUYgcHJvZmlsZXMgZnJvbSBpdApicmFpbi5hdXRvZmx1b3Jlc2NlbmNlIDwtIEF1dG9TcGVjdHJhbDo6Z2V0LmFmLnNwZWN0cmEoCiAgdW5zdGFpbmVkLnNhbXBsZSA9IHVuc3RhaW5lZC5icmFpbiwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYQopCgojIG5vdyB3ZSB3YW50IHRoZSByYXcgZGF0YSBmb3IgdGhlIGZ1bGx5IHN0YWluZWQgYnJhaW4gc2FtcGxlCmZ1bGx5LnN0YWluZWQuYnJhaW4gPC0gIi4vUmF3L0JyYWluL0JyYWluX01vdXNlXzAwMS5mY3MiCgoKRmxvd0NvZGVVbm1peDo6bGF1bmNoLnRocmVzaG9sZC5hcHAoCiAgZmxvd2NvZGUuY29tYm8uZmlsZSA9IGNvbWJvLmZpbGUsCiAgZmxvdy5jb250cm9sID0gZmxvdy5jb250cm9sLAogIHNwZWN0cmEgPSBmbHVvcm9waG9yZS5zcGVjdHJhLAogIGFzcCA9IGF1dG9zcGVjdHJhbC5wYXJhbWV0ZXJzCikKCm5ldy50aHJlc2hvbGRzIDwtICIuL2Zsb3djb2RlX3NwZWN0cmEvTmV3X3RocmVzaG9sZHMuY3N2IgoKIyB0aGVuIGNhbGwgdG8gdW5taXg6CkZsb3dDb2RlVW5taXg6OnVubWl4LmZsb3djb2RlLmZjcygKICBmY3MuZmlsZSA9IGZ1bGx5LnN0YWluZWQuYnJhaW4sICMgY2hhbmdlIHRoZSBzYW1wbGUKICBzcGVjdHJhID0gZmx1b3JvcGhvcmUuc3BlY3RyYSwKICBhc3AgPSBhdXRvc3BlY3RyYWwucGFyYW1ldGVycywKICBmbG93LmNvbnRyb2wgPSBmbG93LmNvbnRyb2wsCiAgYWYuc3BlY3RyYSA9IGJyYWluLmF1dG9mbHVvcmVzY2VuY2UsICMgY2hhbmdlIHRoZSBhdXRvZmx1b3Jlc2NlbmNlIHRvIG1hdGNoCiAgc3BlY3RyYS52YXJpYW50cyA9IGZsdW9yb3Bob3JlLnZhcmlhdGlvbiwKICBmbG93Y29kZS5zcGVjdHJhID0gZmxvd2NvZGUuc3BlY3RyYSwKICB0aHJlc2hvbGRzLmZpbGUgPSBuZXcudGhyZXNob2xkcywKICBwYXJhbGxlbCA9IFRSVUUKKQoKYGBgCgpOb3RlIHRoYXQgYGZsb3djb2RlLmNvbWJvLmZpbGVgIGFuZCBgZmxvdy5jb250cm9sYCBtdXN0IGJlIHN1cHBsaWVkIHRvIGBsYXVuY2gudGhyZXNob2xkLmFwcCgpYCB0b2dldGhlciwgb3Igbm90IGF0IGFsbCAtLSBhIHBhcnRpYWwgcGFpciBub3cgcmFpc2VzIGFuIGV4cGxpY2l0IGVycm9yIHVwIGZyb250LCByYXRoZXIgdGhhbiBmYWlsaW5nIGNvbmZ1c2luZ2x5IGxhdGVyIG9uLiBBcyBhYm92ZSwgeW91IGNhbiBhbHNvIGp1c3QgcG9pbnQgYGJhY2tib25lLnJkc2AgYXQgYW55IFJEUyBwcm9kdWNlZCBieSBgdW5taXguYmFja2JvbmUoKWAgYW5kIHNraXAgc3VwcGx5aW5nIHRoZXNlIHNlcGFyYXRlbHkuCgojIEZsb3dDb2RlIERlYmFyY29kaW5nIFdvcmtmbG93CgpXaXRoIHRoZSBuZXcgdW5taXhpbmcsIHRoZSByZXN1bHRpbmcgRkNTIGZpbGVzIGFyZSBhbHJlYWR5IGRlYmFyY29kZWQuIElmIHlvdSBpbnNwZWN0IHRoZSBmaWxlcyBpbiBSIG9yIEZsb3dKbywgeW91IHNob3VsZCBzZWUgYSBjaGFubmVsIGZvciBlYWNoIG9mIHRoZSB0YWdzIChuYW1lcywgZ3VpZGVzLCBUQ1JzKSB5b3UgaGF2ZSBsaW5rZWQgdG8gZWFjaCBGbG93Q29kZSBjb21iaW5hdGlvbi4gVGhlIGV4cHJlc3Npb24gaW4gdGhlc2UgY2hhbm5lbHMgaXMgdGhlIGV4cHJlc3Npb24gb2YgdGhhdCBjb21iaW5hdGlvbiBvZiBGbG93Q29kZSBlcGl0b3BlcyBpbiB0aGUgY2VsbHMuIEFkZGl0aW9uYWxseSwgeW91IHNob3VsZCBoYXZlIGEgIkZsb3dDb2RlIiBjaGFubmVsLCB3aGljaCBpcyB0aGUgZXhwcmVzc2lvbiBsZXZlbCBvZiB0aGUgZXBpb3BlcyBpbiBjZWxscyB3aXRoIHZhbGlkIEZsb3dDb2RlIGNvbWJpbmF0aW9ucy4gSW4gb3RoZXIgd29yZHMsIHRoZSAiRmxvd0NvZGUiIGNoYW5uZWwgbWVhc3VyZXMgdHJhbnNkdWN0aW9uLgoKU28sIGluIEZsb3dKbywgeW91IGNhbiBnYXRlIG9uIHlvdXIgY2VsbHMgYW5kIHRoZW4gcGxvdCBhIHRhZyBjb21ibyB2ZXJzdXMgd2hhdGV2ZXIgbWFya2VycyB5b3UgaGF2ZSBpbiB5b3VyIGZsb3cgcGFuZWwuIFRoaXMgaXMgdXNlZnVsIGZvciBjaGVja2luZyBDUklTUFIgZ3VpZGUgZWZmaWNpZW5jeSAoZm9yIGV4YW1wbGUsIHBsb3R0aW5nIEdBVEEtMyBleHByZXNzaW9uIGluIEdhdGEzLXRhcmdldGVkIGNlbGxzKSBvciBmb3IgcGhlbm90eXBpbmcuIElmIHlvdSB3YW50LCB5b3UgY2FuIHJ1biBkaW1lbnNpb25hbGl0eSByZWR1Y3Rpb24gYW5kIGNsdXN0ZXJpbmcgYXBwcm9hY2hlcyBpbiBGbG93Sm8sIFIgb3IgUHl0aG9uIG9uIHRoZSBGQ1MgZmlsZXMgYXMgdGhleSBhcmUgb3Igd2l0aCBzb21lIHByZS1nYXRpbmcuCgpGb3Igb3VyIGFuYWx5c2VzLCB3ZSByZWNvbW1lbmQgcHJlLWdhdGluZyB0byBzcGVjaWZpYyBiaW9sb2dpY2FsbHkgcmVsZXZhbnQgY2VsbCBwb3B1bGF0aW9ucy4gSSBzdGlsbCBuZWVkIHRvIHdyaXRlIHRoZSBwYXJ0IHRvIGRvIHRoaXMgaW4gUi4gQXQgcHJlc2VudCwgeW91IHNob3VsZCBiZSBhYmxlIHRvIHRyZWF0IHRoZSB1bm1peGVkIEZDUyBmaWxlcyB5b3UgZ2V0IGZyb20gdGhpcyB3b3JrZmxvdyBhcyB5b3Ugd291bGQgcHJldmlvdXNseSwgcnVubmluZyB0aGVtIHRocm91Z2ggT3JpYW4gQnJpY2FyZCdzIFtGbG93Q29kZURlY29kZXJdKGh0dHBzOi8vZ2l0aHViLmNvbS9EckN5dG9tZXRlci9GbG93Y29kZURlY29kZXIpLiBUaGUgZGlmZmVyZW5jZSBpcyB0aGF0IHRoZSB1bm1peGluZyB3aWxsIG5vdyBiZSBjb3JyZWN0IChob3BlZnVsbHkpLCBib3RoIGZvciB0aGUgYmFyY29kZXMgYW5kIGZvciB0aGUgcGhlbm90eXBpbmcgYW5kIGdhdGluZyBtYXJrZXJzLgo=</div>
 
 
 

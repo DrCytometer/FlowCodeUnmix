@@ -17,42 +17,35 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 
 # Installation
 
-You will both need `AutoSpectral` and `FlowCodeUnmix` to run this. If this is your first time using these, run the installation code below, which should take care of everything for you.
+You will both need `AutoSpectral` and `FlowCodeUnmix` to run this, plus their compiled accelerators, `AutoSpectralRcpp` and `FlowCodeUnmixRcpp`. The accelerators are no longer just a speed convenience: `get.flowcode.spectra()` now *requires* `AutoSpectralRcpp` (there's no pure-R fallback for it), and the staged pipeline used by `unmix.flowcode.fcs()`/`unmix.flowcode.folder()` requires `AutoSpectralRcpp >= 1.1.0` specifically.
+
+The easiest way to get everything is [`pak`](https://pak.r-lib.org/). `pak::pkg_install()` resolves CRAN, Bioconductor (via the `bioc::` prefix) and GitHub (`"owner/repo"`) packages together in one call, with proper dependency resolution and parallel downloads -- there's no separate `BiocManager::install()` or `remotes::install_github()` step needed.
 
 ```{r}
-# Install Bioconductor packages
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-BiocManager::install(c("flowWorkspace", "FlowSOM"))
+# one-time, if you don't already have it
+install.packages("pak")
 
-# Install any missing CRAN packages that we'll need
-cran.packages <- c(
+pak::pkg_install(c(
+  "bioc::flowWorkspace",
+  "bioc::FlowSOM",
   "shiny",
   "shinyFiles",
   "ggplot2",
   "scattermore",
-  "dplyr"
-)
-
-missing.pkgs <- setdiff(
-  cran.packages,
-  rownames(installed.packages())
-)
-
-if (length(missing.pkgs) > 0) {
-  install.packages(missing.pkgs, dependencies = TRUE)
-}
-
-# install `remotes` to allow you to install GitHub packages (devtools also works)
-install.packages("remotes")
-remotes::install_github("DrCytometer/AutoSpectral")
-remotes::install_github("DrCytometer/FlowCodeUnmix")
+  "dplyr",
+  "DrCytometer/AutoSpectral",
+  "DrCytometer/FlowCodeUnmix",
+  "DrCytometer/AutoSpectralRcpp",
+  "DrCytometer/FlowCodeUnmixRcpp"
+))
 ```
+
+Once everything is installed, the Rcpp accelerators are picked up automatically wherever they help, no further action needed.
 
 
 # Basic AutoSpectral workflow
 
-We start as we would with any spectral flow cytometry data set in AutoSpectral. We will load the cytometer-specific parameters, load in the single-stained control FCS data, clean-up the control data, extract the spectral profiles of the fluorophores, identify autofluorescence signatures and measure the spectral variation in the fluorophore output.
+We start as we would with any spectral flow cytometry data set in AutoSpectral, using the automated spectral extraction pipeline. We will load the cytometer-specific parameters, create and check the control file, extract the fluorophore spectra directly from the raw single-stained controls, identify autofluorescence signatures and measure the spectral variation in the fluorophore output. For the full walkthrough of this pipeline, including all of the diagnostic plots it produces, see [AutoSpectral Workflow](https://drcytometer.github.io/AutoSpectral/articles/01_Automated_Spectral_Workflow.html).
 
 
 ## Load the parameters
@@ -63,7 +56,7 @@ Here we are using data from the Cytek Aurora (5-laser system). For data from a d
 library(AutoSpectral)
 autospectral.parameters <- AutoSpectral::get.autospectral.param(
   cytometer = "aurora",
-  figure = TRUE
+  figures = TRUE
 )
 ```
 
@@ -71,7 +64,6 @@ autospectral.parameters <- AutoSpectral::get.autospectral.param(
 ## Create and check the control file
 
 The control file is a CSV file (spreadsheet) that describes your control files for AutoSpectral. A draft of this will be created automatically by AutoSpectral if you tell it where your single-stained control files are. You will need to edit this and check it to be sure it is correct. Details on how to do this are in this [article](https://drcytometer.github.io/AutoSpectral/articles/02_Control_File_example.html). There is also a [Shiny helper](https://github.com/DrCytometer/AutoSpectralHelper) application for this, which opens as an interactive webpage.
-
 
 ```{r, define the controls}
 # where are your single-stained control files?
@@ -91,6 +83,8 @@ AutoSpectral::create.control.file(
 )
 ```
 
+`create.control.file()` now defaults to `legacy = FALSE`, so the draft control file is set up for the automated extraction pipeline below: you'll still need to fill in `marker`, `fluorophore`, `control.type`, and `universal.negative`, but you can leave `gate.name`/`gate.define` blank -- those columns are only read by the legacy gating pipeline. The peak-channel `channel` column is optional too; it's determined automatically from the data.
+
 Once you have edited your control file, check it:
 
 ```{r, check the controls}
@@ -103,42 +97,27 @@ AutoSpectral::check.control.file(
 ```
 
 
-## Load the data
+## Extract the fluorophore spectral profiles
 
-This step will likely take a few minutes. AutoSpectral will now take all of the information in the control file, read in all the single-stained FCS files, determine gates to use and extract the information in the gates for downstream usage. This can go faster by setting `parallel = TRUE`.
+This replaces the old three-step `define.flow.control()` -> `clean.controls()` -> `get.fluorophore.spectra()` sequence with a single call. No manual gating is required: saturation removal, singlet gating, AF-orthogonalised cosine filtering of the brightest candidate events, and kNN scatter-matched per-event background subtraction all happen internally, with an automatic per-fluorophore fallback to the legacy pipeline if the automated result doesn't pass its own cosine-similarity QC check against the reference spectral library.
 
-```{r, load the controls}
-flow.control <- AutoSpectral::define.flow.control(
+```{r, get the spectral profiles}
+fluorophore.spectra <- AutoSpectral::get.spectra.automated(
   control.dir = control.folder,
   control.def.file = control.file,
-  asp = autospectral.parameters,
-  parallel = FALSE
-)
-```
-
-Check the plots in folder `figure_gate` to be sure the gating is working appropriately for your samples. See the help pages if it does not look good.
-
-
-## Clean the controls
-
-This will also take a few minutes, most likely. In this step, we are trying to identify the most useful events in the single-stained controls for determining the fluorophore spectra. This involves removing any cells (in cell-based controls) that interfere with the measurement (e.g., autofluorescent macrophages or dead cells), selecting the brightest events and matching the background of those events in the unstained sample.
-
-```{r, clean the controls}
-cleaned.controls <- AutoSpectral::clean.controls(
-  flow.control = flow.control,
   asp = autospectral.parameters
 )
 ```
 
-## Measure the fluorophore spectral profiles
+The default settings work well across a wide range of panels, but can be tuned if needed (`n.candidates`, `n.spectral`, `k.neighbors`, `cosine.threshold`, etc. -- see [AutoSpectral Workflow](https://drcytometer.github.io/AutoSpectral/articles/01_Automated_Spectral_Workflow.html) for the full parameter reference). Check the diagnostic plots in `figure_spectra`, `figure_similarity_heatmap`, `figure_scatter_match` and the per-fluorophore QC report in `figure_spectral_ribbon`; anything flagged `LEGACY_REFINEMENT` in the console QC summary is worth a look.
 
-Now we will extract the fluorophore spectral information from the cleaned data. This should be relatively quick. Plots will appear in `figure_spectra` and `figure_similarity_heatmap`.
+We also need a minimal `flow.control` object -- this just carries the antigen/fluorophore name lookup used later on (e.g. by `unmix.backbone()`, `launch.threshold.app()`, and when writing FCS keywords). It replaces the old, fully-gated object that used to come out of `define.flow.control()`/`clean.controls()`.
 
-```{r, get the spectral profiles}
-fluorophore.spectra <- AutoSpectral::get.fluorophore.spectra(
-  flow.control = cleaned.controls,
-  asp = autospectral.parameters,
-  use.clean.expr = TRUE
+```{r, minimal flow control}
+flow.control <- AutoSpectral::reload.flow.control(
+  control.dir = control.folder,
+  control.def.file = control.file,
+  asp = autospectral.parameters
 )
 ```
 
@@ -157,6 +136,8 @@ spleen.autofluorescence <- AutoSpectral::get.af.spectra(
 )
 ```
 
+Note that `refine` currently defaults to `TRUE`: after the initial SOM-based clustering, a second pass of targeted modulation runs on cells that remain furthest from zero, which helps with messier tissue samples at the cost of some extra time. If you're working with clean lymphoid samples (spleen, PBMCs) and want the quicker first-pass-only result, set `refine = FALSE`.
+
 
 ## Determine spectral variation in the fluorophores
 
@@ -168,13 +149,13 @@ fluorophore.variation <- AutoSpectral::get.spectral.variants(
   control.def.file = control.file,
   asp = autospectral.parameters,
   spectra = fluorophore.spectra,
-  af.spectra = spleen.autofluorescence,
   parallel = FALSE
 )
 ```
 
-That is the end of the normal AutoSpectral workflow for us. We now need to do some FlowCode-specific steps before proceeding to the debarcoding and unmixing.
+As of AutoSpectral 1.6.0, `get.spectral.variants()` no longer takes an `af.spectra` argument -- autofluorescence for this step is now derived in situ, per fluorophore, from the universal-negative files already listed in your control table. Passing `af.spectra` here (even positionally) will trigger a deprecation warning and be silently ignored, so don't rely on it.
 
+That is the end of the normal AutoSpectral workflow for us. We now need to do some FlowCode-specific steps before proceeding to the debarcoding and unmixing.
 
 
 # FlowCode Unmixing Workflow
@@ -183,7 +164,7 @@ For the FlowCode workflow, we need some additional pieces of information:
 * Which are the FlowCode epitope tag channels?
 * What are the valid FlowCode combinations (in the combination file)?
 * What is the name (guide/TCR) of each combination (in the combination file)?
-* Where are the cells (user-drawn gate)?
+* Where are the cells (automatically gated around the brightest FlowCode-expressing events)?
 * What variation in fluorophore output is created by the combinations due to FRET or a FRET-like artifact? For this, we need your backbone control, stained only with the FlowCode epitope antibodies. All combinations should be well represented for best results.
 
 
@@ -204,15 +185,23 @@ FlowCodeUnmix::unmix.backbone(
    flowcode.backbone.fcs = flowcode.backbone,
    spectra = fluorophore.spectra,
    af.spectra = spleen.autofluorescence,
-   flow.control = cleaned.controls,
+   spectra.variants = fluorophore.variation,
+   flow.control = flow.control,
    asp = autospectral.parameters,
    flowcode.combo.file = combo.file,
    output.dir = "./flowcode_spectra",
-   filename = "FlowCode_Backbone.rds"
+   filename = "FlowCode_Backbone.rds",
+   parallel = TRUE
 )
 ```
 
-This saves the output as an RDS file in the folder specified by `output.dir`. If you change `output.dir`, you'll need to change it later in `get.flowcode.spectra()`.
+A couple of things changed here beyond the `flow.control` rename above:
+
+* `spectra.variants` is a new, optional-but-recommended argument. When supplied, each combo fluorophore's per-cell best-fitting spectral variant is substituted before the FRET residual is computed (identically for the combo's own cells and for the untransduced background pool), so ordinary single-colour spectral drift isn't mistaken for FRET. It's also a prerequisite, together with `af.spectra`, for `plot.corrections = TRUE` later in `get.flowcode.spectra()`.
+* Before the gate is even defined, the backbone data now goes through automatic saturation removal and a two-pass Area/Height scatter-ratio singlet gate (`singlet.quantiles = c(0.85, 0.975)` by default, skipped with a message if Height channels aren't present). A doublet carrying two different barcodes would otherwise still debarcode to a single Id, and its unmixing residual -- driven by the second, uncounted barcode's own spillover -- would look exactly like FRET and contaminate the measured FRET spectra.
+* `parallel`/`threads` now control the AF-extraction unmix over the gated events, same convention as elsewhere (`threads = 0` means "all available cores").
+
+This saves the output as an RDS file (a large one, plus a downsampled `Small_...` companion capped at 30,000 events) in the folder specified by `output.dir`. If you change `output.dir`, you'll need to change it later in `get.flowcode.spectra()`.
 *Note: change to returning object
 
 ## Setting thresholds
@@ -222,10 +211,14 @@ This part requires you to manually select the point on the graph where the data 
 I have created a Shiny app to allow you to do this interactively, as in Orian Bricard's FlowCode debarcoding app.
 
 ```{r, run app}
-FlowCodeUnmix::launch.threshold.app()
+FlowCodeUnmix::launch.threshold.app(
+  backbone.rds = "./flowcode_spectra/FlowCode_Backbone.rds"
+)
 ```
 
-When you're done, you should have a CSV file (spreadsheet), which is pretty simple and just contains the numerical value corresponding to the threshold for each FlowCode channel.
+Pointing `backbone.rds` at the RDS file saved by `unmix.backbone()` lets the app load the fluorophore-tag mapping and spectra straight out of it, so you no longer need to separately pass `flowcode.combo.file`/`flow.control` here (the downsampled `Small_...` file works just as well and loads faster). If you'd rather browse for a file interactively, or point the app at a raw/not-yet-unmixed FCS file, you can still leave `backbone.rds` as `NULL` and use the app's own file picker.
+
+When you're done, you should have a CSV file (spreadsheet) with `Fluor` and `Threshold_Raw` columns, giving the threshold for each FlowCode channel in raw, untransformed unmixed scale.
 
 
 ## Measuring FRET (unmixing) errors due to FlowCodes
@@ -236,11 +229,42 @@ In this step, we will take the FlowCode epitope-stained backbone data (from the 
 flowcode.spectra <- FlowCodeUnmix::get.flowcode.spectra(
   backbone.rds = "./flowcode_spectra/FlowCode_Backbone.rds",
   thresholds.file = "./flowcode_spectra/thresholds.csv",
+  asp = autospectral.parameters,
+  spectra.variants = fluorophore.variation,
+  af.spectra = spleen.autofluorescence,
   output.dir = "./flowcode_spectra",
   filename = "FlowCode_Spectra.rds",
   plot.corrections = TRUE
 )
 ```
+
+This function has changed substantially. Note in particular:
+
+* **`AutoSpectralRcpp` is now a hard requirement** -- Stage 1 (a debarcoding-quality unmix, using the same tuning the production pipeline uses so characterisation and correction agree on debarcoding/background/AF from the start) runs through `AutoSpectralRcpp::unmix.autospectral.rcpp()`. There is currently no pure-R fallback for this function.
+* `spectra.variants` and `af.spectra` are now required arguments to get `plot.corrections = TRUE` to work, since the before/after plots re-run the full production pipeline (`unmix.flowcode.cpp.staged()`) on the backbone.
+* Background is now handled by a single **pooled, cross-combo** median correction per FlowCode fluorophore (computed from off-target observations across every valid combo, then subtracted from every cell, transduced or not), rather than anything per-combo -- this is what separates genuine non-specific background/staining from real FRET.
+* `background.pool.n` (default `5000`) controls how many untransduced cells are used as the scatter-matching/reference pool, and `n.cells.per.combo` (default `500`) caps how many of a combo's own brightest events are used when measuring its FRET spectra.
+* `som.dim` (default `10`) is the base SOM grid side length used to cluster each combo's residuals into candidate FRET variants; it's shrunk automatically for combos with fewer than 500 retained cells.
+
+There are also two optional QC filters, both off by default, that you can turn on if you see noisy or implausible FRET variants coming out of a combo:
+
+```{r, find FRET errors with QC}
+flowcode.spectra <- FlowCodeUnmix::get.flowcode.spectra(
+  backbone.rds = "./flowcode_spectra/FlowCode_Backbone.rds",
+  thresholds.file = "./flowcode_spectra/thresholds.csv",
+  asp = autospectral.parameters,
+  spectra.variants = fluorophore.variation,
+  af.spectra = spleen.autofluorescence,
+  output.dir = "./flowcode_spectra",
+  plot.corrections = TRUE,
+  fret.median.qc = TRUE,               # loose sanity filter vs. the combo's own median FRET direction
+  fret.median.sim.threshold = 0,       # 0 = only excludes events pointing the opposite way
+  fret.background.qc = TRUE,           # screens candidate variants against background-pool contamination
+  fret.background.sim.threshold = 0.8  # absolute cosine similarity cutoff for that screen
+)
+```
+
+`fret.median.qc` drops events, before SOM clustering, that point away from the combo's own median FRET direction -- it's a loose filter, not a same-shape one, since a combo's true FRET isn't guaranteed to have a single direction. `fret.background.qc` instead screens the SOM-derived candidate variants (never the median row) after clustering, against the FRET-shaped signal found in the untransduced background pool run through the same cleaning; variants that closely resemble that background contamination are dropped. They address different failure modes and can be used together.
 
 This call saves the output as an RDS file in the folder specified by `output.dir`. If you select `plot.corrections = TRUE`, it will identify the FRET errors on a cell-by-cell basis, correct them, and plot examples of what the FlowCode epitope unmixing looks like on the backbone file with and without corrections. That can be a bit slow, but is definitely worth doing the first couple of times.
 
@@ -260,14 +284,41 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   fcs.file = fully.stained.spleen,
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
-  k = 10, # use k=1 for fastest unmixing, k = 10 (default) for slower but better, k ~ 3 compromise
   parallel = TRUE
 )
 ```
+
+By default this runs the new **staged** pipeline (`unmix.flowcode.cpp.staged()`): a generic AutoSpectral unmix for debarcoding, the pooled cross-combo background subtraction described above, a small joint FRET fit against the background-corrected raw data, and a final generic AutoSpectral unmix for the reported values. This requires `AutoSpectralRcpp >= 1.1.0`; if it's missing or out of date you'll get an explicit error telling you to update it, and if the C++ call itself fails for some other reason, it falls back with a warning to the (currently outdated) pure-R `unmix.flowcode()`, which doesn't yet support the extra tuning parameters below.
+
+If you want to tune the staged pipeline, the key extra parameters (all with sensible defaults, so you only need to touch the ones you care about) are:
+
+```{r, unmixing with tuning}
+FlowCodeUnmix::unmix.flowcode.fcs(
+  fcs.file = fully.stained.spleen,
+  spectra = fluorophore.spectra,
+  asp = autospectral.parameters,
+  flow.control = flow.control,
+  af.spectra = spleen.autofluorescence,
+  spectra.variants = fluorophore.variation,
+  flowcode.spectra = flowcode.spectra,
+  n.passes = 1,               # rounds of per-cell spectral optimization
+  n.af.passes = 1,            # rounds of AF extraction
+  refine.af.quantile = 0.5,   # passed through to unmix.autospectral.rcpp()
+  alpha = 0.5,
+  collinear.threshold = 0.5,
+  joint.pair.resolution = TRUE,
+  fret.median.only = FALSE,   # TRUE skips the per-cell FRET variant scan, always uses the median FRET row
+  return.diagnostics = FALSE, # TRUE returns per-cell diagnostics instead of NULL (see below)
+  chunk.size = 2e6,           # events per chunk, for memory management on large files
+  parallel = TRUE
+)
+```
+
+`return.diagnostics = TRUE` is worth knowing about if you're debugging a specific combo or fluorophore: instead of writing the file and returning `NULL`, you get back (invisibly) a list with `median.background`, `flowcode.ids`, `fret.k`, `fret.index`, `resid.ratio` and `leakage.ratio` -- note `median.background` is pooled per chunk rather than across the whole file, so treat it as indicative rather than exact for very large files processed in several chunks.
 
 To unmix a folder containing many files, call `unmix.flowcode.folder()`.
 
@@ -280,10 +331,10 @@ FlowCodeUnmix::unmix.flowcode.folder(
   fcs.dir = spleen.folder,
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = spleen.autofluorescence,
   spectra.variants = fluorophore.variation,
-  flowcode.spectra =flowcode.spectra,
+  flowcode.spectra = flowcode.spectra,
   parallel = TRUE
 )
 ```
@@ -311,13 +362,98 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   fcs.file = fully.stained.brain, # change the sample
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = brain.autofluorescence, # change the autofluorescence to match
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
   parallel = TRUE
 )
 ```
+
+## Looping over several tissues
+
+Doing the above by hand for every tissue gets old fast once you have more than one or two sources. `unmix.flowcode.folder()` unmixes an entire directory of FCS files against a single `af.spectra`, so the natural setup is **one subfolder per tissue** for your fully-stained files, plus **one unstained FCS file per tissue** to build that tissue's AF spectra from. Something like:
+
+```
+Raw/
+├── Unstained controls/
+│   ├── Unstained spleen.fcs
+│   ├── Unstained brain.fcs
+│   └── Unstained liver.fcs
+├── Spleen/
+│   ├── Spleen_Mouse_001.fcs
+│   └── Spleen_Mouse_002.fcs
+├── Brain/
+│   ├── Brain_Mouse_001.fcs
+│   └── Brain_Mouse_002.fcs
+└── Liver/
+    ├── Liver_Mouse_001.fcs
+    └── Liver_Mouse_002.fcs
+```
+
+The important thing is that a single `unmix.flowcode.folder()` call is all-or-nothing for a directory: every FCS file it finds there gets unmixed with the same `af.spectra`, so don't mix tissues within one folder. It's worth mirroring that structure on the output side too (one output subfolder per tissue), so you're never relying on filename suffixes alone to tell tissues apart later.
+
+With that layout, key the unstained file, the stained folder, and the output folder by the same tissue name, so the loop matches them up by name rather than by position (much safer if you ever add or reorder a tissue):
+
+```{r, tissue lookup tables}
+# named vector: tissue name -> unstained FCS file used to build that tissue's AF spectra
+tissue.unstained <- c(
+  Spleen = "./Raw/Unstained controls/Unstained spleen.fcs",
+  Brain  = "./Raw/Unstained controls/Unstained brain.fcs",
+  Liver  = "./Raw/Unstained controls/Unstained liver.fcs"
+)
+
+# named vector: tissue name -> folder of fully-stained FCS files for that tissue
+tissue.folders <- c(
+  Spleen = "./Raw/Spleen/",
+  Brain  = "./Raw/Brain/",
+  Liver  = "./Raw/Liver/"
+)
+
+# named vector: tissue name -> output folder for that tissue's unmixed files
+tissue.output <- c(
+  Spleen = "./Unmixed/Spleen/",
+  Brain  = "./Unmixed/Brain/",
+  Liver  = "./Unmixed/Liver/"
+)
+```
+
+Then the loop itself just does, per tissue, what we did by hand above: extract that tissue's AF spectra, then unmix its whole folder against it.
+
+```{r, tissue loop}
+for ( tissue in names( tissue.unstained ) ) {
+
+  message( "Processing tissue: ", tissue )
+
+  # 1. extract this tissue's AF profile from its unstained sample
+  tissue.af <- AutoSpectral::get.af.spectra(
+    unstained.sample = tissue.unstained[[ tissue ]],
+    asp = autospectral.parameters,
+    spectra = fluorophore.spectra
+  )
+
+  # 2. unmix every fully-stained file for this tissue against that AF
+  FlowCodeUnmix::unmix.flowcode.folder(
+    fcs.dir = tissue.folders[[ tissue ]],
+    spectra = fluorophore.spectra,
+    asp = autospectral.parameters,
+    flow.control = flow.control,
+    af.spectra = tissue.af,
+    spectra.variants = fluorophore.variation,
+    flowcode.spectra = flowcode.spectra,
+    output.dir = tissue.output[[ tissue ]],
+    parallel = TRUE
+  )
+}
+```
+
+A couple of practical notes on this pattern:
+
+* If you want to keep each tissue's `af.spectra` around afterward (for later re-use, or for debugging a specific tissue), stash it in a list instead of letting the loop variable get overwritten each iteration: `tissue.af.list <- list(); tissue.af.list[[ tissue ]] <- tissue.af`.
+* `lapply` over `names( tissue.unstained )` works just as well as the `for` loop if you prefer that style -- there's nothing about this pattern that depends on the loop body running sequentially.
+* This uses the same `spectra`, `flow.control`, `spectra.variants` and `flowcode.spectra` for every tissue -- only `af.spectra` and the file locations change. That's deliberate: the fluorophore spectra, spectral variants and the FRET correction library are all properties of your reagents/backbone, not of the tissue, and shouldn't be recomputed per tissue.
+* `unmix.flowcode.folder()` doesn't expose the staged-pipeline tuning parameters (`cell.weight`, `noise.floor`, `alpha`, etc. -- see the note above), so if you need those per-tissue too, adapt the loop to call `unmix.flowcode.fcs()` over `list.files( tissue.folders[[ tissue ]], pattern = ".fcs", full.names = TRUE )` instead of `unmix.flowcode.folder()`.
+* As the next section covers, positivity thresholds can also drift by tissue -- if you see that, add a `thresholds.file` lookup (keyed by tissue name the same way) alongside `tissue.unstained`/`tissue.folders`/`tissue.output` and pass `thresholds.file = tissue.thresholds[[ tissue ]]` into the unmixing call.
 
 In many cases, the thresholds for positivity may vary slightly by tissue type or sample source. If that is the case, you will need to provide new thresholds as part of the unmixing process. To start, unmix a single FCS file from the source you want to use to set new thresholds. Do the unmixing with AutoSpectral, extracting the AF per cell, since this will get you closer to what the data will look like with the FlowCodeUnmix. Then load this file into the ThresholdApp, select new thresholds for each FlowCode marker, and save the results (you can and should rename the CSV file). Now provide this new CSV file containing the updated thresholds to the unmixing.
 
@@ -339,10 +475,11 @@ brain.autofluorescence <- AutoSpectral::get.af.spectra(
 fully.stained.brain <- "./Raw/Brain/Brain_Mouse_001.fcs"
 
 
-launch.threshold.app(
+FlowCodeUnmix::launch.threshold.app(
   flowcode.combo.file = combo.file,
-  flow.control = cleaned.controls,
-  spectra = fluorophore.spectra
+  flow.control = flow.control,
+  spectra = fluorophore.spectra,
+  asp = autospectral.parameters
 )
 
 new.thresholds <- "./flowcode_spectra/New_thresholds.csv"
@@ -352,7 +489,7 @@ FlowCodeUnmix::unmix.flowcode.fcs(
   fcs.file = fully.stained.brain, # change the sample
   spectra = fluorophore.spectra,
   asp = autospectral.parameters,
-  flow.control = cleaned.controls,
+  flow.control = flow.control,
   af.spectra = brain.autofluorescence, # change the autofluorescence to match
   spectra.variants = fluorophore.variation,
   flowcode.spectra = flowcode.spectra,
@@ -362,6 +499,8 @@ FlowCodeUnmix::unmix.flowcode.fcs(
 
 ```
 
+Note that `flowcode.combo.file` and `flow.control` must be supplied to `launch.threshold.app()` together, or not at all -- a partial pair now raises an explicit error up front, rather than failing confusingly later on. As above, you can also just point `backbone.rds` at any RDS produced by `unmix.backbone()` and skip supplying these separately.
+
 # FlowCode Debarcoding Workflow
 
 With the new unmixing, the resulting FCS files are already debarcoded. If you inspect the files in R or FlowJo, you should see a channel for each of the tags (names, guides, TCRs) you have linked to each FlowCode combination. The expression in these channels is the expression of that combination of FlowCode epitopes in the cells. Additionally, you should have a "FlowCode" channel, which is the expression level of the epiopes in cells with valid FlowCode combinations. In other words, the "FlowCode" channel measures transduction.
@@ -369,9 +508,3 @@ With the new unmixing, the resulting FCS files are already debarcoded. If you in
 So, in FlowJo, you can gate on your cells and then plot a tag combo versus whatever markers you have in your flow panel. This is useful for checking CRISPR guide efficiency (for example, plotting GATA-3 expression in Gata3-targeted cells) or for phenotyping. If you want, you can run dimensionality reduction and clustering approaches in FlowJo, R or Python on the FCS files as they are or with some pre-gating.
 
 For our analyses, we recommend pre-gating to specific biologically relevant cell populations. I still need to write the part to do this in R. At present, you should be able to treat the unmixed FCS files you get from this workflow as you would previously, running them through Orian Bricard's [FlowCodeDecoder](https://github.com/DrCytometer/FlowcodeDecoder). The difference is that the unmixing will now be correct (hopefully), both for the barcodes and for the phenotyping and gating markers.
-
-
-
-
-
-
