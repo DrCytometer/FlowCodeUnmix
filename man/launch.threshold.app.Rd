@@ -5,30 +5,52 @@
 \title{Launch the Thresholding Shiny App}
 \usage{
 launch.threshold.app(
+  backbone.rds = NULL,
+  flowcode.fluors = NULL,
+  spectra = NULL,
+  asp = NULL,
   flowcode.combo.file = NULL,
   flow.control = NULL,
-  spectra = NULL
+  output.dir = NULL
 )
 }
 \arguments{
-\item{flowcode.combo.file}{Optional, default is \code{NULL}. Provide this when you
-wish to establish new thresholds using the app and will be working with an
-FCS file rather than loading the RDS object. When given: File name and path
-to the CSV file containing the information describing your FlowCode library.
-Describes the valid combinations of FlowCodes. Structure: One row per
-combination. Columns are \code{Id}, \code{Procode.tag1}, \code{Procode.tag2} and
-\code{Procode.tag3}, describing the name (e.g., CRISPR target), and three epitopes
-for the combination, respectively.}
+\item{backbone.rds}{Optional, default is \code{NULL}. Path to a backbone RDS
+file produced by \code{unmix.backbone()} (e.g. \code{"FlowCode_Backbone.rds"}, or its
+downsampled \code{"Small_..."} counterpart). When given, the app loads this file
+automatically on startup instead of requiring you to browse for it via the
+file picker.}
 
-\item{flow.control}{Optional, default is \code{NULL}. Provide this when you
-wish to establish new thresholds using the app and will be working with an
-FCS file rather than loading the RDS object. A list containing flow cytometry
-control parameters.}
+\item{flowcode.fluors}{Optional, default is \code{NULL}. Named character vector
+of fluorophores used to identify FlowCode epitope tags (names = tags,
+values = fluorophore/detector names). If supplied, takes precedence over
+whatever is embedded in \code{backbone.rds} or derived from
+\code{flowcode.combo.file}/\code{flow.control}. Provide this directly, OR provide
+\code{flowcode.combo.file} + \code{flow.control}, OR let the app read it from
+\code{backbone.rds} — one of the three is needed to see fluorophore labels when
+working from a raw FCS file.}
 
-\item{spectra}{Optional, default is \code{NULL}. Provide this when you wish to
-establish new thresholds using the app and will be working with an FCS file
-rather than loading the RDS object.Spectral signatures of fluorophores,
-normalized between 0 and 1, with fluorophores in rows and detectors in columns.}
+\item{spectra}{Optional, default is \code{NULL}. Spectral signatures of
+fluorophores, normalized between 0 and 1, with fluorophores in rows and
+detectors in columns. If supplied, takes precedence over whatever is
+embedded in \code{backbone.rds}.}
+
+\item{asp}{Optional, default is \code{NULL}. The AutoSpectral parameter list
+(see \code{get.autospectral.param()}), used to seed default transform values
+and plot styling. If omitted, the app falls back to built-in defaults.}
+
+\item{flowcode.combo.file}{Optional, default is \code{NULL}. File name and path
+to the CSV file describing your FlowCode library, used together with
+\code{flow.control} to derive \code{flowcode.fluors} when \code{flowcode.fluors} isn't
+supplied directly. Structure: one row per combination, columns \code{Id},
+\code{Procode.tag1}, \code{Procode.tag2}, \code{Procode.tag3}.}
+
+\item{flow.control}{Optional, default is \code{NULL}. A list containing flow
+cytometry control parameters, used together with \code{flowcode.combo.file}.}
+
+\item{output.dir}{Optional, default is \code{NULL}. Initial output folder for
+saved thresholds/plots. Defaults to \code{./flowcode_spectra} under the current
+working directory if that exists, otherwise the working directory itself.}
 }
 \description{
 A simple wrapper function to launch the manual threshold selection app.

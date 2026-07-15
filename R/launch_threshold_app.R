@@ -5,7 +5,7 @@
 #' @description
 #' A simple wrapper function to launch the manual threshold selection app.
 #'
-#' @importFrom shiny runApp
+#' @importFrom shiny runApp shinyOptions
 #' @importFrom shiny shinyApp fluidPage titlePanel sidebarLayout sidebarPanel
 #' @importFrom shiny mainPanel fileInput selectInput actionButton
 #' @importFrom shiny plotOutput tableOutput verbatimTextOutput
@@ -18,31 +18,50 @@
 #' @importFrom scattermore geom_scattermore
 #' @importFrom dplyr filter
 #' @importFrom AutoSpectral create.biplot
+#' @importFrom sp point.in.polygon
 #'
-#' @param flowcode.combo.file Optional, default is `NULL`. Provide this when you
-#' wish to establish new thresholds using the app and will be working with an
-#' FCS file rather than loading the RDS object. When given: File name and path
-#' to the CSV file containing the information describing your FlowCode library.
-#' Describes the valid combinations of FlowCodes. Structure: One row per
-#' combination. Columns are `Id`, `Procode.tag1`, `Procode.tag2` and
-#' `Procode.tag3`, describing the name (e.g., CRISPR target), and three epitopes
-#' for the combination, respectively.
-#' @param flow.control Optional, default is `NULL`. Provide this when you
-#' wish to establish new thresholds using the app and will be working with an
-#' FCS file rather than loading the RDS object. A list containing flow cytometry
-#' control parameters.
-#' @param spectra Optional, default is `NULL`. Provide this when you wish to
-#' establish new thresholds using the app and will be working with an FCS file
-#' rather than loading the RDS object.Spectral signatures of fluorophores,
-#' normalized between 0 and 1, with fluorophores in rows and detectors in columns.
+#' @param backbone.rds Optional, default is `NULL`. Path to a backbone RDS
+#' file produced by `unmix.backbone()` (e.g. `"FlowCode_Backbone.rds"`, or its
+#' downsampled `"Small_..."` counterpart). When given, the app loads this file
+#' automatically on startup instead of requiring you to browse for it via the
+#' file picker.
+#' @param flowcode.fluors Optional, default is `NULL`. Named character vector
+#' of fluorophores used to identify FlowCode epitope tags (names = tags,
+#' values = fluorophore/detector names). If supplied, takes precedence over
+#' whatever is embedded in `backbone.rds` or derived from
+#' `flowcode.combo.file`/`flow.control`. Provide this directly, OR provide
+#' `flowcode.combo.file` + `flow.control`, OR let the app read it from
+#' `backbone.rds` — one of the three is needed to see fluorophore labels when
+#' working from a raw FCS file.
+#' @param spectra Optional, default is `NULL`. Spectral signatures of
+#' fluorophores, normalized between 0 and 1, with fluorophores in rows and
+#' detectors in columns. If supplied, takes precedence over whatever is
+#' embedded in `backbone.rds`.
+#' @param asp Optional, default is `NULL`. The AutoSpectral parameter list
+#' (see `get.autospectral.param()`), used to seed default transform values
+#' and plot styling. If omitted, the app falls back to built-in defaults.
+#' @param flowcode.combo.file Optional, default is `NULL`. File name and path
+#' to the CSV file describing your FlowCode library, used together with
+#' `flow.control` to derive `flowcode.fluors` when `flowcode.fluors` isn't
+#' supplied directly. Structure: one row per combination, columns `Id`,
+#' `Procode.tag1`, `Procode.tag2`, `Procode.tag3`.
+#' @param flow.control Optional, default is `NULL`. A list containing flow
+#' cytometry control parameters, used together with `flowcode.combo.file`.
+#' @param output.dir Optional, default is `NULL`. Initial output folder for
+#' saved thresholds/plots. Defaults to `./flowcode_spectra` under the current
+#' working directory if that exists, otherwise the working directory itself.
 #'
 #' @export
 
 launch.threshold.app <- function(
+    backbone.rds = NULL,
+    flowcode.fluors = NULL,
+    spectra = NULL,
+    asp = NULL,
     flowcode.combo.file = NULL,
     flow.control = NULL,
-    spectra = NULL
-  ) {
+    output.dir = NULL
+) {
 
   if ( !requireNamespace( "AutoSpectral", quietly = TRUE ) ) {
     stop(
@@ -51,8 +70,19 @@ launch.threshold.app <- function(
     )
   }
 
-  if ( !( is.null( flowcode.combo.file ) & is.null( flow.control ) ) ) {
-    # read in combo file
+  # `flowcode.combo.file` and `flow.control` must be given together, or not
+  # at all — a partial pair used to fail confusingly downstream instead of
+  # here.
+  combo.given   <- !is.null( flowcode.combo.file )
+  control.given <- !is.null( flow.control )
+  if ( xor( combo.given, control.given ) ) {
+    stop(
+      "Provide both `flowcode.combo.file` and `flow.control` together, or neither.",
+      call. = FALSE
+    )
+  }
+
+  if ( is.null( flowcode.fluors ) && combo.given && control.given ) {
     combo.df <- utils::read.csv( flowcode.combo.file )
     flowcode.tags <- unique( unlist( combo.df[ , -1 ] ) )
 
@@ -62,15 +92,27 @@ launch.threshold.app <- function(
     antigen.lookup <- toupper( flow.control$antigen )
 
     flowcode.fluors <- flow.control$fluorophore[ match( tag.lookup, antigen.lookup ) ]
-
     names( flowcode.fluors ) <- flowcode.tags
   }
 
-  # store flowcode fluors and spectra for access in the app
-  options(
-    flowcode_fluors_list = flowcode.fluors %||% NULL,
-    Spectra = spectra,
-    threshold_app_wd = getwd()
+  if ( !is.null( backbone.rds ) && !file.exists( backbone.rds ) )
+    stop( "`backbone.rds` not found: ", backbone.rds, call. = FALSE )
+
+  if ( is.null( output.dir ) ) {
+    candidate  <- file.path( getwd(), "flowcode_spectra" )
+    output.dir <- if ( dir.exists( candidate ) ) candidate else getwd()
+  }
+
+  # Pass data to the app via shinyOptions() — scoped to shiny (unlike base
+  # options(), which would leak into the wider R session), and readable
+  # inside the app without ever reaching into .GlobalEnv.
+  shiny::shinyOptions(
+    flowcode_fluors_list = flowcode.fluors,
+    spectra              = spectra,
+    asp                  = asp,
+    backbone_rds         = backbone.rds,
+    threshold_app_wd     = getwd(),
+    threshold_app_outdir = output.dir
   )
 
   # check for the app
