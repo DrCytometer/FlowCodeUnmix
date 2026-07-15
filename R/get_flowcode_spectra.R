@@ -172,7 +172,6 @@ get.flowcode.spectra <- function(
   } else {
     threads <- 1
   }
-  if ( is.null( noise.floor ) ) noise.floor <- 125
 
   # combo-logical matrix -- built up front now, since background computation
   # (below) needs it before the per-combo loop, not after
