@@ -42,27 +42,9 @@ apply_biexp <- function(vals, length, max.range, pos, neg, width) {
   xf(vals)
 }
 
-# Check whether a point is inside a polygon (ray-casting)
-point_in_polygon <- function(px, py, poly_x, poly_y) {
-  n <- length(poly_x)
-  inside <- FALSE
-  j <- n
-  for (i in seq_len(n)) {
-    xi <- poly_x[i]; yi <- poly_y[i]
-    xj <- poly_x[j]; yj <- poly_y[j]
-    if (((yi > py) != (yj > py)) &&
-        (px < (xj - xi) * (py - yi) / (yj - yi) + xi)) {
-      inside <- !inside
-    }
-    j <- i
-  }
-  inside
-}
-
-# Vectorised wrapper
+# Check whether a point is inside a polygon
 points_in_polygon <- function(px, py, poly_x, poly_y) {
-  mapply(point_in_polygon, px, py,
-         MoreArgs = list(poly_x = poly_x, poly_y = poly_y))
+  sp::point.in.polygon(px, py, poly_x, poly_y) > 0
 }
 
 # ==============================================================================
@@ -328,9 +310,10 @@ server <- function(input, output, session) {
   # Path / volume setup
   # --------------------------------------------------------------------------
 
-  initial_wd <- getOption("threshold_app_wd") %||% getwd()
+  initial_wd <- getShinyOption("threshold_app_wd", getwd())
 
-  default_subfolder <- file.path(initial_wd, "flowcode_spectra")
+  default_subfolder <- getShinyOption("threshold_app_outdir",
+                                      file.path(initial_wd, "flowcode_spectra"))
   if (!dir.exists(default_subfolder)) {
     tryCatch(dir.create(default_subfolder, recursive = TRUE),
              error = function(e) NULL)
@@ -388,23 +371,7 @@ server <- function(input, output, session) {
     }
   })
 
-  observeEvent(input$file, {
-    req(input$file)
-    file_info <- parseFilePaths(volumes, input$file)
-    req(nrow(file_info) > 0)
-
-    file_path    <- as.character(file_info$datapath)
-    file_name    <- as.character(file_info$name)
-    file_size_mb <- file.info(file_path)$size / 1024^2
-
-    if (file_size_mb > 10) {
-      showModal(modalDialog(
-        title     = "Large file",
-        paste0("This file is ", round(file_size_mb, 1), " MB. Loading…"),
-        easyClose = TRUE,
-        footer    = modalButton("Dismiss")
-      ))
-    }
+  load_data_file <- function(file_path, file_name) {
 
     withProgress(message = "Loading data…", value = 0, {
 
@@ -412,6 +379,7 @@ server <- function(input, output, session) {
       rv$data            <- NULL
       rv$gated_data      <- NULL
       rv$thresholds      <- list()
+      rv$cosine_sim      <- NULL
       rv$poly_vertices_x <- numeric(0)
       rv$poly_vertices_y <- numeric(0)
       rv$poly_closed     <- FALSE
@@ -430,22 +398,29 @@ server <- function(input, output, session) {
                                    emptyValue           = FALSE)
           loaded_raw_data <- base::as.data.frame(flowCore::exprs(ff),
                                                  check.names = FALSE)
-          opt_fluors <- getOption("flowcode_fluors_list")
+          opt_fluors <- getShinyOption("flowcode_fluors_list")
           if (!is.null(opt_fluors)) {
-            loaded_fluors <- opt_fluors
-            loaded_tags   <- names(opt_fluors) %||% opt_fluors
+            loaded_fluors <- as.character(opt_fluors)
+            loaded_tags   <- names(opt_fluors) %||% loaded_fluors
           } else {
             loaded_fluors <- colnames(loaded_raw_data)
             loaded_tags   <- loaded_fluors
           }
-          rv$spectra <- getOption("Spectra") %||% NULL
+          rv$spectra <- getShinyOption("spectra") %||% NULL
 
         } else if (grepl("\\.rds$", file_name, ignore.case = TRUE)) {
           rds_obj         <- base::readRDS(file_path)
           loaded_raw_data <- base::as.data.frame(rds_obj$Unmixed, check.names = FALSE)
-          loaded_fluors   <- as.character(rds_obj$Flowcode.fluors)
-          loaded_tags     <- names(rds_obj$Flowcode.fluors) %||% loaded_fluors
-          rv$spectra      <- rds_obj$Spectra %||% NULL
+
+          opt_fluors <- getShinyOption("flowcode_fluors_list")
+          if (!is.null(opt_fluors)) {
+            loaded_fluors <- as.character(opt_fluors)
+            loaded_tags   <- names(opt_fluors) %||% loaded_fluors
+          } else {
+            loaded_fluors <- as.character(rds_obj$Flowcode.fluors)
+            loaded_tags   <- names(rds_obj$Flowcode.fluors) %||% loaded_fluors
+          }
+          rv$spectra <- getShinyOption("spectra") %||% rds_obj$Spectra %||% NULL
         } else {
           showNotification("Unsupported file type.", type = "error")
           return()
@@ -482,9 +457,23 @@ server <- function(input, output, session) {
 
       updateSelectInput(session, "y_axis_select", choices = clean_list)
       incProgress(1, detail = "Done.")
-      removeModal()   # dismiss large-file warning modal now that loading is complete
     })
+  }
+
+  observeEvent(input$file, {
+    req(input$file)
+    file_info <- parseFilePaths(volumes, input$file)
+    req(nrow(file_info) > 0)
+    load_data_file(as.character(file_info$datapath), as.character(file_info$name))
   })
+
+  # Auto-load a backbone RDS on startup if one was passed to
+  # launch.threshold.app(backbone.rds = ...).
+  observe({
+    backbone_path <- getShinyOption("backbone_rds")
+    if (!is.null(backbone_path) && file.exists(backbone_path))
+      load_data_file(backbone_path, basename(backbone_path))
+  }) |> bindEvent(TRUE, once = TRUE)
 
   # --------------------------------------------------------------------------
   # Fluorophore selector UI
@@ -518,10 +507,10 @@ server <- function(input, output, session) {
   })
 
   # --------------------------------------------------------------------------
-  # Retrieve asp from the global environment (set by launch.threshold.app())
+  # Retrieve asp (set by launch.threshold.app())
   # --------------------------------------------------------------------------
 
-  asp <- tryCatch(get("asp", envir = .GlobalEnv), error = function(e) NULL)
+  asp <- getShinyOption("asp")
 
   # Seed transform-tuning sliders from asp defaults (if asp is available)
   observe({
@@ -927,7 +916,7 @@ server <- function(input, output, session) {
     y_fl <- if (!is.null(rv$cosine_sim) && fl %in% rownames(rv$cosine_sim)) {
       names(sort(rv$cosine_sim[fl, ], decreasing = TRUE))[2]
     } else {
-      setdiff(rv$flowcode_fluors, fl)[1]
+      setdiff(rv$all_fluors, fl)[1]
     }
     y_tag <- rv$fluor_tags[[y_fl]] %||% y_fl
 
@@ -1093,15 +1082,16 @@ server <- function(input, output, session) {
       stringsAsFactors      = FALSE
     )
 
-    outfile <- file.path(rv$output_path, fname)
-    tryCatch(
-      utils::write.csv(df_out, outfile, row.names = FALSE),
-      error = function(e) {
-        showNotification(paste("Could not write CSV:", conditionMessage(e)),
-                         type = "error")
-        return()
-      }
-    )
+    outfile  <- file.path(rv$output_path, fname)
+    write_ok <- tryCatch({
+      utils::write.csv(df_out, outfile, row.names = FALSE)
+      TRUE
+    }, error = function(e) {
+      showNotification(paste("Could not write CSV:", conditionMessage(e)),
+                       type = "error")
+      FALSE
+    })
+    if (!write_ok) return()
 
     showNotification(
       paste0("Saved: ", fname, "  (plots saved automatically at each threshold click)"),
