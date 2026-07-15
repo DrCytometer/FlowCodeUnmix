@@ -41,6 +41,9 @@ between 0 and 1, with fluorophores in rows and detectors in columns.}
 \item{file.name}{The name of the FCS file to be written.}
 
 \item{combos}{A character vector of the FlowCode combination tag names.}
+
+\item{include.imaging}{A logical value indicating whether to include imaging
+parameters in the written FCS file. Default is \code{FALSE}.}
 }
 \value{
 The updated keyword list for writing the FCS file.
