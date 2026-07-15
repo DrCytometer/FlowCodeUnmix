@@ -5,21 +5,6 @@
 #' @description
 #' A simple wrapper function to launch the manual threshold selection app.
 #'
-#' @importFrom shiny runApp shinyOptions
-#' @importFrom shiny shinyApp fluidPage titlePanel sidebarLayout sidebarPanel
-#' @importFrom shiny mainPanel fileInput selectInput actionButton
-#' @importFrom shiny plotOutput tableOutput verbatimTextOutput
-#' @importFrom shiny reactiveValues observeEvent renderPlot renderTable
-#' @importFrom shiny updateSelectInput req showNotification brushOpts
-#' @importFrom shiny tags
-#' @importFrom shinyFiles shinyDirButton shinyDirChoose parseDirPath
-#' @importFrom ggplot2 ggplot aes geom_vline theme_classic theme labs
-#' @importFrom ggplot2 scale_x_continuous scale_y_continuous expansion
-#' @importFrom scattermore geom_scattermore
-#' @importFrom dplyr filter
-#' @importFrom AutoSpectral create.biplot
-#' @importFrom sp point.in.polygon
-#'
 #' @param backbone.rds Optional, default is `NULL`. Path to a backbone RDS
 #' file produced by `unmix.backbone()` (e.g. `"FlowCode_Backbone.rds"`, or its
 #' downsampled `"Small_..."` counterpart). When given, the app loads this file
@@ -120,6 +105,11 @@ launch.threshold.app <- function(
 
   if ( app.dir == "" )
     stop( "App not found. Make sure the package `FlowCodeUnmix` installed correctly." )
+
+  if ( !requireNamespace( "bslib", quietly = TRUE ) )
+    stop( "Package `bslib` is required to run the thresholding app.", call. = FALSE )
+  if ( !requireNamespace( "shinyjs", quietly = TRUE ) )
+    stop( "Package `shinyjs` is required to run the thresholding app.", call. = FALSE )
 
   # launch the app
   shiny::runApp( appDir = app.dir, display.mode = "normal" )

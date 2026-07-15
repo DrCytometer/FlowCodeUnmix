@@ -27,7 +27,6 @@ Imports:
     ggplot2,
     ggridges,
     parallelly,
-    scattermore,
     shiny,
     shinyFiles,
     sp,
@@ -37,6 +36,8 @@ Suggests:
     bslib,
     EmbedSOM,
     FlowCodeUnmixRcpp,
+    scattermore,
+    shinyFiles,
     shinyjs
 Remotes:
     DrCytometer/AutoSpectral,
