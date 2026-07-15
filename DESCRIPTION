@@ -17,7 +17,7 @@ License: AGPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports:
-    AutoSpectral,
+    AutoSpectral (>= 1.6.0),
     FlowSOM,
     MASS,
     RhpcBLASctl,
@@ -31,10 +31,10 @@ Imports:
     sp,
     tripack
 Suggests:
-    AutoSpectralRcpp,
+    AutoSpectralRcpp (>= 1.1.0),
     bslib,
     EmbedSOM,
-    FlowCodeUnmixRcpp,
+    FlowCodeUnmixRcpp (>= 0.4.0),
     scattermore,
     shinyFiles,
     shinyjs
