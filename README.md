@@ -63,8 +63,12 @@ You will need these pieces of information:
 - Unstained control cells matching the source(s) in your fully stained
   samples
 - A CSV file describing the valid combinations of epitope barcodes and
-  what they correspond to. Example format below: ![Combination
-  file](man/figures/README/Combo_file.jpg)
+  what they correspond to. Example format below:
+
+<figure>
+<img src="man/figures/README/Combo_file.jpg" alt="Combination file" />
+<figcaption aria-hidden="true">Combination file</figcaption>
+</figure>
 
 ## Help
 
@@ -92,47 +96,45 @@ comparison](man/figures/README/Debarcoded_fcs.jpg)
 
 ## How it works
 
-What the code does in the unmixing: \* We unmix quickly with weighted
-least squares (WLS). \* We do a first pass estimation of each cell’s
-best fit autofluorescence signature using minimization of fluorophore
-signal (worst case scenario) as the metric. \* We debarcode, which tells
-us the best-fitting FlowCode combination (or lack thereof) per cell. \*
-We then assess which fluorophores are present (above pos.thresholds) for
-a given fluorophore. If none, we return early. AF is always considered
-to be present (pos.thresholds for AF is -Inf). We drop down into this
-reduced fluorophore space for the optimization workflow because with
-fewer endmembers, we have more information in the residuals that we can
-use to identify where each cell lies on the multi-dimensional
-distribution. \* If a cell is a FlowCode cell (has.flowcode), we need to
-perform a correction for FRET. This is done by aligning the residual to
-the deltas (fret.delta.list, fret.delta.norms) of the FRET spectra
-(combo.fret) for the FlowCode combination (flowcode.ids) present in that
-cell. This is done using a reduced set of fluorophores in the spectra
-for the cell, based on which fluorophores are positive (pos.thresholds),
-and additionally excluding any flowcode.fluors that are not present in
-the identified combo for the cell (using flowcode.combo.logical). We
-test k variants of FRET spectra (creating a new unmixed channel). The
-variant that best reduces the residual is selected. The projected FRET
-from this variant is subtracted from the cell’s raw.data (note this
-likely requires copying raw.data rather than just viewing it) prior to
-running the next steps. We re-unmix using the FRET-subtracted raw.data
-to re-establish estimates for fluorophore and AF coefficients. \* For
-all cells, we next reassess the autofluorescence (AF). We identify which
-AF signatures (af.spectra) has been selected for a given cell based on
-af.idx, and construct combined.spectra using the baseline fluorophore
-signatures and this AF spectrum. We unmix using the reduced set of
-positive fluorophores as spectra, then assess which AF spectrum
-(af.spectra) best aligns with the residual. We test k variants for AF,
-select the one that gives the lowest residual, reunmix and re-establish
-which fluorophores are positive. We store the best AF spectrum in the
-final spectra. \* We then assess fluorophores in the same way as for AF.
-We do this for each cell for positive fluorophores only, in order from
-greatest to least signal. We check for alignment of each fluorophore’s
-variants with the residual when the cell is unmixed in the reduced space
-(positive fluorophores only). We test k variants and pick the best,
-storing it in the final spectra. We track the best residual so we don’t
-have to re-unmix at the end of each fluorophore’s loop. \* Finally, we
-unmix with the final spectra, which contain all fluorophores. Spectra
-for positive fluorophores and AF will have been optimized; spectra for
-negative fluorophores will remain untouched. \* FlowCode and
-tag-specific channels are created using the debarcoded cell IDs.
+The current implementation (`unmix.flowcode.cpp.staged()`) runs a
+five-stage pipeline that brackets a thin FlowCode-specific correction
+between two calls into the generic, FlowCode-agnostic AutoSpectral joint
+unmixing engine:
+
+- **Initial unmix.** A first, generic AutoSpectral joint unmix
+  (`AutoSpectralRcpp::unmix.autospectral.rcpp()`) is run on the raw
+  data. Off-target precision doesn’t matter yet here — this pass only
+  needs to produce fluorophore coefficients clean enough to debarcode
+  on.
+- **Debarcode.** `debarcode()` assigns each cell a FlowCode triplet
+  combination ID (or “untransduced”/“unrecognised”) from the stage 1
+  coefficients, using the per-fluorophore positivity thresholds.
+- **Pooled cross-combo background subtraction.** For each FlowCode
+  fluorophore, we pool the stage 1 coefficient values across every
+  valid-ID cell whose combo does *not* have that fluorophore active, and
+  take one population-wide median. This gives a single
+  non-specific-background estimate per FlowCode fluorophore, which is
+  reconstructed in raw/spectral space and subtracted uniformly from
+  every cell — the correction doesn’t vary by combo identity or
+  debarcode ID. Pooling across combos (rather than per-combo) is what
+  separates true background from FRET: any one combo’s systematic FRET
+  in a channel gets diluted out by every other combo where that channel
+  isn’t elevated.
+- **FRET fit.** For valid-ID cells only, every candidate FRET spectrum
+  for the cell’s combo is fit jointly, in a small OLS, together with the
+  combo’s own active tag fluorophores and the fixed-shape mean AF
+  spectrum, against the background-corrected raw data. The candidate
+  minimising the L1 residual is kept, and its fitted contribution is
+  subtracted from that cell’s raw data. Off-target FlowCode channels are
+  already handled by the background step, so they aren’t part of this
+  fit’s basis at all.
+- **Final unmix.** A second, generic AutoSpectral joint unmix is run on
+  the background-and-FRET-corrected raw data. This pass is the one that
+  matters for accuracy: for each cell, it works in the reduced space of
+  fluorophores that are actually positive (plus AF, which is always
+  considered present), testing candidate spectral variants for each
+  positive fluorophore and for AF and keeping whichever minimises the
+  residual. This is the reported result.
+- **FlowCode and tag channels** are built from the final unmixed
+  coefficients using the debarcoded combination IDs, giving a `FlowCode`
+  transduction channel and one channel per valid combination.
