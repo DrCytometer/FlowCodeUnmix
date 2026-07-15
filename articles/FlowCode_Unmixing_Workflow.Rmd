@@ -20,7 +20,7 @@ You will both need `AutoSpectral` and `FlowCodeUnmix` to run this. If this is yo
 # Install Bioconductor packages
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
-BiocManager::install(c("flowWorkspace", "flowCore", "PeacoQC", "FlowSOM"))
+BiocManager::install(c("flowWorkspace", "FlowSOM"))
 
 # Install any missing CRAN packages that we'll need
 cran.packages <- c(
