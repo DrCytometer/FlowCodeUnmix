@@ -8,13 +8,17 @@ unmix.backbone(
   flowcode.backbone.fcs,
   spectra,
   af.spectra,
+  spectra.variants = NULL,
   flow.control,
   asp,
   flowcode.combo.file,
   n.cells.gate = 100,
+  singlet.quantiles = c(0.85, 0.975),
   output.dir = "./flowcode_spectra",
   filename = "FlowCode_Backbone.rds",
-  verbose = TRUE
+  verbose = TRUE,
+  parallel = TRUE,
+  threads = if (parallel) 0 else 1
 )
 }
 \arguments{
@@ -33,6 +37,16 @@ and 1, with fluorophores in rows and detectors in columns.}
 between 0 and 1, with fluorophores in rows and detectors in columns. Prepare
 using \code{get.af.spectra}.}
 
+\item{spectra.variants}{Optional. The list returned by
+\code{AutoSpectral::get.spectral.variants()} (must contain a \verb{$variants}
+element). When supplied, each combo fluorophore's per-cell best-fitting
+spectral variant is substituted before the FRET residual is computed
+(applied identically to the combo's own cells and to the untransduced
+background pool), so normal single-colour spectral drift is not mistaken
+for FRET. Also required, together with \code{af.spectra}, for
+\code{plot.corrections = TRUE}. Default \code{NULL}, which skips the pre-clean step
+and disables \code{plot.corrections}.}
+
 \item{flow.control}{A list containing flow cytometry control parameters.}
 
 \item{asp}{The AutoSpectral parameter list. Prepare using
@@ -50,6 +64,14 @@ around the brightest \code{n.cells.gate} for each fluorophore used to identify
 FlowCode epitope tags. Scatter coordinates of all brightest events will be
 combined to determine the optimal gating region.}
 
+\item{singlet.quantiles}{Numeric, default \code{c( 0.85, 0.975 )}. Quantile
+cutoffs (FSC ratio, then SSC ratio) for the two-pass Area/Height
+scatter-ratio doublet gate, mirroring the same gate in
+\code{get_spectra_automated.R} (\code{flowstate::select_singlets}-style). The SSC
+cutoff is computed only from events that already passed the FSC cutoff
+(sequential, not independent, gating). Skipped with a message if Height
+channels for \code{asp$default.scatter.parameter} aren't present in the file.}
+
 \item{output.dir}{Destination folder for output plots and saved spectra.
 Default is \code{./flowcode_spectra}.}
 
@@ -57,6 +79,12 @@ Default is \code{./flowcode_spectra}.}
 
 \item{verbose}{Logical, whether to send messages to the console.
 Default is \code{TRUE}.}
+
+\item{parallel}{Logical, whether to use parallel processing for the per-cell
+unmixing. Default is \code{FALSE}.}
+
+\item{threads}{Numeric. Number of threads to use for parallel processing.
+Defaults to \code{1} for sequential processing, or \code{0} (all cores) if \code{parallel=TRUE}.}
 }
 \value{
 None. Saves RDS objects containing the processed data to disk.
