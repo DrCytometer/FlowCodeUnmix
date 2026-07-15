@@ -2,3 +2,16 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
+.Rbuildignore
+.tar.gz
+src/*.o
+src/*.so
+src/*.dll
+inst/doc
+/doc/
+/Meta/
+.positai

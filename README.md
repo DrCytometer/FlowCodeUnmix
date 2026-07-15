@@ -24,7 +24,6 @@ upon which FlowCodes are based.
 You will need to install the following packages:
 
 - BiocManager
-- flowCore
 - FlowSOM
 - flowWorkspace
 - remotes (or devtools)
@@ -36,11 +35,12 @@ Run the code below on your machine to set everything up.
 
 ``` r
 # Install Bioconductor packages
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install(c("flowWorkspace", "flowCore", "FlowSOM", "remotes"))
 
 # You'll need devtools or remotes to install from GitHub.
+if (!requireNamespace("pak", quietly = TRUE)) install.packages("pak")
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
 remotes::install_github("DrCytometer/AutoSpectral")
 remotes::install_github("DrCytometer/FlowCodeUnmix")
 ```
