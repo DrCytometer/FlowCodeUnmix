@@ -31,14 +31,14 @@ Imports:
     shiny,
     shinyFiles,
     sp,
-    tripack,
-    bslib,
-    shinyjs,
-    scales
+    tripack
 Suggests:
+    AutoSpectralRcpp,
+    EmbedSOM,
     FlowCodeUnmixRcpp
 Remotes:
     DrCytometer/AutoSpectral,
+    DrCytometer/AutoSpectralRcpp,
     DrCytometer/FlowCodeUnmixRcpp,
     bioc::FlowSOM,
     bioc::flowWorkspace
