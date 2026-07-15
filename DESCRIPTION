@@ -34,8 +34,10 @@ Imports:
     tripack
 Suggests:
     AutoSpectralRcpp,
+    bslib,
     EmbedSOM,
-    FlowCodeUnmixRcpp
+    FlowCodeUnmixRcpp,
+    shinyjs
 Remotes:
     DrCytometer/AutoSpectral,
     DrCytometer/AutoSpectralRcpp,
