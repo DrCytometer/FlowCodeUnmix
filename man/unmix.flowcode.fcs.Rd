@@ -13,7 +13,6 @@ unmix.flowcode.fcs(
   spectra.variants,
   flowcode.spectra,
   thresholds.file = NULL,
-  k = 10,
   output.dir = NULL,
   file.suffix = NULL,
   include.imaging = FALSE,
@@ -21,6 +20,17 @@ unmix.flowcode.fcs(
   threads = if (parallel) 0 else 1,
   verbose = TRUE,
   optimize = TRUE,
+  n.passes = 1,
+  n.af.passes = 1,
+  refine.af.quantile = 0.5,
+  cell.weight = if (asp$cytometer == "ID7000") TRUE else FALSE,
+  noise.floor = 125,
+  alpha = 0.5,
+  collinear.threshold = 0.5,
+  joint.pair.resolution = TRUE,
+  fret.alpha = 0.5,
+  fret.median.only = FALSE,
+  return.diagnostics = FALSE,
   chunk.size = 2e+06
 )
 }
@@ -57,11 +67,6 @@ ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 and refer to the new thresholds file here. Default is \code{NULL}, which will be
 ignored.}
 
-\item{k}{Numeric, controls the number of variants tested for each fluorophore,
-autofluorescence and FRET spectrum. Default is \code{10}. Values up to \code{10} provide
-additional benefit in unmixing quality, \code{1} will be fastest. Only used if
-\code{optimize=TRUE}.}
-
 \item{output.dir}{A character string specifying the directory to save the
 unmixed FCS file. Default is \code{NULL}, which reverts to \code{asp$unmixed.fcs.dir}.}
 
@@ -81,6 +86,42 @@ Default is \code{TRUE}.}
 
 \item{optimize}{Logical, whether to perform per-cell spectral optimization.
 Faster without this, usually better with it.}
+
+\item{n.passes}{Numeric, default \code{1}. Rounds of optimization to perform.}
+
+\item{n.af.passes}{Numeric, default \code{1}. Rounds of AF extraction to perform.}
+
+\item{refine.af.quantile}{Numeric in [0, 1], default \code{0.5}. Passed
+through to \code{unmix.autospectral.rcpp()}.}
+
+\item{cell.weight}{Logical, default depends on \code{asp$cytometer} (\code{TRUE} for
+\code{"ID7000"}, else \code{FALSE}). Per-cell IRLS-style detector weighting, passed
+through to the staged pipeline's \code{AutoSpectralRcpp::unmix.autospectral.rcpp()}
+calls.}
+
+\item{noise.floor}{Numeric, default \code{125}. Passed through to the staged
+pipeline.}
+
+\item{alpha}{Numeric in [0, 1], default \code{0.5}. Passed through to the
+staged pipeline.}
+
+\item{collinear.threshold}{Numeric in [0, 1], default \code{0.5}. Passed
+through to the staged pipeline as \code{collinear.thresh}.}
+
+\item{joint.pair.resolution}{Logical, default \code{TRUE}. Passed through to
+the staged pipeline.}
+
+\item{fret.alpha}{Numeric in [0, 1], default \code{0.5}. Passed through to
+the staged pipeline's FRET fit (currently unused there).}
+
+\item{fret.median.only}{Logical, default \code{FALSE}. If \code{TRUE}, skips the
+per-cell FRET variant scan in the staged pipeline and always fits/subtracts
+the median FRET row for each combo.}
+
+\item{return.diagnostics}{Logical, default \code{FALSE}. If \code{TRUE}, per-chunk
+diagnostics from the staged pipeline are collected and returned invisibly
+as a list after the FCS file is written, instead of returning \code{NULL}.
+Note \code{median.background} is pooled per chunk, not across the whole file.}
 
 \item{chunk.size}{Numeric, number of events to use per chunk of unmixing. Used
 to manage memory when processing large FCS files. As a rough guide, you will

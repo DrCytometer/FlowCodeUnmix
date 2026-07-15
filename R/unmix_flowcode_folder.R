@@ -33,10 +33,6 @@
 #' ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 #' and refer to the new thresholds file here. Default is `NULL`, which will be
 #' ignored.
-#' @param k Numeric, controls the number of variants tested for each fluorophore,
-#' autofluorescence and FRET spectrum. Default is `10`. Values up to `10` provide
-#' additional benefit in unmixing quality, `1` will be fastest. Only used if
-#' `optimize=TRUE`.
 #' @param output.dir Directory to save the unmixed FCS files
 #' (default is `asp$unmixed.fcs.dir`).
 #' @param file.suffix A character string to append to the output file name.
@@ -49,6 +45,10 @@
 #' @param verbose Logical, controls messaging. Default is `TRUE`.
 #' @param optimize Logical, whether to perform per-cell spectral optimization.
 #' Faster without this, usually better with it.
+#' @param n.passes Numeric, default `1`. Rounds of optimization to perform.
+#' @param n.af.passes Numeric, default `1`. Rounds of AF extraction to perform.
+#' @param refine.af.quantile Numeric in \[0, 1\], default `0.5`. Passed
+#' through to `unmix.autospectral.rcpp()`.
 #'
 #' @return None. Saves the unmixed FCS files to the specified output directory.
 #'
@@ -63,14 +63,16 @@ unmix.flowcode.folder <- function(
     spectra.variants,
     flowcode.spectra,
     thresholds.file = NULL,
-    k = 10,
     output.dir = NULL,
     file.suffix = NULL,
     include.imaging = FALSE,
     parallel = TRUE,
     threads = if ( parallel ) 0 else 1,
     verbose = TRUE,
-    optimize = TRUE
+    optimize = TRUE,
+    n.passes = 1,
+    n.af.passes = 1,
+    refine.af.quantile = 0.5
 ) {
 
   # set up, create output folders where FCS files will go
@@ -97,17 +99,19 @@ unmix.flowcode.folder <- function(
       asp = asp,
       flow.control = flow.control,
       af.spectra = af.spectra,
-      spectra.variants,
-      flowcode.spectra,
+      spectra.variants = spectra.variants,
+      flowcode.spectra = flowcode.spectra,
       thresholds.file = thresholds.file,
-      k = k,
       output.dir = output.dir,
       file.suffix = file.suffix,
       include.imaging = include.imaging,
       parallel = parallel,
       threads = threads,
       verbose = verbose,
-      optimize = optimize
+      optimize = optimize,
+      n.passes = n.passes,
+      n.af.passes = n.af.passes,
+      refine.af.quantile = refine.af.quantile
     )
   }
 

@@ -13,14 +13,16 @@ unmix.flowcode.folder(
   spectra.variants,
   flowcode.spectra,
   thresholds.file = NULL,
-  k = 10,
   output.dir = NULL,
   file.suffix = NULL,
   include.imaging = FALSE,
   parallel = TRUE,
   threads = if (parallel) 0 else 1,
   verbose = TRUE,
-  optimize = TRUE
+  optimize = TRUE,
+  n.passes = 1,
+  n.af.passes = 1,
+  refine.af.quantile = 0.5
 )
 }
 \arguments{
@@ -56,11 +58,6 @@ ThresholdApp. Run this on an unmixed sample (OLS from the instrument is fine),
 and refer to the new thresholds file here. Default is \code{NULL}, which will be
 ignored.}
 
-\item{k}{Numeric, controls the number of variants tested for each fluorophore,
-autofluorescence and FRET spectrum. Default is \code{10}. Values up to \code{10} provide
-additional benefit in unmixing quality, \code{1} will be fastest. Only used if
-\code{optimize=TRUE}.}
-
 \item{output.dir}{Directory to save the unmixed FCS files
 (default is \code{asp$unmixed.fcs.dir}).}
 
@@ -79,6 +76,13 @@ for per-cell unmixing methods.}
 
 \item{optimize}{Logical, whether to perform per-cell spectral optimization.
 Faster without this, usually better with it.}
+
+\item{n.passes}{Numeric, default \code{1}. Rounds of optimization to perform.}
+
+\item{n.af.passes}{Numeric, default \code{1}. Rounds of AF extraction to perform.}
+
+\item{refine.af.quantile}{Numeric in [0, 1], default \code{0.5}. Passed
+through to \code{unmix.autospectral.rcpp()}.}
 }
 \value{
 None. Saves the unmixed FCS files to the specified output directory.
